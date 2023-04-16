@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@id/tracker_graph"
+        android:icon="@drawable/ic_run_24"
+        android:title="Tracker"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@id/stats_graph"
+        android:icon="@drawable/ic_stats_24"
+        android:title="Stats"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@id/profile_graph"
+        android:icon="@drawable/ic_person_24"
+        android:title="Profile"
+        app:showAsAction="ifRoom" />
+</menu>

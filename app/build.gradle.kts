@@ -37,10 +37,21 @@ android {
 
 dependencies {
 
+    implementation(project(":feature:tracker"))
+    implementation(project(":feature:stats"))
+    implementation(project(":feature:profile"))
+    implementation(project(":core:ui"))
+    implementation(project(":core:iconpack"))
+
     implementation(libs.androidx.ktx)
     implementation(libs.androidx.appCompat)
     implementation(libs.androidx.constraintLayout)
+
+    implementation(libs.androidx.nav.fragment)
+    implementation(libs.androidx.nav.ui)
+
     implementation(libs.google.material)
+
     testImplementation(libs.test.junit)
     androidTestImplementation(libs.test.androidx.junit)
     androidTestImplementation(libs.test.androidx.espresso)

@@ -3,6 +3,7 @@
 coreKtx = "1.10.0"
 appCompat = "1.6.1"
 constraintLayout = "2.1.4"
+navigation = "2.5.3"
 #Google
 material = "1.8.0"
 #Test
@@ -15,6 +16,8 @@ espresso = "3.5.1"
 androidx-ktx = { module = "androidx.core:core-ktx", version.ref = "coreKtx" }
 androidx-appCompat = { module = "androidx.appcompat:appcompat", version.ref = "appCompat" }
 androidx-constraintLayout = { module = "androidx.constraintlayout:constraintlayout", version.ref = "constraintLayout" }
+androidx-nav-fragment = { module = "androidx.navigation:navigation-fragment-ktx", version.ref = "navigation" }
+androidx-nav-ui = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "navigation" }
 #Google
 google-material = { module = "com.google.android.material:material", version.ref = "material" }
 #Test

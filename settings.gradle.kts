@@ -14,3 +14,8 @@ dependencyResolutionManagement {
 }
 rootProject.name = "RunTracker"
 include(":app")
+include(":feature:tracker")
+include(":feature:stats")
+include(":feature:profile")
+include(":core:ui")
+include(":core:iconpack")
