@@ -30,9 +30,15 @@ android {
     kotlinOptions {
         jvmTarget = "11"
     }
+    buildFeatures {
+        viewBinding = true
+    }
 }
 
 dependencies {
+    implementation(project(":core:ui"))
+    implementation(project(":core:iconpack"))
+
     implementation(libs.androidx.ktx)
     implementation(libs.androidx.appCompat)
     implementation(libs.androidx.constraintLayout)
@@ -41,6 +47,8 @@ dependencies {
     implementation(libs.androidx.nav.ui)
 
     implementation(libs.google.material)
+
+    implementation(libs.yandex.maps)
 
     testImplementation(libs.test.junit)
     androidTestImplementation(libs.test.androidx.junit)

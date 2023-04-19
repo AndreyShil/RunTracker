@@ -1,3 +1,5 @@
+import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -15,12 +17,18 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        resValue(
+            type = "string",
+            name = "map_key",
+            value = gradleLocalProperties(rootDir).getProperty("map.api.key") ?: ""
+        )
     }
 
     buildTypes {
         release {
             isMinifyEnabled = false
-            proguardFiles (
+            proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
@@ -51,6 +59,8 @@ dependencies {
     implementation(libs.androidx.nav.ui)
 
     implementation(libs.google.material)
+
+    implementation(libs.yandex.maps)
 
     testImplementation(libs.test.junit)
     androidTestImplementation(libs.test.androidx.junit)

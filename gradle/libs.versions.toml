@@ -6,6 +6,8 @@ constraintLayout = "2.1.4"
 navigation = "2.5.3"
 #Google
 material = "1.8.0"
+#Yandex
+map = "4.3.1-lite"
 #Test
 junit = "4.13.2"
 testJunit = "1.1.5"
@@ -20,6 +22,8 @@ androidx-nav-fragment = { module = "androidx.navigation:navigation-fragment-ktx"
 androidx-nav-ui = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "navigation" }
 #Google
 google-material = { module = "com.google.android.material:material", version.ref = "material" }
+#Yandex
+yandex-maps = { module = "com.yandex.android:maps.mobile", version.ref = "map" }
 #Test
 test-junit = { module = "junit:junit", version.ref = "junit" }
 test-androidx-junit = { module = "androidx.test.ext:junit", version.ref = "testJunit" }
