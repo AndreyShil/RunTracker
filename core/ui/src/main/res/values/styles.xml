@@ -4,4 +4,14 @@
     <style name="BottomNavigationView" parent="Widget.Material3.BottomNavigationView">
 
     </style>
+
+    <style name="OutlinedInputLayout" parent="Widget.Material3.TextInputLayout.OutlinedBox">
+        <item name="boxStrokeWidth">@dimen/stroke_width_small</item>
+    </style>
+
+    <style name="InputTextFieldStyle">
+        <item name="android:textSize">@dimen/text_size_md</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:scrollHorizontally">true</item>
+    </style>
 </resources>

@@ -1,8 +1,10 @@
 import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
 
 plugins {
-    id("com.android.application")
-    id("org.jetbrains.kotlin.android")
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.android.kotlin)
+    id("androidx.navigation.safeargs.kotlin")
+    kotlin("kapt")
 }
 
 android {
@@ -35,21 +37,23 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = "11"
+        jvmTarget = "17"
     }
 }
 
 dependencies {
 
+    implementation(project(":feature:auth"))
     implementation(project(":feature:tracker"))
     implementation(project(":feature:stats"))
     implementation(project(":feature:profile"))
     implementation(project(":core:ui"))
     implementation(project(":core:iconpack"))
+    implementation(project(":core:core-api"))
 
     implementation(libs.androidx.ktx)
     implementation(libs.androidx.appCompat)
@@ -59,6 +63,8 @@ dependencies {
     implementation(libs.androidx.nav.ui)
 
     implementation(libs.google.material)
+    implementation(libs.google.dagger)
+    kapt(libs.google.daggerCompiler)
 
     implementation(libs.yandex.maps)
 

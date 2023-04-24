@@ -6,12 +6,18 @@ constraintLayout = "2.1.4"
 navigation = "2.5.3"
 #Google
 material = "1.8.0"
+dagger = "2.45"
 #Yandex
 map = "4.3.1-lite"
+#Github
+viewBinding = "1.5.9"
 #Test
 junit = "4.13.2"
 testJunit = "1.1.5"
 espresso = "3.5.1"
+#Plugins
+gradlePlugin = "8.0.0"
+kotlin = "1.8.20"
 
 [libraries]
 #AndroidX
@@ -20,13 +26,21 @@ androidx-appCompat = { module = "androidx.appcompat:appcompat", version.ref = "a
 androidx-constraintLayout = { module = "androidx.constraintlayout:constraintlayout", version.ref = "constraintLayout" }
 androidx-nav-fragment = { module = "androidx.navigation:navigation-fragment-ktx", version.ref = "navigation" }
 androidx-nav-ui = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "navigation" }
+androidx-safeArgsGradle = { module = "androidx.navigation:navigation-safe-args-gradle-plugin", version.ref = "navigation" }
 #Google
 google-material = { module = "com.google.android.material:material", version.ref = "material" }
+google-dagger = { module = "com.google.dagger:dagger", version.ref = "dagger" }
+google-daggerCompiler = { module = "com.google.dagger:dagger-compiler", version.ref = "dagger" }
 #Yandex
 yandex-maps = { module = "com.yandex.android:maps.mobile", version.ref = "map" }
+#Github
+github-viewBindingDelegate = { module = "com.github.kirich1409:viewbindingpropertydelegate-noreflection", version.ref = "viewBinding" }
 #Test
 test-junit = { module = "junit:junit", version.ref = "junit" }
 test-androidx-junit = { module = "androidx.test.ext:junit", version.ref = "testJunit" }
 test-androidx-espresso = { module = "androidx.test.espresso:espresso-core", version.ref = "espresso" }
 
 [plugins]
+android-application = { id = "com.android.application", version.ref = "gradlePlugin" }
+android-library = { id = "com.android.library", version.ref = "gradlePlugin" }
+android-kotlin = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
