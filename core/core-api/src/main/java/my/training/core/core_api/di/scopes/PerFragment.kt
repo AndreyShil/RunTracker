@@ -1,4 +1,4 @@
-package my.training.core.core_api.scopes
+package my.training.core.core_api.di.scopes
 
 import javax.inject.Scope
 

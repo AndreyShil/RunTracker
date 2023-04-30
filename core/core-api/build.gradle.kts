@@ -36,4 +36,8 @@ dependencies {
     implementation(libs.androidx.ktx)
     implementation(libs.androidx.appCompat)
     implementation(libs.google.dagger)
+
+    testImplementation(libs.test.junit)
+    androidTestImplementation(libs.test.androidx.junit)
+    androidTestImplementation(libs.test.androidx.espresso)
 }

@@ -1,4 +1,4 @@
-package my.training.core.core_api.qualifiers
+package my.training.core.core_api.di.qualifiers
 
 import javax.inject.Qualifier
 

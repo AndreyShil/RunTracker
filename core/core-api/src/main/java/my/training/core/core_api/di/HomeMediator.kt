@@ -1,4 +1,4 @@
-package my.training.core.core_api
+package my.training.core.core_api.di
 
 import androidx.fragment.app.Fragment
 

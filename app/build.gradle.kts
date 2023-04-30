@@ -53,6 +53,7 @@ dependencies {
     implementation(project(":feature:profile"))
     implementation(project(":core:ui"))
     implementation(project(":core:iconpack"))
+    implementation(project(":core:core-provider"))
     implementation(project(":core:core-api"))
 
     implementation(libs.androidx.ktx)

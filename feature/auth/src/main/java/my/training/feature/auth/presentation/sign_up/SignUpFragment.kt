@@ -5,8 +5,8 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import by.kirich1409.viewbindingdelegate.viewBinding
-import my.training.core.core_api.AppWithFacade
-import my.training.core.core_api.HomeMediator
+import my.training.core.core_api.di.AppWithFacade
+import my.training.core.core_api.di.HomeMediator
 import my.training.feature.auth.R
 import my.training.feature.auth.databinding.FragmentSignUpBinding
 import my.training.feature.auth.di.SignUpComponent

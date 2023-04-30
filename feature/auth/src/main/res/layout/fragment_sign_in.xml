@@ -30,6 +30,7 @@
         app:layout_constraintTop_toBottomOf="@id/logo_image">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/login_text_field"
             style="@style/InputTextFieldStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -50,6 +51,8 @@
         app:layout_constraintTop_toBottomOf="@id/login_input_layout">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/password_text_field"
+            style="@style/InputTextFieldStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPassword" />

@@ -1,6 +1,8 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.android.kotlin)
+    kotlin("kapt")
+    kotlin("plugin.serialization") version "1.8.10"
 }
 
 android {
@@ -33,5 +35,18 @@ android {
 }
 
 dependencies {
+    implementation(project(":core:core-api"))
 
+    implementation(libs.androidx.ktx)
+    implementation(libs.androidx.appCompat)
+    implementation(libs.google.dagger)
+    kapt(libs.google.daggerCompiler)
+
+    implementation(platform(libs.squareup.okhhtp.bom))
+    implementation(libs.squareup.okhhtp)
+    implementation(libs.squareup.okhhtp.loggingInterceptor)
+    implementation(libs.squareup.retrofit)
+
+    implementation(libs.kotlinx.serialization)
+    implementation(libs.kotlinx.serialization.converter)
 }

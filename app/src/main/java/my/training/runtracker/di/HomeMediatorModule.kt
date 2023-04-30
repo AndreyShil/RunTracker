@@ -4,7 +4,7 @@ import dagger.Binds
 import dagger.Module
 import dagger.multibindings.ClassKey
 import dagger.multibindings.IntoMap
-import my.training.core.core_api.HomeMediator
+import my.training.core.core_api.di.HomeMediator
 
 @Module
 interface HomeMediatorModule {
