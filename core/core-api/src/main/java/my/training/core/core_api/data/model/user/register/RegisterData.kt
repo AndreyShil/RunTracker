@@ -1,6 +1,6 @@
-package my.training.core.core_api.data.model.user
+package my.training.core.core_api.data.model.user.register
 
-data class UserRegister(
+data class RegisterData(
     val login: String,
     val password: String,
     val firstName: String,

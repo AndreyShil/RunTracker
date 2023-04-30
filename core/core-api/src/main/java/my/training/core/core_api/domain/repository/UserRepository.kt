@@ -2,15 +2,15 @@ package my.training.core.core_api.domain.repository
 
 import my.training.core.core_api.data.model.NetworkResponse
 import my.training.core.core_api.data.model.user.AuthUserModel
-import my.training.core.core_api.data.model.user.UserLogin
 import my.training.core.core_api.data.model.user.User
-import my.training.core.core_api.data.model.user.UserRegister
+import my.training.core.core_api.data.model.user.login.LoginData
+import my.training.core.core_api.data.model.user.register.RegisterData
 
 interface UserRepository {
 
-    suspend fun login(model: UserLogin): NetworkResponse<AuthUserModel>
+    suspend fun login(data: LoginData): NetworkResponse<AuthUserModel>
 
-    suspend fun register(model: UserRegister): NetworkResponse<AuthUserModel>
+    suspend fun register(data: RegisterData): NetworkResponse<AuthUserModel>
 
     suspend fun loadProfile(): NetworkResponse<User>
 }

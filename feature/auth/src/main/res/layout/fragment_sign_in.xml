@@ -59,7 +59,7 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <my.training.core.ui.spannable_text_view.SpannableTextView
+    <my.training.core.ui.custom_view.spannable_text_view.SpannableTextView
         android:id="@+id/tv_register"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -70,7 +70,7 @@
         app:layout_constraintStart_toStartOf="@id/password_input_layout"
         app:layout_constraintTop_toBottomOf="@id/password_input_layout" />
 
-    <com.google.android.material.button.MaterialButton
+    <my.training.core.ui.custom_view.download_button.DownloadButton
         android:id="@+id/btn_sign_in"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

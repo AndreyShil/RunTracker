@@ -1,4 +1,4 @@
-package my.training.core.ui.spannable_text_view
+package my.training.core.ui.custom_view.spannable_text_view
 
 import android.graphics.Color
 import androidx.annotation.ColorInt

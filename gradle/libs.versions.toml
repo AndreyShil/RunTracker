@@ -3,6 +3,7 @@
 coreKtx = "1.10.0"
 appCompat = "1.6.1"
 constraintLayout = "2.1.4"
+lifecycleViewModel = "2.6.1"
 navigation = "2.5.3"
 #Google
 material = "1.8.0"
@@ -30,6 +31,7 @@ kotlin = "1.8.20"
 androidx-ktx = { module = "androidx.core:core-ktx", version.ref = "coreKtx" }
 androidx-appCompat = { module = "androidx.appcompat:appcompat", version.ref = "appCompat" }
 androidx-constraintLayout = { module = "androidx.constraintlayout:constraintlayout", version.ref = "constraintLayout" }
+androidx-lifecycleViewModel = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "lifecycleViewModel" }
 androidx-nav-fragment = { module = "androidx.navigation:navigation-fragment-ktx", version.ref = "navigation" }
 androidx-nav-ui = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "navigation" }
 androidx-safeArgsGradle = { module = "androidx.navigation:navigation-safe-args-gradle-plugin", version.ref = "navigation" }

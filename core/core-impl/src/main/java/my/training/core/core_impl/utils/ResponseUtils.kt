@@ -1,7 +1,9 @@
 package my.training.core.core_impl.utils
 
 import my.training.core.core_api.data.model.NetworkResponse
+import retrofit2.HttpException
 import retrofit2.Response
+import java.io.IOException
 
 internal suspend fun <T, R> safeNetworkCall(
     call: suspend () -> Response<T>,
@@ -14,12 +16,15 @@ internal suspend fun <T, R> safeNetworkCall(
                 data = converter(response.body()) ?: throw RuntimeException("Empty response body")
             )
         } else {
-            NetworkResponse.Failure(
-                data = converter(response.body()),
-                error = Throwable(response.errorBody()?.string())
+            NetworkResponse.Failure.Error(
+                throwable = Throwable(response.errorBody()?.string())
             )
         }
+    } catch (e: HttpException) {
+        NetworkResponse.Failure.Connection
+    } catch (e: IOException) {
+        NetworkResponse.Failure.Connection
     } catch (e: Exception) {
-        NetworkResponse.Failure(error = e)
+        NetworkResponse.Failure.Error(e)
     }
 }

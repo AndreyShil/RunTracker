@@ -1,58 +1,69 @@
 package my.training.feature.auth.presentation.sign_in
 
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.stateIn
-import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import my.training.core.core_api.data.model.user.UserLogin
+import my.training.core.core_api.data.model.user.login.LoginData
 import my.training.core.core_api.domain.repository.UserRepository
 import my.training.core.core_api.extensions.doOnFailure
 import my.training.core.core_api.extensions.doOnSuccess
+import my.training.core.core_api.extensions.getErrorMessage
+import my.training.core.ui.base.BaseViewModel
 
 internal class SignInViewModel(
     private val userRepository: UserRepository
-) : ViewModel() {
+) : BaseViewModel<SignInContract.Event, SignInContract.State, SignInContract.Effect>() {
 
-    private val _uiState = MutableStateFlow(SignInUiState())
-    val uiState: StateFlow<SignInUiState> = _uiState
+    override fun createInitialState(): SignInContract.State {
+        return SignInContract.State()
+    }
 
-    fun doAction(action: SignInAction) {
-        when (action) {
-            is SignInAction.OnLoginChanged -> _uiState.update {
-                it.copy(login = action.inputLogin)
+    override fun handleEvent(event: SignInContract.Event) {
+        when (event) {
+            is SignInContract.Event.OnLoginChanged -> {
+                setState {
+                    copy(login = event.inputLogin)
+                }
             }
 
-            is SignInAction.OnPasswordChanged -> _uiState.update {
-                it.copy(password = action.inputPassword)
+            is SignInContract.Event.OnPasswordChanged -> {
+                setState {
+                    copy(password = event.inputPassword)
+                }
             }
 
-            SignInAction.DoLoginRequest -> {
+            SignInContract.Event.OnLoginClicked -> {
                 doLoginRequest()
             }
         }
     }
 
     private fun doLoginRequest() {
+        setLoadingState(true)
         viewModelScope.launch {
-            userRepository.login(uiState.value.toLoginModel())
+            userRepository.login(uiState.value.toLoginData())
                 .doOnSuccess {
-
+                    setEffect {
+                        SignInContract.Effect.OpenMainScreen
+                    }
+                    setLoadingState(false)
                 }
                 .doOnFailure { failure ->
-                    _uiState.update {
-                        it.copy(error = failure.error)
+                    setEffect {
+                        SignInContract.Effect.ShowError(failure.getErrorMessage())
                     }
-//                    failure.error?.printStackTrace()
+                    setLoadingState(false)
                 }
         }
     }
 
-    private fun SignInUiState.toLoginModel(): UserLogin {
-        return UserLogin(
+    private fun setLoadingState(isLoading: Boolean) {
+        setState {
+            copy(isLoading = isLoading)
+        }
+    }
+
+    private fun SignInContract.State.toLoginData(): LoginData {
+        return LoginData(
             login = login,
             password = password
         )

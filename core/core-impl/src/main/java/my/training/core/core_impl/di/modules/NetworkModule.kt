@@ -31,7 +31,7 @@ internal object NetworkModule {
         return Retrofit.Builder()
             .client(okHttpClient)
             .addConverterFactory(Json.asConverterFactory(contentType))
-            .baseUrl("http://192.168.0.64:8080")
+            .baseUrl(" https://f324-5-164-212-43.ngrok-free.app")
             .build()
     }
 

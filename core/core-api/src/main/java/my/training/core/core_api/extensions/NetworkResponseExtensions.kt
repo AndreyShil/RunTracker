@@ -10,8 +10,15 @@ inline fun <Body> NetworkResponse<Body>.doOnSuccess(
 }
 
 inline fun <Body> NetworkResponse<Body>.doOnFailure(
-    func: (NetworkResponse.Failure<Body>) -> Unit
+    func: (NetworkResponse.Failure) -> Unit
 ): NetworkResponse<Body> {
     if (this is NetworkResponse.Failure) func(this)
     return this
+}
+
+fun NetworkResponse.Failure.getErrorMessage(): String {
+    return when (this) {
+        NetworkResponse.Failure.Connection -> "Проверьте подключение к сети"
+        is NetworkResponse.Failure.Error -> throwable?.localizedMessage ?: "Неизвестная ошибка"
+    }
 }

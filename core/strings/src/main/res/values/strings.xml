@@ -2,10 +2,13 @@
 <resources>
     <string name="login">Логин</string>
     <string name="password">Пароль</string>
+    <string name="repeat_password">Повторите пароль</string>
     <string name="enter">Войти</string>
     <string name="register">Зарегистрироваться</string>
     <string name="have_you_not_account">У Вас нет аккаунта?</string>
     <string name="first_name">Имя</string>
     <string name="last_name">Фамилия</string>
     <string name="email">Email</string>
+    <string name="passwords_not_matched">Пароли не совпадают</string>
+    <string name="email_invalid">Неправильный формат электронной почты</string>
 </resources>

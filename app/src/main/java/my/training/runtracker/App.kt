@@ -16,6 +16,6 @@ class App : Application(), AppWithFacade {
     }
 
     override fun getFacade(): ProvidersFacade {
-        return FacadeComponent.create()
+        return FacadeComponent.create(this)
     }
 }

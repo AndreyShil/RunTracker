@@ -1,3 +1,3 @@
 package my.training.core.core_api.di
 
-interface ProvidersFacade : MediatorProvider, HomeMediator, UserRepositoryProvider
+interface ProvidersFacade : MediatorProvider, HomeMediator, UserRepositoryProvider, ContextProvider

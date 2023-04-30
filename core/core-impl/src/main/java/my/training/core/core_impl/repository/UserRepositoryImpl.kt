@@ -1,11 +1,18 @@
 package my.training.core.core_impl.repository
 
+import android.content.Context
+import android.os.Build
 import my.training.core.core_api.data.model.NetworkResponse
 import my.training.core.core_api.data.model.user.AuthUserModel
+import my.training.core.core_api.data.model.user.DeviceInfo
 import my.training.core.core_api.data.model.user.User
-import my.training.core.core_api.data.model.user.UserLogin
-import my.training.core.core_api.data.model.user.UserRegister
+import my.training.core.core_api.data.model.user.login.LoginData
+import my.training.core.core_api.data.model.user.login.UserLogin
+import my.training.core.core_api.data.model.user.register.RegisterData
+import my.training.core.core_api.data.model.user.register.UserRegister
+import my.training.core.core_api.di.qualifiers.AppContext
 import my.training.core.core_api.domain.repository.UserRepository
+import my.training.core.core_api.extensions.getDeviceId
 import my.training.core.core_impl.data.network.UserApiService
 import my.training.core.core_impl.mapper.toBody
 import my.training.core.core_impl.mapper.toModel
@@ -13,15 +20,21 @@ import my.training.core.core_impl.utils.safeNetworkCall
 import javax.inject.Inject
 
 internal class UserRepositoryImpl @Inject constructor(
+    @AppContext private val appContext: Context,
     private val userApiService: UserApiService
 ) : UserRepository {
 
     override suspend fun login(
-        model: UserLogin
+        data: LoginData
     ): NetworkResponse<AuthUserModel> {
         return safeNetworkCall(
             call = {
-                userApiService.login(model.toBody())
+                userApiService.login(
+                    UserLogin(
+                        data = data,
+                        deviceInfo = getDeviceInfo()
+                    ).toBody()
+                )
             }
         ) {
             it?.toModel() ?: AuthUserModel()
@@ -29,11 +42,16 @@ internal class UserRepositoryImpl @Inject constructor(
     }
 
     override suspend fun register(
-        model: UserRegister
+        data: RegisterData
     ): NetworkResponse<AuthUserModel> {
         return safeNetworkCall(
             call = {
-                userApiService.register(model.toBody())
+                userApiService.register(
+                    UserRegister(
+                        data = data,
+                        deviceInfo = getDeviceInfo()
+                    ).toBody()
+                )
             }
         ) {
             it?.toModel() ?: AuthUserModel()
@@ -46,6 +64,17 @@ internal class UserRepositoryImpl @Inject constructor(
         ) {
             it?.toModel() ?: User()
         }
+    }
+
+    private fun getDeviceInfo(): DeviceInfo {
+        return DeviceInfo(
+            deviceId = appContext.getDeviceId(),
+            deviceModel = getDeviceModel()
+        )
+    }
+
+    private fun getDeviceModel(): String {
+        return "${Build.MANUFACTURER} ${Build.MODEL}"
     }
 
 }

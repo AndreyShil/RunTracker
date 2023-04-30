@@ -10,12 +10,13 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
-import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.launch
 import my.training.core.core_api.di.AppWithFacade
 import my.training.core.core_api.di.HomeMediator
+import my.training.core.ui.custom_view.spannable_text_view.SpannableData
 import my.training.core.ui.extensions.getAttrColor
-import my.training.core.ui.spannable_text_view.SpannableData
+import my.training.core.ui.extensions.hideKeyboard
+import my.training.core.ui.extensions.showSnackbar
 import my.training.feature.auth.R
 import my.training.feature.auth.databinding.FragmentSignInBinding
 import my.training.feature.auth.di.SignInComponent
@@ -43,22 +44,13 @@ internal class SignInFragment : Fragment(R.layout.fragment_sign_in) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        initUiStateObserver()
+        initUiEffectObserver()
         initTextChangeListeners()
 
-
-        viewLifecycleOwner.lifecycleScope.launch {
-            lifecycle.repeatOnLifecycle(Lifecycle.State.CREATED) {
-                viewModel.uiState.collect {
-                    binding.btnSignIn.isEnabled = it.isValid()
-                    if (it.error != null) {
-                        Snackbar.make(requireView(), it.error.localizedMessage ?: "Unknown", Snackbar.LENGTH_LONG).show()
-                    }
-                }
-            }
-        }
-
         binding.btnSignIn.setOnClickListener {
-            viewModel.doAction(SignInAction.DoLoginRequest)
+            hideKeyboard()
+            viewModel.setEvent(SignInContract.Event.OnLoginClicked)
         }
 
         binding.tvRegister.setSpannableText(
@@ -68,16 +60,45 @@ internal class SignInFragment : Fragment(R.layout.fragment_sign_in) {
         )
     }
 
+    private fun initUiStateObserver() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            lifecycle.repeatOnLifecycle(Lifecycle.State.CREATED) {
+                viewModel.uiState.collect {
+                    binding.btnSignIn.buttonEnabled = it.isValid()
+                    binding.btnSignIn.updateLoadingState(it.isLoading)
+                }
+            }
+        }
+    }
+
+    private fun initUiEffectObserver() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            lifecycle.repeatOnLifecycle(Lifecycle.State.CREATED) {
+                viewModel.effect.collect { effect ->
+                    when (effect) {
+                        is SignInContract.Effect.ShowError -> {
+                            showSnackbar(effect.errorMessage)
+                        }
+
+                        SignInContract.Effect.OpenMainScreen -> {
+                            openMainScreen()
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     private fun initTextChangeListeners() {
         binding.loginTextField.doAfterTextChanged {
-            viewModel.doAction(
-                SignInAction.OnLoginChanged(inputLogin = it.toString())
+            viewModel.setEvent(
+                SignInContract.Event.OnLoginChanged(inputLogin = it.toString())
             )
         }
 
         binding.passwordTextField.doAfterTextChanged {
-            viewModel.doAction(
-                SignInAction.OnPasswordChanged(inputPassword = it.toString())
+            viewModel.setEvent(
+                SignInContract.Event.OnPasswordChanged(inputPassword = it.toString())
             )
         }
     }
@@ -101,6 +122,10 @@ internal class SignInFragment : Fragment(R.layout.fragment_sign_in) {
     private fun openSignUpScreen() {
         val action = SignInFragmentDirections.actionSignInFragmentToSignUpFragment()
         findNavController().navigate(action)
+    }
+
+    private fun openMainScreen() {
+        homeMediator.openMainScreen(this)
     }
 
 }
