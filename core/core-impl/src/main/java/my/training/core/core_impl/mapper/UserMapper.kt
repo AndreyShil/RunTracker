@@ -7,6 +7,7 @@ import my.training.core.core_api.data.model.user.login.LoginData
 import my.training.core.core_api.data.model.user.login.UserLogin
 import my.training.core.core_api.data.model.user.register.RegisterData
 import my.training.core.core_api.data.model.user.register.UserRegister
+import my.training.core.core_impl.data.model.dto.UserDTO
 import my.training.core.core_impl.data.model.request.DeviceInfoRequestBody
 import my.training.core.core_impl.data.model.request.LoginDataRequestBody
 import my.training.core.core_impl.data.model.request.RegisterDataRequestBody
@@ -68,5 +69,25 @@ internal fun DeviceInfo.toBody(): DeviceInfoRequestBody {
         deviceId = deviceId,
         deviceModel = deviceModel,
         deviceType = deviceType
+    )
+}
+
+internal fun User.toDto(): UserDTO {
+    return UserDTO(
+        login = login ?: "",
+        firstName = firstName,
+        lastName = lastName,
+        email = email,
+        photo = photo
+    )
+}
+
+internal fun UserDTO.toModel(): User {
+    return User(
+        login = login,
+        firstName = firstName,
+        lastName = lastName,
+        email = email,
+        photo = photo
     )
 }

@@ -5,6 +5,7 @@ plugins {
     alias(libs.plugins.android.kotlin)
     id("androidx.navigation.safeargs.kotlin")
     kotlin("kapt")
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -59,6 +60,7 @@ dependencies {
     implementation(libs.androidx.ktx)
     implementation(libs.androidx.appCompat)
     implementation(libs.androidx.constraintLayout)
+    implementation(libs.androidx.splashScreen)
 
     implementation(libs.androidx.nav.fragment)
     implementation(libs.androidx.nav.ui)
@@ -68,6 +70,9 @@ dependencies {
     kapt(libs.google.daggerCompiler)
 
     implementation(libs.yandex.maps)
+
+    implementation(platform("com.google.firebase:firebase-bom:31.5.0"))
+    implementation("com.google.firebase:firebase-storage-ktx")
 
     testImplementation(libs.test.junit)
     androidTestImplementation(libs.test.androidx.junit)

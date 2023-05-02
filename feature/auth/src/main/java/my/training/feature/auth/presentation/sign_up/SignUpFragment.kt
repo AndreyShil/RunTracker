@@ -57,21 +57,8 @@ internal class SignUpFragment : Fragment(R.layout.fragment_sign_up) {
                 viewModel.uiState.collect {
                     binding.btnSignUp.buttonEnabled = it.isValid()
                     binding.btnSignUp.updateLoadingState(it.isLoading)
-                    if (it.passwordError) {
-                        val errorString =
-                            getString(my.training.core.strings.R.string.passwords_not_matched)
-                        binding.passwordInputLayout.error = errorString
-                        binding.repeatPasswordInputLayout.error = errorString
-                    } else {
-                        binding.passwordInputLayout.error = null
-                        binding.repeatPasswordInputLayout.error = null
-                    }
-                    if (it.emailError) {
-                        binding.emailInputLayout.error =
-                            getString(my.training.core.strings.R.string.email_invalid)
-                    } else {
-                        binding.emailInputLayout.error = null
-                    }
+                    updatePasswordError(it.passwordError)
+                    updateEmailError(it.emailError)
                 }
             }
         }
@@ -134,6 +121,24 @@ internal class SignUpFragment : Fragment(R.layout.fragment_sign_up) {
             }
 
         }
+    }
+
+    private fun updatePasswordError(hasError: Boolean) {
+        val errorString = if (hasError)
+            getString(my.training.core.strings.R.string.passwords_not_matched)
+        else
+            null
+
+        binding.passwordInputLayout.error = errorString
+        binding.repeatPasswordInputLayout.error = errorString
+    }
+
+    private fun updateEmailError(hasError: Boolean) {
+        val errorString = if (hasError)
+            getString(my.training.core.strings.R.string.email_invalid)
+        else
+            null
+        binding.emailInputLayout.error = errorString
     }
 
     private fun openMainScreen() {

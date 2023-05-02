@@ -5,6 +5,9 @@ appCompat = "1.6.1"
 constraintLayout = "2.1.4"
 lifecycleViewModel = "2.6.1"
 navigation = "2.5.3"
+security = "1.0.0"
+roomDatabase = "2.5.1"
+splashScreen = "1.0.0"
 #Google
 material = "1.8.0"
 dagger = "2.45"
@@ -35,6 +38,11 @@ androidx-lifecycleViewModel = { module = "androidx.lifecycle:lifecycle-viewmodel
 androidx-nav-fragment = { module = "androidx.navigation:navigation-fragment-ktx", version.ref = "navigation" }
 androidx-nav-ui = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "navigation" }
 androidx-safeArgsGradle = { module = "androidx.navigation:navigation-safe-args-gradle-plugin", version.ref = "navigation" }
+androidx-securityCrypto = { module = "androidx.security:security-crypto", version.ref = "security" }
+androidx-room = { module = "androidx.room:room-runtime", version.ref = "roomDatabase" }
+androidx-roomKtx = { module = "androidx.room:room-ktx", version.ref = "roomDatabase" }
+androidx-roomCompiler = { module = "androidx.room:room-compiler", version.ref = "roomDatabase" }
+androidx-splashScreen = { module = "androidx.core:core-splashscreen", version.ref = "splashScreen" }
 #Google
 google-material = { module = "com.google.android.material:material", version.ref = "material" }
 google-dagger = { module = "com.google.dagger:dagger", version.ref = "dagger" }

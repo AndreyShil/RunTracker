@@ -3,14 +3,18 @@ package my.training.feature.auth.presentation.sign_in
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import my.training.core.core_api.data.model.user.login.LoginData
-import my.training.core.core_api.domain.repository.UserRepository
 import my.training.core.core_api.extensions.doOnFailure
 import my.training.core.core_api.extensions.doOnSuccess
 import my.training.core.core_api.extensions.getErrorMessage
 import my.training.core.ui.base.BaseViewModel
+import my.training.feature.auth.domain.InsertUserToDatabaseUseCase
+import my.training.feature.auth.domain.LoginUserUseCase
+import my.training.feature.auth.domain.SaveAccessTokenUseCase
 
 internal class SignInViewModel(
-    private val userRepository: UserRepository
+    private val loginUser: LoginUserUseCase,
+    private val saveAccessToken: SaveAccessTokenUseCase,
+    private val insertUserToDatabase: InsertUserToDatabaseUseCase
 ) : BaseViewModel<SignInContract.Event, SignInContract.State, SignInContract.Effect>() {
 
     override fun createInitialState(): SignInContract.State {
@@ -40,8 +44,10 @@ internal class SignInViewModel(
     private fun doLoginRequest() {
         setLoadingState(true)
         viewModelScope.launch {
-            userRepository.login(uiState.value.toLoginData())
+            loginUser(uiState.value.toLoginData())
                 .doOnSuccess {
+                    saveAccessToken(it.accessToken)
+                    insertUserToDatabase(it.user)
                     setEffect {
                         SignInContract.Effect.OpenMainScreen
                     }

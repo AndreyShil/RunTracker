@@ -3,15 +3,19 @@ package my.training.feature.auth.presentation.sign_up
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import my.training.core.core_api.data.model.user.register.RegisterData
-import my.training.core.core_api.domain.repository.UserRepository
 import my.training.core.core_api.extensions.doOnFailure
 import my.training.core.core_api.extensions.doOnSuccess
 import my.training.core.core_api.extensions.getErrorMessage
 import my.training.core.ui.base.BaseViewModel
 import my.training.core.ui.extensions.isValidEmail
+import my.training.feature.auth.domain.InsertUserToDatabaseUseCase
+import my.training.feature.auth.domain.RegisterUserUseCase
+import my.training.feature.auth.domain.SaveAccessTokenUseCase
 
 internal class SignUpViewModel(
-    private val userRepository: UserRepository
+    private val registerUser: RegisterUserUseCase,
+    private val saveAccessToken: SaveAccessTokenUseCase,
+    private val insertUserToDatabase: InsertUserToDatabaseUseCase
 ) : BaseViewModel<SignUpContract.Event, SignUpContract.State, SignUpContract.Effect>() {
 
     override fun createInitialState(): SignUpContract.State {
@@ -74,8 +78,10 @@ internal class SignUpViewModel(
         }
         setLoadingState(true)
         viewModelScope.launch {
-            userRepository.register(uiState.value.toRegisterData())
+            registerUser(uiState.value.toRegisterData())
                 .doOnSuccess {
+                    saveAccessToken(it.accessToken)
+                    insertUserToDatabase(it.user)
                     setEffect {
                         SignUpContract.Effect.OpenMainScreen
                     }

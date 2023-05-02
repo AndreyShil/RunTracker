@@ -39,6 +39,11 @@ dependencies {
 
     implementation(libs.androidx.ktx)
     implementation(libs.androidx.appCompat)
+    implementation(libs.androidx.securityCrypto)
+    implementation(libs.androidx.room)
+    implementation(libs.androidx.roomKtx)
+    kapt(libs.androidx.roomCompiler)
+
     implementation(libs.google.dagger)
     kapt(libs.google.daggerCompiler)
 

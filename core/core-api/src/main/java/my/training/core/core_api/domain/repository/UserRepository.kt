@@ -1,5 +1,6 @@
 package my.training.core.core_api.domain.repository
 
+import kotlinx.coroutines.flow.Flow
 import my.training.core.core_api.data.model.NetworkResponse
 import my.training.core.core_api.data.model.user.AuthUserModel
 import my.training.core.core_api.data.model.user.User
@@ -13,4 +14,7 @@ interface UserRepository {
     suspend fun register(data: RegisterData): NetworkResponse<AuthUserModel>
 
     suspend fun loadProfile(): NetworkResponse<User>
+
+    suspend fun getProfile(): Flow<User?>
+    suspend fun updateLocalUser(user: User)
 }

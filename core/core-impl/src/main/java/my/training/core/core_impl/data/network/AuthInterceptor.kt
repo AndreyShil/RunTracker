@@ -1,16 +1,25 @@
 package my.training.core.core_impl.data.network
 
+import my.training.core.core_api.domain.preferences.Preferences
 import okhttp3.Interceptor
 import okhttp3.Response
 
-internal class AuthInterceptor : Interceptor {
+internal class AuthInterceptor(
+    private val preferences: Preferences
+) : Interceptor {
 
     override fun intercept(chain: Interceptor.Chain): Response {
         val request = chain.request()
         val requestBuilder = request.newBuilder()
-            .header("Authorization", "2768c8e8-063a-47fc-8f1d-1b415ea0901e")
-            .build()
-        return chain.proceed(requestBuilder)
+
+        val accessToken = preferences.getAccessToken()
+        if (!accessToken.isNullOrEmpty()) {
+            requestBuilder.header(AUTHORIZATION, accessToken)
+        }
+        return chain.proceed(requestBuilder.build())
     }
 
+    companion object {
+        private const val AUTHORIZATION = "Authorization"
+    }
 }
