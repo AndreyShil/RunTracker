@@ -11,6 +11,7 @@ splashScreen = "1.0.0"
 #Google
 material = "1.8.0"
 dagger = "2.45"
+firebaseBom = "31.5.0"
 #Yandex
 map = "4.3.1-lite"
 #Github
@@ -21,6 +22,8 @@ retrofit = "2.9.0"
 #Serialization
 serialization = "1.5.0"
 serializationConverter = "1.0.0"
+#Other
+coil = "2.3.0"
 #Test
 junit = "4.13.2"
 testJunit = "1.1.5"
@@ -47,6 +50,8 @@ androidx-splashScreen = { module = "androidx.core:core-splashscreen", version.re
 google-material = { module = "com.google.android.material:material", version.ref = "material" }
 google-dagger = { module = "com.google.dagger:dagger", version.ref = "dagger" }
 google-daggerCompiler = { module = "com.google.dagger:dagger-compiler", version.ref = "dagger" }
+google-firebaseBom = { module = "com.google.firebase:firebase-bom", version.ref = "firebaseBom" }
+google-firebaseStorage = { module = "com.google.firebase:firebase-storage-ktx" }
 #Yandex
 yandex-maps = { module = "com.yandex.android:maps.mobile", version.ref = "map" }
 #Github
@@ -58,7 +63,9 @@ squareup-okhhtp-loggingInterceptor = { module = "com.squareup.okhttp3:logging-in
 squareup-retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 #Serialization
 kotlinx-serialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "serialization" }
-kotlinx-serialization-converter = { module = "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter", version.ref = "serializationConverter"}
+kotlinx-serialization-converter = { module = "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter", version.ref = "serializationConverter" }
+#Other
+coil = { module = "io.coil-kt:coil", version.ref = "coil" }
 #Test
 test-junit = { module = "junit:junit", version.ref = "junit" }
 test-androidx-junit = { module = "androidx.test.ext:junit", version.ref = "testJunit" }

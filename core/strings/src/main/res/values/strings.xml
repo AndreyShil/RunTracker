@@ -11,4 +11,6 @@
     <string name="email">Email</string>
     <string name="passwords_not_matched">Пароли не совпадают</string>
     <string name="email_invalid">Неправильный формат электронной почты</string>
+
+    <string name="error_image_download">Не удалось загрузить изображение</string>
 </resources>

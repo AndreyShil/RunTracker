@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.android.kotlin)
+    kotlin("kapt")
 }
 
 android {
@@ -30,11 +31,16 @@ android {
     kotlinOptions {
         jvmTarget = "17"
     }
+    buildFeatures {
+        viewBinding = true
+    }
 }
 
 dependencies {
     implementation(project(":core:ui"))
     implementation(project(":core:iconpack"))
+    implementation(project(":core:strings"))
+    implementation(project(":core:core-api"))
 
     implementation(libs.androidx.ktx)
     implementation(libs.androidx.appCompat)
@@ -44,6 +50,15 @@ dependencies {
     implementation(libs.androidx.nav.ui)
 
     implementation(libs.google.material)
+    implementation(libs.google.dagger)
+    kapt(libs.google.daggerCompiler)
+
+    implementation(libs.coil)
+
+    implementation(platform(libs.google.firebaseBom))
+    implementation(libs.google.firebaseStorage)
+
+    implementation(libs.github.viewBindingDelegate)
 
     testImplementation(libs.test.junit)
     androidTestImplementation(libs.test.androidx.junit)

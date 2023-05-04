@@ -77,7 +77,7 @@ internal class UserRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun getProfile(): Flow<User?> {
+    override fun getLocalProfile(): Flow<User?> {
         return userDao.getUser().map { it.toModel() }
     }
 

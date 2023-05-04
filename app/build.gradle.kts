@@ -71,9 +71,6 @@ dependencies {
 
     implementation(libs.yandex.maps)
 
-    implementation(platform("com.google.firebase:firebase-bom:31.5.0"))
-    implementation("com.google.firebase:firebase-storage-ktx")
-
     testImplementation(libs.test.junit)
     androidTestImplementation(libs.test.androidx.junit)
     androidTestImplementation(libs.test.androidx.espresso)
