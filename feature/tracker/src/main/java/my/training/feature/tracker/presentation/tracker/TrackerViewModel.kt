@@ -1,4 +1,4 @@
-package my.training.feature.tracker
+package my.training.feature.tracker.presentation.tracker
 
 import androidx.lifecycle.ViewModel
 
