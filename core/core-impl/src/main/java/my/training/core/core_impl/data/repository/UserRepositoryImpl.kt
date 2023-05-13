@@ -35,7 +35,7 @@ internal class UserRepositoryImpl @Inject constructor(
     override suspend fun login(
         data: LoginData
     ): NetworkResponse<AuthUserModel> {
-        return safeNetworkCall(
+        val response = safeNetworkCall(
             dispatcher = dispatcherIO,
             call = {
                 userApiService.login(
@@ -44,16 +44,20 @@ internal class UserRepositoryImpl @Inject constructor(
                         deviceInfo = getDeviceInfo()
                     ).toBody()
                 )
-            }
-        ) {
-            it?.toModel() ?: AuthUserModel()
+            },
+            converter = { it?.toModel() ?: AuthUserModel() }
+        )
+        if (response is NetworkResponse.Success) {
+            updateLocalUser(response.data.user)
         }
+
+        return response
     }
 
     override suspend fun register(
         data: RegisterData
     ): NetworkResponse<AuthUserModel> {
-        return safeNetworkCall(
+        val response = safeNetworkCall(
             dispatcher = dispatcherIO,
             call = {
                 userApiService.register(
@@ -62,26 +66,35 @@ internal class UserRepositoryImpl @Inject constructor(
                         deviceInfo = getDeviceInfo()
                     ).toBody()
                 )
-            }
-        ) {
-            it?.toModel() ?: AuthUserModel()
+            },
+            converter = { it?.toModel() ?: AuthUserModel() }
+        )
+        if (response is NetworkResponse.Success) {
+            updateLocalUser(response.data.user)
         }
+
+        return response
     }
 
     override suspend fun loadProfile(): NetworkResponse<User> {
-        return safeNetworkCall(
+        val response = safeNetworkCall(
             dispatcher = dispatcherIO,
             call = userApiService::getProfile,
-        ) {
-            it?.toModel() ?: User()
+            converter = { it?.toModel() ?: User() }
+        )
+
+        if (response is NetworkResponse.Success) {
+            updateLocalUser(response.data)
         }
+
+        return response
     }
 
-    override fun getLocalProfile(): Flow<User?> {
-        return userDao.getUser().map { it.toModel() }
+    override fun getLocalProfileFlow(): Flow<User?> {
+        return userDao.getUserFlow().map { it.toModel() }
     }
 
-    override suspend fun updateLocalUser(user: User) {
+    private suspend fun updateLocalUser(user: User) {
         userDao.insert(user.toDto())
     }
 

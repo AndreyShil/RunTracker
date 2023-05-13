@@ -10,7 +10,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import by.kirich1409.viewbindingdelegate.viewBinding
 import kotlinx.coroutines.launch
-import my.training.core.core_api.di.AppWithFacade
+import my.training.core.core_api.di.ProvidersHolder
 import my.training.core.core_api.di.HomeMediator
 import my.training.core.ui.extensions.hideKeyboard
 import my.training.core.ui.extensions.showSnackbar
@@ -34,7 +34,7 @@ internal class SignUpFragment : Fragment(R.layout.fragment_sign_up) {
         super.onCreate(savedInstanceState)
 
         SignUpComponent
-            .create((requireActivity().application as AppWithFacade).getFacade())
+            .create((requireActivity().application as ProvidersHolder).getAggregatingProvider())
             .inject(this)
     }
 

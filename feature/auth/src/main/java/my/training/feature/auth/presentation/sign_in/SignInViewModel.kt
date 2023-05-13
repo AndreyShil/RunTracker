@@ -7,14 +7,12 @@ import my.training.core.core_api.extensions.doOnFailure
 import my.training.core.core_api.extensions.doOnSuccess
 import my.training.core.core_api.extensions.getErrorMessage
 import my.training.core.ui.base.BaseViewModel
-import my.training.feature.auth.domain.InsertUserToDatabaseUseCase
 import my.training.feature.auth.domain.LoginUserUseCase
 import my.training.feature.auth.domain.SaveAccessTokenUseCase
 
 internal class SignInViewModel(
     private val loginUser: LoginUserUseCase,
-    private val saveAccessToken: SaveAccessTokenUseCase,
-    private val insertUserToDatabase: InsertUserToDatabaseUseCase
+    private val saveAccessToken: SaveAccessTokenUseCase
 ) : BaseViewModel<SignInContract.Event, SignInContract.State, SignInContract.Effect>() {
 
     override fun createInitialState(): SignInContract.State {
@@ -47,7 +45,6 @@ internal class SignInViewModel(
             loginUser(uiState.value.toLoginData())
                 .doOnSuccess {
                     saveAccessToken(it.accessToken)
-                    insertUserToDatabase(it.user)
                     setEffect {
                         SignInContract.Effect.OpenMainScreen
                     }

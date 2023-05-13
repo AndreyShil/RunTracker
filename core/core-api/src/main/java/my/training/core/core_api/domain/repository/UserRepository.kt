@@ -15,6 +15,5 @@ interface UserRepository {
 
     suspend fun loadProfile(): NetworkResponse<User>
 
-    fun getLocalProfile(): Flow<User?>
-    suspend fun updateLocalUser(user: User)
+    fun getLocalProfileFlow(): Flow<User?>
 }

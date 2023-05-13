@@ -19,7 +19,7 @@ import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import kotlinx.coroutines.launch
 import my.training.core.core_api.data.model.user.User
-import my.training.core.core_api.di.AppWithFacade
+import my.training.core.core_api.di.ProvidersHolder
 import my.training.core.ui.extensions.showSnackbar
 import my.training.feature.profile.R
 import my.training.feature.profile.databinding.FragmentProfileBinding
@@ -39,7 +39,7 @@ internal class ProfileFragment : Fragment(R.layout.fragment_profile) {
         super.onCreate(savedInstanceState)
 
         ProfileMainComponent
-            .create((requireActivity().application as AppWithFacade).getFacade())
+            .create((requireActivity().application as ProvidersHolder).getAggregatingProvider())
             .inject(this)
     }
 

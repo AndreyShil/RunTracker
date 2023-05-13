@@ -5,11 +5,11 @@ import my.training.core.core_api.data.model.user.User
 import my.training.core.core_api.domain.repository.UserRepository
 import javax.inject.Inject
 
-internal class GetProfileUseCase @Inject constructor(
+internal class GetProfileFlowUseCase @Inject constructor(
     private val userRepository: UserRepository
 ) {
 
     operator fun invoke(): Flow<User?> {
-        return userRepository.getLocalProfile()
+        return userRepository.getLocalProfileFlow()
     }
 }

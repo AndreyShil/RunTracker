@@ -8,12 +8,12 @@ import kotlinx.coroutines.launch
 import my.training.core.core_api.extensions.doOnFailure
 import my.training.core.core_api.extensions.doOnSuccess
 import my.training.core.core_api.extensions.getErrorMessage
-import my.training.runtracker.domain.InsertUserToDatabaseUseCase
+import my.training.runtracker.domain.GetAccessTokenUseCase
 import my.training.runtracker.domain.LoadProfileUseCase
 
-class MainActivityViewModel(
+internal class MainActivityViewModel(
     private val loadProfile: LoadProfileUseCase,
-    private val insertUserToDatabase: InsertUserToDatabaseUseCase
+    private val getAccessToken: GetAccessTokenUseCase
 ) : ViewModel() {
 
     private val _effect: Channel<MainActivityEffect> = Channel()
@@ -21,9 +21,18 @@ class MainActivityViewModel(
 
     init {
         viewModelScope.launch {
+            if (getAccessToken().isNullOrEmpty()) {
+                _effect.send(MainActivityEffect.OpenAuthGraph)
+            } else {
+                downloadProfile()
+            }
+        }
+    }
+
+    private fun downloadProfile() {
+        viewModelScope.launch {
             loadProfile()
                 .doOnSuccess {
-                    insertUserToDatabase(it)
                     _effect.send(MainActivityEffect.OpenMainGraph)
                 }.doOnFailure {
                     _effect.send(MainActivityEffect.ShowError(it.getErrorMessage()))

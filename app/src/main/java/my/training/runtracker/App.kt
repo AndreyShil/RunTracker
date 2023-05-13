@@ -2,20 +2,18 @@ package my.training.runtracker
 
 import android.app.Application
 import com.yandex.mapkit.MapKitFactory
-import my.training.core.core_api.di.AppWithFacade
-import my.training.core.core_api.di.ProvidersFacade
-import my.training.runtracker.di.FacadeComponent
+import my.training.core.core_api.di.AggregatingProvider
+import my.training.core.core_api.di.ProvidersHolder
+import my.training.runtracker.di.AggregatingComponent
 
-class App : Application(), AppWithFacade {
-
-//    private var facadeComponent: FacadeComponent? = null
+class App : Application(), ProvidersHolder {
 
     override fun onCreate() {
         super.onCreate()
         MapKitFactory.setApiKey(getString(R.string.map_key))
     }
 
-    override fun getFacade(): ProvidersFacade {
-        return FacadeComponent.create(this)
+    override fun getAggregatingProvider(): AggregatingProvider {
+        return AggregatingComponent.create(this)
     }
 }

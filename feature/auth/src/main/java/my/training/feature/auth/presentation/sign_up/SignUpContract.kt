@@ -4,7 +4,7 @@ import my.training.core.ui.base.UiEffect
 import my.training.core.ui.base.UiEvent
 import my.training.core.ui.base.UiState
 
-object SignUpContract {
+internal object SignUpContract {
 
     data class State(
         val login: String = "",

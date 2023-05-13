@@ -8,14 +8,12 @@ import my.training.core.core_api.extensions.doOnSuccess
 import my.training.core.core_api.extensions.getErrorMessage
 import my.training.core.ui.base.BaseViewModel
 import my.training.core.ui.extensions.isValidEmail
-import my.training.feature.auth.domain.InsertUserToDatabaseUseCase
 import my.training.feature.auth.domain.RegisterUserUseCase
 import my.training.feature.auth.domain.SaveAccessTokenUseCase
 
 internal class SignUpViewModel(
     private val registerUser: RegisterUserUseCase,
-    private val saveAccessToken: SaveAccessTokenUseCase,
-    private val insertUserToDatabase: InsertUserToDatabaseUseCase
+    private val saveAccessToken: SaveAccessTokenUseCase
 ) : BaseViewModel<SignUpContract.Event, SignUpContract.State, SignUpContract.Effect>() {
 
     override fun createInitialState(): SignUpContract.State {
@@ -81,7 +79,6 @@ internal class SignUpViewModel(
             registerUser(uiState.value.toRegisterData())
                 .doOnSuccess {
                     saveAccessToken(it.accessToken)
-                    insertUserToDatabase(it.user)
                     setEffect {
                         SignUpContract.Effect.OpenMainScreen
                     }

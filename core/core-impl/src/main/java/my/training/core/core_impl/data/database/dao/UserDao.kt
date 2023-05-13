@@ -14,7 +14,7 @@ internal interface UserDao {
     suspend fun insert(user: UserDTO)
 
     @Query("SELECT * FROM users")
-    fun getUser(): Flow<UserDTO>
+    fun getUserFlow(): Flow<UserDTO>
 
     @Query("DELETE FROM users")
     suspend fun clear()

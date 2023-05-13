@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/Widget.Material3.CardView.Filled"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="@dimen/padding_lg"
+    android:layout_marginVertical="@dimen/padding_xs"
+    app:cardCornerRadius="@dimen/card_radius_md">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_workout_type"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/padding_md"
+            android:layout_marginTop="@dimen/padding_md"
+            android:layout_marginEnd="@dimen/padding_xs"
+            android:fontFamily="sans-serif-black"
+            android:text="Бег"
+            android:textAllCaps="true"
+            android:textSize="@dimen/text_size_md"
+            app:layout_constraintEnd_toStartOf="@id/guideline"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_distance"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/padding_xxs"
+            android:fontFamily="sans-serif-black"
+            android:textAllCaps="true"
+            android:textSize="@dimen/text_size_lg"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@id/tv_workout_type"
+            app:layout_constraintStart_toStartOf="@id/tv_workout_type"
+            app:layout_constraintTop_toBottomOf="@id/tv_workout_type"
+            tools:text="1.5 км" />
+
+        <TextView
+            android:id="@+id/tv_time"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/padding_xxs"
+            android:layout_marginBottom="@dimen/padding_md"
+            android:fontFamily="sans-serif-medium"
+            android:textSize="@dimen/text_size_md"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/tv_distance"
+            app:layout_constraintStart_toStartOf="@id/tv_distance"
+            app:layout_constraintTop_toBottomOf="@id/tv_distance"
+            tools:text="5 мин" />
+
+        <ImageView
+            android:id="@+id/iv_map"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="?colorSecondary"
+            android:contentDescription="@null"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/guideline"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent=".5" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

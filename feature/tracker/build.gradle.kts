@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.android.kotlin)
+    id("androidx.navigation.safeargs.kotlin")
     kotlin("kapt")
 }
 
@@ -9,7 +10,7 @@ android {
     compileSdk = 33
 
     defaultConfig {
-        minSdk = 23
+        minSdk = 24
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
@@ -51,6 +52,8 @@ dependencies {
     implementation(libs.google.material)
     implementation(libs.google.dagger)
     kapt(libs.google.daggerCompiler)
+    implementation(platform(libs.google.firebaseBom))
+    implementation(libs.google.firebaseStorage)
 
     implementation(libs.yandex.maps)
 

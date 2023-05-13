@@ -15,7 +15,7 @@ import my.training.runtracker.App
 import my.training.runtracker.R
 import javax.inject.Inject
 
-class MainActivity : AppCompatActivity() {
+internal class MainActivity : AppCompatActivity() {
 
     @Inject
     lateinit var viewModelFactory: MainActivityViewModelFactory
@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         MainActivityComponent
-            .create((application as App).getFacade())
+            .create((application as App).getAggregatingProvider())
             .inject(this)
 
         initEffectObserver()

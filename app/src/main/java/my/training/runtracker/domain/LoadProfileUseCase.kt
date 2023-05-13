@@ -5,7 +5,7 @@ import my.training.core.core_api.data.model.user.User
 import my.training.core.core_api.domain.repository.UserRepository
 import javax.inject.Inject
 
-class LoadProfileUseCase @Inject constructor(
+internal class LoadProfileUseCase @Inject constructor(
     private val userRepository: UserRepository
 ) {
 
