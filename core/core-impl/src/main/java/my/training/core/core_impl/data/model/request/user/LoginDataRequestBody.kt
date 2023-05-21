@@ -1,4 +1,4 @@
-package my.training.core.core_impl.data.model.request
+package my.training.core.core_impl.data.model.request.user
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable

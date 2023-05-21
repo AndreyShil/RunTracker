@@ -15,9 +15,8 @@ internal class NotificationHelper @Inject constructor(
 
     fun getNotificationBuilder(): NotificationCompat.Builder {
         return NotificationCompat.Builder(context, NOTIFICATION_CHANNEL_ID)
-            .setContentTitle("Tracking location...")
-            .setContentText("Location: null")
-            .setSmallIcon(my.training.core.iconpack.R.drawable.ic_run_24)
+            .setContentTitle("Running...")
+            .setSmallIcon(my.training.core.iconpack.R.drawable.ic_run_40)
             .setOngoing(true)
     }
 

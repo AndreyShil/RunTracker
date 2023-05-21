@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    style="@style/Widget.Material3.CardView.Filled"
+    style="@style/Widget.Material3.CardView.Outlined"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="@dimen/padding_lg"
@@ -10,51 +10,9 @@
     app:cardCornerRadius="@dimen/card_radius_md">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/content_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:id="@+id/tv_workout_type"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/padding_md"
-            android:layout_marginTop="@dimen/padding_md"
-            android:layout_marginEnd="@dimen/padding_xs"
-            android:fontFamily="sans-serif-black"
-            android:text="Бег"
-            android:textAllCaps="true"
-            android:textSize="@dimen/text_size_md"
-            app:layout_constraintEnd_toStartOf="@id/guideline"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/tv_distance"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/padding_xxs"
-            android:fontFamily="sans-serif-black"
-            android:textAllCaps="true"
-            android:textSize="@dimen/text_size_lg"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="@id/tv_workout_type"
-            app:layout_constraintStart_toStartOf="@id/tv_workout_type"
-            app:layout_constraintTop_toBottomOf="@id/tv_workout_type"
-            tools:text="1.5 км" />
-
-        <TextView
-            android:id="@+id/tv_time"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/padding_xxs"
-            android:layout_marginBottom="@dimen/padding_md"
-            android:fontFamily="sans-serif-medium"
-            android:textSize="@dimen/text_size_md"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@id/tv_distance"
-            app:layout_constraintStart_toStartOf="@id/tv_distance"
-            app:layout_constraintTop_toBottomOf="@id/tv_distance"
-            tools:text="5 мин" />
+        android:layout_height="@dimen/collapsed_card_height">
 
         <ImageView
             android:id="@+id/iv_map"
@@ -62,13 +20,73 @@
             android:layout_height="0dp"
             android:background="?colorSecondary"
             android:contentDescription="@null"
+            android:scaleType="centerCrop"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/guideline"
+            app:layout_constraintStart_toEndOf="@id/guideline_dynamic"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <LinearLayout
+            android:id="@+id/info_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/padding_xs"
+            android:layout_marginVertical="@dimen/padding_xs"
+            android:orientation="vertical"
+            android:padding="@dimen/padding_xs"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/tv_workout_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-black"
+                android:text="Бег"
+                android:textAllCaps="true"
+                android:textSize="@dimen/text_size_md" />
+
+            <TextView
+                android:id="@+id/tv_distance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/padding_xxs"
+                android:fontFamily="sans-serif-black"
+                android:textAllCaps="true"
+                android:textSize="@dimen/text_size_lg"
+                android:textStyle="bold"
+                tools:text="1.5 км" />
+
+            <TextView
+                android:id="@+id/tv_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/padding_xxs"
+                android:fontFamily="sans-serif-medium"
+                android:textSize="@dimen/text_size_md"
+                tools:text="00:28:32" />
+
+            <TextView
+                android:id="@+id/tv_average_speed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/padding_xxs"
+                android:fontFamily="sans-serif-medium"
+                android:textSize="@dimen/text_size_md"
+                tools:text="3,5 м/с" />
+
+            <TextView
+                android:id="@+id/tv_calories"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/padding_xxs"
+                android:fontFamily="sans-serif-medium"
+                android:textSize="@dimen/text_size_md"
+                tools:text="210 Ккал" />
+        </LinearLayout>
+
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline"
+            android:id="@+id/guideline_dynamic"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:orientation="vertical"
@@ -76,4 +94,4 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-</androidx.cardview.widget.CardView>
+</com.google.android.material.card.MaterialCardView>

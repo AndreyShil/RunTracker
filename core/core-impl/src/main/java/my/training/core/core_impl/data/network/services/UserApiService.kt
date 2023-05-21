@@ -1,9 +1,9 @@
-package my.training.core.core_impl.data.network
+package my.training.core.core_impl.data.network.services
 
-import my.training.core.core_impl.data.model.request.UserLoginRequestBody
-import my.training.core.core_impl.data.model.request.UserRegisterRequestBody
-import my.training.core.core_impl.data.model.response.AuthUserResponseBody
-import my.training.core.core_impl.data.model.response.UserResponseBody
+import my.training.core.core_impl.data.model.request.user.UserLoginRequestBody
+import my.training.core.core_impl.data.model.request.user.UserRegisterRequestBody
+import my.training.core.core_impl.data.model.response.user.AuthUserResponseBody
+import my.training.core.core_impl.data.model.response.user.UserResponseBody
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET

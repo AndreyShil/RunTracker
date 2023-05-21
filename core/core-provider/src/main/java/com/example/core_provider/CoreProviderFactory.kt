@@ -2,10 +2,12 @@ package com.example.core_provider
 
 import my.training.core.core_api.di.ContextProvider
 import my.training.core.core_api.di.DatabaseProvider
+import my.training.core.core_api.di.FirebaseStorageProvider
 import my.training.core.core_api.di.PreferencesProvider
 import my.training.core.core_api.di.RaceRepositoryProvider
 import my.training.core.core_api.di.UserRepositoryProvider
 import my.training.core.core_impl.di.components.DatabaseComponent
+import my.training.core.core_impl.di.components.FirebaseStorageComponent
 import my.training.core.core_impl.di.components.PreferencesComponent
 import my.training.core.core_impl.di.components.RaceRepositoryComponent
 import my.training.core.core_impl.di.components.UserRepositoryComponent
@@ -16,8 +18,8 @@ object CoreProviderFactory {
         return UserRepositoryComponent.create(contextProvider)
     }
 
-    fun raceRepositoryProvider(): RaceRepositoryProvider {
-        return RaceRepositoryComponent.create()
+    fun raceRepositoryProvider(contextProvider: ContextProvider): RaceRepositoryProvider {
+        return RaceRepositoryComponent.create(contextProvider)
     }
 
     fun preferencesProvider(contextProvider: ContextProvider): PreferencesProvider {
@@ -26,5 +28,9 @@ object CoreProviderFactory {
 
     fun databaseProvider(contextProvider: ContextProvider): DatabaseProvider {
         return DatabaseComponent.create(contextProvider)
+    }
+
+    fun firebaseStorageProvider(): FirebaseStorageProvider {
+        return FirebaseStorageComponent.create()
     }
 }

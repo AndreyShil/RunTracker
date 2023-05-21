@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import kotlinx.coroutines.launch
 import my.training.core.core_api.di.ProvidersHolder
+import my.training.core.ui.extensions.showSnackbar
 import my.training.feature.tracker.R
 import my.training.feature.tracker.databinding.FragmentRacesBinding
 import my.training.feature.tracker.di.RacesComponent
@@ -39,8 +40,12 @@ internal class RacesFragment : Fragment(R.layout.fragment_races) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.rvRaces.adapter = racesAdapter
+        binding.rvRaces.adapter = racesAdapter.apply {
+            setListener(viewModel::updateRacesList)
+        }
+
         observeUiState()
+        initUiEffectObserver()
         binding.fabAdd.setOnClickListener {
             openTrackerScreen()
         }
@@ -51,6 +56,20 @@ internal class RacesFragment : Fragment(R.layout.fragment_races) {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.uiState.collect {
                     racesAdapter.submitList(it.races)
+                }
+            }
+        }
+    }
+
+    private fun initUiEffectObserver() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            lifecycle.repeatOnLifecycle(Lifecycle.State.CREATED) {
+                viewModel.effect.collect { effect ->
+                    when (effect) {
+                        is RacesContract.Effect.ShowError -> {
+                            showSnackbar(effect.errorMessage)
+                        }
+                    }
                 }
             }
         }

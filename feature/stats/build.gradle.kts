@@ -33,12 +33,8 @@ android {
 }
 
 dependencies {
-    implementation(libs.androidx.ktx)
-    implementation(libs.androidx.appCompat)
-    implementation(libs.androidx.constraintLayout)
-
-    implementation(libs.androidx.nav.fragment)
-    implementation(libs.androidx.nav.ui)
+    implementation(libs.bundles.androidx.main)
+    implementation(libs.bundles.androidx.navigation)
 
     implementation(libs.google.material)
 

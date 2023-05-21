@@ -71,6 +71,12 @@ test-junit = { module = "junit:junit", version.ref = "junit" }
 test-androidx-junit = { module = "androidx.test.ext:junit", version.ref = "testJunit" }
 test-androidx-espresso = { module = "androidx.test.espresso:espresso-core", version.ref = "espresso" }
 
+[bundles]
+androidx-main = ["androidx-ktx", "androidx-appCompat", "androidx-constraintLayout"]
+androidx-navigation = ["androidx-nav-fragment", "androidx-nav-ui"]
+androidx-room = ["androidx-room", "androidx-roomKtx"]
+serialization = ["kotlinx-serialization", "kotlinx-serialization-converter"]
+
 [plugins]
 android-application = { id = "com.android.application", version.ref = "gradlePlugin" }
 android-library = { id = "com.android.library", version.ref = "gradlePlugin" }

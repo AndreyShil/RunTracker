@@ -4,19 +4,19 @@
 
     <item
         android:id="@id/tracker_graph"
-        android:icon="@drawable/ic_run_24"
+        android:icon="@drawable/ic_run_40"
         android:title="Tracker"
         app:showAsAction="ifRoom" />
 
     <item
         android:id="@id/stats_graph"
-        android:icon="@drawable/ic_stats_24"
+        android:icon="@drawable/ic_stats_40"
         android:title="Stats"
         app:showAsAction="ifRoom" />
 
     <item
         android:id="@id/profile_graph"
-        android:icon="@drawable/ic_person_24"
+        android:icon="@drawable/ic_person_40"
         android:title="Profile"
         app:showAsAction="ifRoom" />
 </menu>

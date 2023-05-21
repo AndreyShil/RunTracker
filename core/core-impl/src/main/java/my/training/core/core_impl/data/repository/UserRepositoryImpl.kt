@@ -18,7 +18,7 @@ import my.training.core.core_api.di.qualifiers.DispatcherIO
 import my.training.core.core_api.domain.repository.UserRepository
 import my.training.core.core_api.extensions.getDeviceId
 import my.training.core.core_impl.data.database.dao.UserDao
-import my.training.core.core_impl.data.network.UserApiService
+import my.training.core.core_impl.data.network.services.UserApiService
 import my.training.core.core_impl.mapper.toBody
 import my.training.core.core_impl.mapper.toDto
 import my.training.core.core_impl.mapper.toModel

@@ -13,6 +13,10 @@ internal class RemoteDataSource @Inject constructor(
     private val preferences: Preferences
 ) {
 
+    private val json = Json {
+        ignoreUnknownKeys = true
+    }
+
     fun <Api> buildApi(
         api: Class<Api>,
     ): Api {
@@ -23,7 +27,7 @@ internal class RemoteDataSource @Inject constructor(
         val contentType = "application/json".toMediaType()
         return Retrofit.Builder()
             .client(getOkhttpClient())
-            .addConverterFactory(Json.asConverterFactory(contentType))
+            .addConverterFactory(json.asConverterFactory(contentType))
             .baseUrl("http://192.168.0.64:8080")
             .build()
     }

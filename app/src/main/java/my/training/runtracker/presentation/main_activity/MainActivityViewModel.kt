@@ -21,6 +21,7 @@ internal class MainActivityViewModel(
 
     init {
         viewModelScope.launch {
+//            _effect.send(MainActivityEffect.OpenMainGraph)
             if (getAccessToken().isNullOrEmpty()) {
                 _effect.send(MainActivityEffect.OpenAuthGraph)
             } else {

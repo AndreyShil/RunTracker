@@ -11,19 +11,26 @@ import android.os.Binder
 import android.os.Build
 import android.os.IBinder
 import android.widget.Toast
+import androidx.core.app.NotificationCompat
 import androidx.core.content.getSystemService
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.yandex.mapkit.geometry.Point
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import my.training.core.core_api.di.ProvidersHolder
+import my.training.core.iconpack.R
 import my.training.feature.tracker.di.RunningServiceComponent
+import my.training.feature.tracker.domain.model.RunningState
+import my.training.feature.tracker.extension.getFormattedWatchTime
 import javax.inject.Inject
 
 typealias locationsCallback = (List<Location>) -> Unit
@@ -43,14 +50,50 @@ internal class RunningService : Service() {
 
     private val locations = mutableListOf<Location>()
 
-//    private val _locationsData = MutableLiveData(emptyList<Location>())
-//    val locationsData: LiveData<List<Location>> = _locationsData
+    private val _state = MutableLiveData(RunningState.INITIAL)
+    val state: LiveData<RunningState> = _state
 
-    // Binder given to clients (notice class declaration below)
-    private val mBinder: IBinder = LocationBinder()
+    private val _timeRunInMillis = MutableLiveData(0L)
+    val timeRunInMillis: LiveData<Long> = _timeRunInMillis
+
+
+    private var isTimerEnabled = false
+    private var lapTime = 0L
+    private var timeRun = 0L
+    private var timeStarted = 0L
+
+    private var lastLocationString = ""
+
+    private fun startTimer() {
+        timeStarted = System.currentTimeMillis()
+        isTimerEnabled = true
+        serviceScope.launch {
+            while (isTimerEnabled) {
+                lapTime = System.currentTimeMillis() - timeStarted
+
+                withContext(Dispatchers.Main) {
+                    _timeRunInMillis.value = timeRun + lapTime
+                    updateNotificationTime(timeRunInMillis.value)
+                }
+//                if (timeRunInMillis.value!! >= lastSecondTimestamp + 1000L) {
+//                    timeRunInSeconds.postValue(timeRunInSeconds.value!! + 1)
+//                    lastSecondTimestamp += 1000L
+//                }
+                delay(50)
+            }
+            timeRun += lapTime
+
+        }
+    }
+
+    private fun resetTimeParams() {
+        lapTime = 0L
+        timeRun = 0L
+        _timeRunInMillis.value = 0L
+    }
 
     override fun onBind(intent: Intent?): IBinder {
-        return mBinder
+        return LocationBinder()
     }
 
     override fun onCreate() {
@@ -73,33 +116,14 @@ internal class RunningService : Service() {
     }
 
     private fun startRunning() {
+        _state.value = RunningState.IN_PROGRESS
+        startTimer()
+
         val notification = notificationHelper.getNotificationBuilder()
-        val notificationManager = getSystemService<NotificationManager>()
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            notificationHelper.createNotificationChannel(notificationManager)
-        }
-
-        val resumeIntent = Intent(this, RunningService::class.java).apply {
-            action = ACTION_START_OR_RESUME_SERVICE
-            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-        }
-        val resumePendingIntent =
-            PendingIntent.getService(this, 1, resumeIntent, FLAG_UPDATE_CURRENT or FLAG_IMMUTABLE)
-
-        val stopIntent = Intent(this, RunningService::class.java).apply {
-            action = ACTION_STOP_SERVICE
-            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-        }
-        val stopPendingIntent =
-            PendingIntent.getService(this, 2, stopIntent, FLAG_UPDATE_CURRENT or FLAG_IMMUTABLE)
-
-        notification
-            .addAction(android.R.drawable.ic_media_play, "Start", resumePendingIntent)
-            .addAction(android.R.drawable.ic_media_pause, "Stop", stopPendingIntent)
+        notification.createNotification()
 
         locationClient
-            .getLocationUpdates(LOCATION_UPDATE_INTERVAL)
+            .getLocationUpdates()
             .catch { e ->
                 withContext(Dispatchers.Main) {
                     Toast.makeText(applicationContext, e.message, Toast.LENGTH_LONG).show()
@@ -111,58 +135,96 @@ internal class RunningService : Service() {
 
                 val lat = location.latitude
                 val long = location.longitude
-                val updatedNotification = notification.setContentText(
-                    "Location: ($lat, $long)"
-                )
-                notificationManager?.notify(NOTIFICATION_ID, updatedNotification.build())
+                lastLocationString = "Location: ($lat, $long)"
+
+//                val lat = location.latitude
+//                val long = location.longitude
+//                val updatedNotification = notification.setContentText(
+//                    "Location: ($lat, $long)"
+//                )
+//                notificationManager?.notify(NOTIFICATION_ID, updatedNotification.build())
             }
             .launchIn(serviceScope)
 
         startForeground(NOTIFICATION_ID, notification.build())
     }
 
-    private fun pauseRunning() {
+    private fun NotificationCompat.Builder.createNotification() {
+        val notificationManager = getSystemService<NotificationManager>()
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            notificationHelper.createNotificationChannel(notificationManager)
+        }
+
+        addPendingIntents()
+    }
+
+    private fun NotificationCompat.Builder.addPendingIntents() {
+        val resumePendingIntent = createPendingIntent(
+            action = ACTION_START_OR_RESUME_SERVICE,
+            requestCode = 1
+        )
+
+        val pausePendingIntent = createPendingIntent(
+            action = ACTION_PAUSE_SERVICE,
+            requestCode = 2
+        )
+
+        val stopPendingIntent = createPendingIntent(
+            action = ACTION_STOP_SERVICE,
+            requestCode = 3
+        )
+
+        addAction(R.drawable.ic_play_40, "Начать", resumePendingIntent)
+        addAction(R.drawable.ic_pause_40, "Пауза", pausePendingIntent)
+        addAction(R.drawable.ic_stop_40, "Стоп", stopPendingIntent)
+    }
+
+    private fun updateNotificationTime(currentTime: Long?) {
+        val notification = notificationHelper.getNotificationBuilder()
+        val notificationManager = getSystemService<NotificationManager>()
+        notification.addPendingIntents()
+
+        val updatedNotification = notification
+            .setContentTitle(
+                "Running - " + currentTime?.getFormattedWatchTime()
+            )
+            .setContentText(lastLocationString)
+        notificationManager?.notify(NOTIFICATION_ID, updatedNotification.build())
+    }
+
+    private fun createPendingIntent(
+        action: String,
+        requestCode: Int
+    ): PendingIntent {
+        val intent = Intent(this, RunningService::class.java).apply {
+            this.action = action
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        }
+        return PendingIntent.getService(
+            this,
+            requestCode,
+            intent,
+            FLAG_UPDATE_CURRENT or FLAG_IMMUTABLE
+        )
+    }
+
+    private fun pauseRunning() {
+        isTimerEnabled = false
+        _state.value = RunningState.ON_PAUSE
     }
 
     private fun stopRunning() {
-        locationsCallback?.invoke(locations.toList())
-//
-        unbindServiceCallback?.invoke()
-//        _locationsData.value = locations.toList()
+        isTimerEnabled = false
 
+        locationsCallback?.invoke(locations.toList())
+        unbindServiceCallback?.invoke()
+        _state.value = RunningState.INITIAL
+
+        resetTimeParams()
         locations.clear()
         stopForeground(STOP_FOREGROUND_REMOVE)
         stopSelf()
-    }
-
-
-    private fun updateNotificationTrackingState(isTracking: Boolean) {
-        val notificationActionText = if (isTracking) "Pause" else "Resume"
-        val pendingIntent = if (isTracking) {
-            val pauseIntent = Intent(this, RunningService::class.java).apply {
-                action = ACTION_PAUSE_SERVICE
-            }
-            PendingIntent.getService(this, 1, pauseIntent, FLAG_UPDATE_CURRENT)
-        } else {
-            val resumeIntent = Intent(this, RunningService::class.java).apply {
-                action = ACTION_START_OR_RESUME_SERVICE
-            }
-            PendingIntent.getService(this, 2, resumeIntent, FLAG_UPDATE_CURRENT)
-        }
-
-//        val notificationManager =
-//            getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-//
-//        curNotificationBuilder.javaClass.getDeclaredField("mActions").apply {
-//            isAccessible = true
-//            set(curNotificationBuilder, ArrayList<NotificationCompat.Action>())
-//        }
-//        if (!serviceKilled) {
-//            curNotificationBuilder = baseNotificationBuilder
-//                .addAction(R.drawable.ic_pause_black_24dp, notificationActionText, pendingIntent)
-//            notificationManager.notify(NOTIFICATION_ID, curNotificationBuilder.build())
-//        }
     }
 
     override fun onDestroy() {
@@ -171,11 +233,12 @@ internal class RunningService : Service() {
     }
 
     inner class LocationBinder : Binder() {
-//        fun getService(): RunningService = this@RunningService
+        fun getService(): RunningService = this@RunningService
 
         fun unbindService(callback: () -> Unit) {
             this@RunningService.unbindServiceCallback = callback
         }
+
         fun subscribeToLocations(locationsCallback: locationsCallback) {
             this@RunningService.locationsCallback = locationsCallback
         }
@@ -187,7 +250,6 @@ internal class RunningService : Service() {
         const val ACTION_STOP_SERVICE = "ACTION_STOP_SERVICE"
 
         private const val NOTIFICATION_ID = 1
-        private const val LOCATION_UPDATE_INTERVAL = 5_000L
     }
 
 }

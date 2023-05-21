@@ -1,14 +1,14 @@
 package my.training.feature.tracker.presentation.races
 
-import my.training.core.core_api.data.model.race.Race
 import my.training.core.ui.base.UiEffect
 import my.training.core.ui.base.UiEvent
 import my.training.core.ui.base.UiState
+import my.training.feature.tracker.data.RaceModel
 
 internal object RacesContract {
 
     data class State(
-        val races: List<Race> = emptyList(),
+        val races: List<RaceModel> = emptyList(),
         val isLoading: Boolean = false
     ) : UiState
 

@@ -6,6 +6,7 @@ import dagger.Component
 import my.training.core.core_api.di.AggregatingProvider
 import my.training.core.core_api.di.ContextProvider
 import my.training.core.core_api.di.DatabaseProvider
+import my.training.core.core_api.di.FirebaseStorageProvider
 import my.training.core.core_api.di.PreferencesProvider
 import my.training.core.core_api.di.RaceRepositoryProvider
 import my.training.core.core_api.di.UserRepositoryProvider
@@ -18,7 +19,8 @@ import my.training.core.core_api.di.scopes.PerApplication
         UserRepositoryProvider::class,
         RaceRepositoryProvider::class,
         PreferencesProvider::class,
-        DatabaseProvider::class
+        DatabaseProvider::class,
+        FirebaseStorageProvider::class
     ]
 )
 @PerApplication
@@ -36,9 +38,12 @@ interface AggregatingComponent : AggregatingProvider {
                     userRepositoryProvider = CoreProviderFactory.userRepositoryProvider(
                         contextProvider
                     ),
-                    raceRepositoryProvider = CoreProviderFactory.raceRepositoryProvider(),
+                    raceRepositoryProvider = CoreProviderFactory.raceRepositoryProvider(
+                        contextProvider
+                    ),
                     preferencesProvider = CoreProviderFactory.preferencesProvider(contextProvider),
-                    databaseProvider = CoreProviderFactory.databaseProvider(contextProvider)
+                    databaseProvider = CoreProviderFactory.databaseProvider(contextProvider),
+                    firebaseStorageProvider = CoreProviderFactory.firebaseStorageProvider()
                 ).also { aggregatingComponent = it }
         }
     }
@@ -50,7 +55,8 @@ interface AggregatingComponent : AggregatingProvider {
             userRepositoryProvider: UserRepositoryProvider,
             raceRepositoryProvider: RaceRepositoryProvider,
             preferencesProvider: PreferencesProvider,
-            databaseProvider: DatabaseProvider
+            databaseProvider: DatabaseProvider,
+            firebaseStorageProvider: FirebaseStorageProvider
         ): AggregatingComponent
     }
 

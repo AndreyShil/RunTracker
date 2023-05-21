@@ -9,12 +9,12 @@ import my.training.core.core_api.data.model.user.register.RegisterData
 import my.training.core.core_api.data.model.user.register.UserRegister
 import my.training.core.core_impl.data.model.dto.UserDTO
 import my.training.core.core_impl.data.model.request.DeviceInfoRequestBody
-import my.training.core.core_impl.data.model.request.LoginDataRequestBody
-import my.training.core.core_impl.data.model.request.RegisterDataRequestBody
-import my.training.core.core_impl.data.model.request.UserLoginRequestBody
-import my.training.core.core_impl.data.model.request.UserRegisterRequestBody
-import my.training.core.core_impl.data.model.response.AuthUserResponseBody
-import my.training.core.core_impl.data.model.response.UserResponseBody
+import my.training.core.core_impl.data.model.request.user.LoginDataRequestBody
+import my.training.core.core_impl.data.model.request.user.RegisterDataRequestBody
+import my.training.core.core_impl.data.model.request.user.UserLoginRequestBody
+import my.training.core.core_impl.data.model.request.user.UserRegisterRequestBody
+import my.training.core.core_impl.data.model.response.user.AuthUserResponseBody
+import my.training.core.core_impl.data.model.response.user.UserResponseBody
 
 internal fun UserLogin.toBody(): UserLoginRequestBody {
     return UserLoginRequestBody(

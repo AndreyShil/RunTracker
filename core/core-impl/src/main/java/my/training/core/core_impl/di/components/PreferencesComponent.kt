@@ -14,10 +14,13 @@ import my.training.core.core_impl.di.modules.PreferencesModule
 interface PreferencesComponent : PreferencesProvider {
 
     companion object {
+        private var component: PreferencesComponent? = null
+
         fun create(contextProvider: ContextProvider): PreferencesComponent {
-            return DaggerPreferencesComponent.builder()
+            return component ?: DaggerPreferencesComponent.builder()
                 .contextProvider(contextProvider)
                 .build()
+                .also { component = it }
         }
     }
 

@@ -37,21 +37,21 @@ android {
 dependencies {
     implementation(project(":core:core-api"))
 
-    implementation(libs.androidx.ktx)
-    implementation(libs.androidx.appCompat)
     implementation(libs.androidx.securityCrypto)
-    implementation(libs.androidx.room)
-    implementation(libs.androidx.roomKtx)
+    implementation(libs.bundles.androidx.main)
+    implementation(libs.bundles.androidx.room)
     kapt(libs.androidx.roomCompiler)
 
     implementation(libs.google.dagger)
     kapt(libs.google.daggerCompiler)
+
+    implementation(platform(libs.google.firebaseBom))
+    implementation(libs.google.firebaseStorage)
 
     implementation(platform(libs.squareup.okhhtp.bom))
     implementation(libs.squareup.okhhtp)
     implementation(libs.squareup.okhhtp.loggingInterceptor)
     implementation(libs.squareup.retrofit)
 
-    implementation(libs.kotlinx.serialization)
-    implementation(libs.kotlinx.serialization.converter)
+    implementation(libs.bundles.serialization)
 }

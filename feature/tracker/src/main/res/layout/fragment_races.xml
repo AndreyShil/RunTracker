@@ -17,9 +17,11 @@
             android:layout_height="wrap_content"
             app:collapsedTitleGravity="center"
             app:collapsedTitleTextAppearance="?textAppearanceTitleLarge"
+            app:collapsedTitleTextColor="?colorOnPrimary"
             app:contentScrim="?colorPrimary"
             app:expandedTitleMarginStart="@dimen/padding_lg"
             app:expandedTitleTextAppearance="?textAppearanceDisplaySmall"
+            app:expandedTitleTextColor="@color/white"
             app:layout_scrollFlags="scroll|enterAlwaysCollapsed"
             app:title="Мои тренировки"
             app:titleCollapseMode="scale">
@@ -54,6 +56,8 @@
             android:id="@+id/rv_races"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:clipToPadding="false"
+            android:paddingVertical="@dimen/padding_md"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -70,7 +74,7 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/padding_lg"
         android:contentDescription="Добавить тренировку"
-        android:src="@drawable/ic_add_36"
+        android:src="@drawable/ic_add_40"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 

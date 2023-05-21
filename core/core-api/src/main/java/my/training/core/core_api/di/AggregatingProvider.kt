@@ -6,4 +6,5 @@ interface AggregatingProvider : MediatorsMapProvider,
     RaceRepositoryProvider,
     ContextProvider,
     PreferencesProvider,
-    DatabaseProvider
+    DatabaseProvider,
+    FirebaseStorageProvider
