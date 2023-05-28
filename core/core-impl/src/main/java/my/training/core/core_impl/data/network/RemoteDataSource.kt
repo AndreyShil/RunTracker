@@ -28,7 +28,8 @@ internal class RemoteDataSource @Inject constructor(
         return Retrofit.Builder()
             .client(getOkhttpClient())
             .addConverterFactory(json.asConverterFactory(contentType))
-            .baseUrl("http://192.168.0.64:8080")
+            .baseUrl("https://fca2-5-164-206-99.ngrok-free.app")
+//            .baseUrl("http://192.168.0.64:8080")
             .build()
     }
 

@@ -40,6 +40,7 @@ android {
 dependencies {
     implementation(project(":core:ui"))
     implementation(project(":core:iconpack"))
+    implementation(project(":core:strings"))
     implementation(project(":core:core-api"))
 
     implementation(libs.bundles.androidx.main)

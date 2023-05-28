@@ -18,6 +18,9 @@ import my.training.core.core_api.di.qualifiers.AppContext
 import my.training.feature.tracker.extension.hasLocationPermission
 import javax.inject.Inject
 
+private const val LOCATION_UPDATE_INTERVAL = 10_000L
+private const val FASTEST_LOCATION_INTERVAL = 8_000L
+
 internal class LocationClient @Inject constructor(
     @AppContext private val appContext: Context,
     private val client: FusedLocationProviderClient
@@ -55,7 +58,9 @@ internal class LocationClient @Inject constructor(
 
     private fun checkLocationDetermineEnabled() {
         if (!appContext.hasLocationPermission()) {
-            throw RuntimeException("Отсутствуют разрешения на доступ к местоположению")
+            throw RuntimeException(
+                appContext.getString(my.training.core.strings.R.string.missing_location_permission)
+            )
         }
 
         val locationManager = appContext.getSystemService(LocationManager::class.java)
@@ -63,13 +68,9 @@ internal class LocationClient @Inject constructor(
         val isNetworkEnabled =
             locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
         if (!isGpsEnabled && !isNetworkEnabled) {
-            throw RuntimeException("Местоположение отключено")
+            throw RuntimeException(
+                appContext.getString(my.training.core.strings.R.string.location_disabled)
+            )
         }
     }
-
-    companion object {
-        private const val LOCATION_UPDATE_INTERVAL = 5_000L
-        private const val FASTEST_LOCATION_INTERVAL = 4_000L
-    }
-
 }

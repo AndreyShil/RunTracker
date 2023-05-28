@@ -13,4 +13,9 @@
     <string name="email_invalid">Неправильный формат электронной почты</string>
 
     <string name="error_image_download">Не удалось загрузить изображение</string>
+
+    <string name="missing_location_permission">Отсутствуют разрешения на доступ к местоположению</string>
+    <string name="location_disabled">Местоположение отключено</string>
+    <string name="location_permission_is_needed_for_app">Для работы приложения необходимо разрешение на доступ к местоположению</string>
+
 </resources>

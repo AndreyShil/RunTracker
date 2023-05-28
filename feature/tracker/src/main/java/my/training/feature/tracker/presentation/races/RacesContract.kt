@@ -3,7 +3,7 @@ package my.training.feature.tracker.presentation.races
 import my.training.core.ui.base.UiEffect
 import my.training.core.ui.base.UiEvent
 import my.training.core.ui.base.UiState
-import my.training.feature.tracker.data.RaceModel
+import my.training.feature.tracker.domain.model.RaceModel
 
 internal object RacesContract {
 

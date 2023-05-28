@@ -2,11 +2,13 @@ package my.training.feature.tracker.presentation.races
 
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
+import my.training.core.core_api.data.model.race.Race
 import my.training.core.core_api.extensions.doOnFailure
 import my.training.core.core_api.extensions.doOnSuccess
 import my.training.core.core_api.extensions.getErrorMessage
+import my.training.core.core_api.extensions.getFormattedDate
 import my.training.core.ui.base.BaseViewModel
-import my.training.feature.tracker.data.RaceModel
+import my.training.feature.tracker.domain.model.RaceModel
 import my.training.feature.tracker.domain.use_case.GetRacesUseCase
 
 internal class RacesViewModel(
@@ -27,7 +29,7 @@ internal class RacesViewModel(
         viewModelScope.launch {
             getRaces()
                 .doOnSuccess { races ->
-                    raceItems = races.map { RaceModel(it) }
+                    raceItems = races.toRaceModelList()
                     setState { copy(races = raceItems) }
                 }
                 .doOnFailure {
@@ -40,10 +42,26 @@ internal class RacesViewModel(
         }
     }
 
+    private fun List<Race>.toRaceModelList(): List<RaceModel> {
+        val raceGroup = this.groupBy { it.date.getFormattedDate() }
+        return buildList {
+            raceGroup.forEach { (date, races) ->
+                add(
+                    RaceModel.DateHeader(
+                        date = date
+                    )
+                )
+                addAll(
+                    races.map { RaceModel.RaceInfo(it) }
+                )
+            }
+        }
+    }
+
     fun updateRacesList(raceId: String) {
         val mRaces = raceItems.toMutableList()
-        val targetRace = mRaces.find { it.race.id == raceId }
-        if (targetRace != null) {
+        val targetRace = mRaces.find { it.getItemId() == raceId }
+        if (targetRace is RaceModel.RaceInfo) {
             val index = mRaces.indexOf(targetRace)
             mRaces[index] = targetRace.copy(isExpanded = !targetRace.isExpanded)
             raceItems = mRaces.toList()

@@ -15,7 +15,6 @@ import androidx.core.app.NotificationCompat
 import androidx.core.content.getSystemService
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.yandex.mapkit.geometry.Point
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -56,7 +55,6 @@ internal class RunningService : Service() {
     private val _timeRunInMillis = MutableLiveData(0L)
     val timeRunInMillis: LiveData<Long> = _timeRunInMillis
 
-
     private var isTimerEnabled = false
     private var lapTime = 0L
     private var timeRun = 0L
@@ -75,10 +73,6 @@ internal class RunningService : Service() {
                     _timeRunInMillis.value = timeRun + lapTime
                     updateNotificationTime(timeRunInMillis.value)
                 }
-//                if (timeRunInMillis.value!! >= lastSecondTimestamp + 1000L) {
-//                    timeRunInSeconds.postValue(timeRunInSeconds.value!! + 1)
-//                    lastSecondTimestamp += 1000L
-//                }
                 delay(50)
             }
             timeRun += lapTime
@@ -132,17 +126,6 @@ internal class RunningService : Service() {
             }
             .onEach { location ->
                 locations.add(location)
-
-                val lat = location.latitude
-                val long = location.longitude
-                lastLocationString = "Location: ($lat, $long)"
-
-//                val lat = location.latitude
-//                val long = location.longitude
-//                val updatedNotification = notification.setContentText(
-//                    "Location: ($lat, $long)"
-//                )
-//                notificationManager?.notify(NOTIFICATION_ID, updatedNotification.build())
             }
             .launchIn(serviceScope)
 
@@ -211,6 +194,7 @@ internal class RunningService : Service() {
 
     private fun pauseRunning() {
         isTimerEnabled = false
+        locationsCallback?.invoke(locations.toList())
         _state.value = RunningState.ON_PAUSE
     }
 
@@ -219,7 +203,7 @@ internal class RunningService : Service() {
 
         locationsCallback?.invoke(locations.toList())
         unbindServiceCallback?.invoke()
-        _state.value = RunningState.INITIAL
+        _state.value = RunningState.FINISH
 
         resetTimeParams()
         locations.clear()

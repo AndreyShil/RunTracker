@@ -13,7 +13,7 @@ import coil.ImageLoader
 import coil.load
 import my.training.core.core_api.domain.manager.FirebaseStorageManager
 import my.training.feature.tracker.R
-import my.training.feature.tracker.data.RaceModel
+import my.training.feature.tracker.domain.model.RaceModel
 import my.training.feature.tracker.databinding.ItemRaceBinding
 import my.training.feature.tracker.extension.displayCalories
 import my.training.feature.tracker.extension.displayDistance
@@ -41,16 +41,19 @@ internal class RacesViewHolder(
     }
 
     fun bind(model: RaceModel) {
+        require(model is RaceModel.RaceInfo)
+
         initView(model)
         initRootClickListener(model)
         loadImage(model.race.mapScreen)
     }
 
     fun bindAfterExpand(model: RaceModel) {
+        require(model is RaceModel.RaceInfo)
         initRootClickListener(model)
     }
 
-    private fun initView(model: RaceModel) {
+    private fun initView(model: RaceModel.RaceInfo) {
         val layoutHeight = if (model.isExpanded) expandedHeight else collapsedHeight
         val guideLinePosition =
             if (model.isExpanded) START_GUIDELINE_POSITION else MIDDLE_GUIDELINE_POSITION
@@ -67,7 +70,7 @@ internal class RacesViewHolder(
         updateLayoutHeight(layoutHeight)
     }
 
-    private fun initRootClickListener(model: RaceModel) {
+    private fun initRootClickListener(model: RaceModel.RaceInfo) {
         binding.root.setOnClickListener {
             binding.root.isClickable = false
             if (model.isExpanded) {

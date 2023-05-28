@@ -1,12 +1,12 @@
 package my.training.feature.tracker.presentation.races.adapter
 
 import androidx.recyclerview.widget.DiffUtil
-import my.training.feature.tracker.data.RaceModel
+import my.training.feature.tracker.domain.model.RaceModel
 
 internal class RacesDiffUtil : DiffUtil.ItemCallback<RaceModel>() {
 
     override fun areItemsTheSame(oldItem: RaceModel, newItem: RaceModel): Boolean {
-        return oldItem.race.id == newItem.race.id
+        return oldItem.getItemId() == newItem.getItemId()
     }
 
     override fun areContentsTheSame(oldItem: RaceModel, newItem: RaceModel): Boolean {
@@ -14,8 +14,10 @@ internal class RacesDiffUtil : DiffUtil.ItemCallback<RaceModel>() {
     }
 
     override fun getChangePayload(oldItem: RaceModel, newItem: RaceModel): Any? {
-        if (oldItem.race == newItem.race) {
-            return RacePayloads.OnCheckedStateChanged(newItem)
+        if (oldItem is RaceModel.RaceInfo && newItem is RaceModel.RaceInfo) {
+            if (oldItem.race == newItem.race) {
+                return RacePayloads.OnCheckedStateChanged(newItem)
+            }
         }
         return super.getChangePayload(oldItem, newItem)
     }

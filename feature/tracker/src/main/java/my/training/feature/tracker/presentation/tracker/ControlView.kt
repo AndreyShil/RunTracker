@@ -18,6 +18,8 @@ import my.training.feature.tracker.R
 import my.training.feature.tracker.databinding.ViewControlBinding
 import my.training.feature.tracker.domain.model.RunningState
 
+private const val TRANSITION_DURATION = 300L
+
 internal class ControlView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null
@@ -33,10 +35,18 @@ internal class ControlView @JvmOverloads constructor(
         )
     }
 
-    private val endScene by lazy(LazyThreadSafetyMode.NONE) {
+    private val intermediateScene by lazy(LazyThreadSafetyMode.NONE) {
         Scene.getSceneForLayout(
             binding.root as ViewGroup,
-            R.layout.scene_end_control_buttons,
+            R.layout.scene_intermediate_control_buttons,
+            context
+        )
+    }
+
+    private val finishScene by lazy(LazyThreadSafetyMode.NONE) {
+        Scene.getSceneForLayout(
+            binding.root as ViewGroup,
+            R.layout.scene_finish_control_buttons,
             context
         )
     }
@@ -79,8 +89,12 @@ internal class ControlView @JvmOverloads constructor(
             controlListener?.onPauseClicked()
         }
         findViewById<MaterialButton>(R.id.btn_stop)?.setOnClickListener {
-            setState(RunningState.INITIAL)
+            setState(RunningState.FINISH)
             controlListener?.onStopClicked()
+        }
+        findViewById<MaterialButton>(R.id.btn_finish)?.setOnClickListener {
+            setState(RunningState.INITIAL)
+            controlListener?.onFinishClicked()
         }
     }
 
@@ -91,13 +105,17 @@ internal class ControlView @JvmOverloads constructor(
             }
 
             RunningState.IN_PROGRESS -> {
-                TransitionManager.go(endScene, transitionSet)
+                TransitionManager.go(intermediateScene, transitionSet)
             }
 
             RunningState.ON_PAUSE -> {
-                TransitionManager.go(endScene, transitionSet)
+                TransitionManager.go(intermediateScene, transitionSet)
                 findViewById<MaterialButton>(R.id.btn_start).isVisible = true
                 findViewById<MaterialButton>(R.id.btn_pause).isVisible = false
+            }
+
+            RunningState.FINISH -> {
+                TransitionManager.go(finishScene, transitionSet)
             }
         }
     }
@@ -110,10 +128,6 @@ internal class ControlView @JvmOverloads constructor(
         fun onStartClicked()
         fun onPauseClicked()
         fun onStopClicked()
+        fun onFinishClicked()
     }
-
-    companion object {
-        private const val TRANSITION_DURATION = 300L
-    }
-
 }
