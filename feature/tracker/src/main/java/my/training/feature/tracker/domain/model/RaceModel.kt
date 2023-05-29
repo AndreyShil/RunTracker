@@ -1,6 +1,6 @@
 package my.training.feature.tracker.domain.model
 
-import my.training.core.core_api.data.model.race.Race
+import my.training.core.core_api.domain.model.race.Race
 
 internal sealed interface RaceModel {
 

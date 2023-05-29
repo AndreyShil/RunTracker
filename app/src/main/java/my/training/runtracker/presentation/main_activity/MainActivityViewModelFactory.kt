@@ -2,20 +2,20 @@ package my.training.runtracker.presentation.main_activity
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import my.training.runtracker.domain.GetAccessTokenUseCase
-import my.training.runtracker.domain.LoadProfileUseCase
+import my.training.core.core_api.domain.preferences.Preferences
+import my.training.core.core_api.domain.repository.UserRepository
 import javax.inject.Inject
 
 internal class MainActivityViewModelFactory @Inject constructor(
-    private val loadProfileUseCase: LoadProfileUseCase,
-    private val getAccessTokenUseCase: GetAccessTokenUseCase
+    private val userRepository: UserRepository,
+    private val preferences: Preferences
 ) : ViewModelProvider.Factory {
 
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return MainActivityViewModel(
-            loadProfile = loadProfileUseCase,
-            getAccessToken = getAccessTokenUseCase
+            userRepository = userRepository,
+            preferences = preferences
         ) as T
     }
 }

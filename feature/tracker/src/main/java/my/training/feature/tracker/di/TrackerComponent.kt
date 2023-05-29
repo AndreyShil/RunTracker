@@ -6,6 +6,7 @@ import my.training.core.core_api.di.scopes.PerFragment
 import my.training.feature.tracker.presentation.tracker.TrackerFragment
 
 @Component(
+    modules = [RaceRepositoryModule::class],
     dependencies = [AggregatingProvider::class]
 )
 @PerFragment

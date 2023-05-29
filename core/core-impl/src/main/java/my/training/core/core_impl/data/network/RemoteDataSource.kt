@@ -9,7 +9,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import javax.inject.Inject
 
-internal class RemoteDataSource @Inject constructor(
+class RemoteDataSource @Inject constructor(
     private val preferences: Preferences
 ) {
 
@@ -28,8 +28,8 @@ internal class RemoteDataSource @Inject constructor(
         return Retrofit.Builder()
             .client(getOkhttpClient())
             .addConverterFactory(json.asConverterFactory(contentType))
-            .baseUrl("https://fca2-5-164-206-99.ngrok-free.app")
-//            .baseUrl("http://192.168.0.64:8080")
+//            .baseUrl("https://fca2-5-164-206-99.ngrok-free.app")
+            .baseUrl("http://192.168.0.64:8080")
             .build()
     }
 

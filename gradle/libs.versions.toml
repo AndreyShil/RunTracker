@@ -12,6 +12,7 @@ splashScreen = "1.0.0"
 material = "1.8.0"
 dagger = "2.45"
 firebaseBom = "31.5.0"
+googleServicesPlugin = "4.3.15"
 #Yandex
 map = "4.3.1-lite"
 #Github
@@ -52,6 +53,7 @@ google-dagger = { module = "com.google.dagger:dagger", version.ref = "dagger" }
 google-daggerCompiler = { module = "com.google.dagger:dagger-compiler", version.ref = "dagger" }
 google-firebaseBom = { module = "com.google.firebase:firebase-bom", version.ref = "firebaseBom" }
 google-firebaseStorage = { module = "com.google.firebase:firebase-storage-ktx" }
+google-services-plugin = { module = "com.google.gms:google-services", version.ref = "googleServicesPlugin" }
 #Yandex
 yandex-maps = { module = "com.yandex.android:maps.mobile", version.ref = "map" }
 #Github

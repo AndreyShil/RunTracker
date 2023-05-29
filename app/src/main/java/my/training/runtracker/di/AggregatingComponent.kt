@@ -7,8 +7,8 @@ import my.training.core.core_api.di.AggregatingProvider
 import my.training.core.core_api.di.ContextProvider
 import my.training.core.core_api.di.DatabaseProvider
 import my.training.core.core_api.di.FirebaseStorageProvider
+import my.training.core.core_api.di.NetworkProvider
 import my.training.core.core_api.di.PreferencesProvider
-import my.training.core.core_api.di.RaceRepositoryProvider
 import my.training.core.core_api.di.UserRepositoryProvider
 import my.training.core.core_api.di.scopes.PerApplication
 
@@ -16,8 +16,8 @@ import my.training.core.core_api.di.scopes.PerApplication
     modules = [HomeMediatorModule::class],
     dependencies = [
         ContextProvider::class,
+        NetworkProvider::class,
         UserRepositoryProvider::class,
-        RaceRepositoryProvider::class,
         PreferencesProvider::class,
         DatabaseProvider::class,
         FirebaseStorageProvider::class
@@ -38,9 +38,7 @@ interface AggregatingComponent : AggregatingProvider {
                     userRepositoryProvider = CoreProviderFactory.userRepositoryProvider(
                         contextProvider
                     ),
-                    raceRepositoryProvider = CoreProviderFactory.raceRepositoryProvider(
-                        contextProvider
-                    ),
+                    networkProvider = CoreProviderFactory.networkProvider(contextProvider),
                     preferencesProvider = CoreProviderFactory.preferencesProvider(contextProvider),
                     databaseProvider = CoreProviderFactory.databaseProvider(contextProvider),
                     firebaseStorageProvider = CoreProviderFactory.firebaseStorageProvider()
@@ -52,8 +50,8 @@ interface AggregatingComponent : AggregatingProvider {
     interface Factory {
         fun create(
             contextProvider: ContextProvider,
+            networkProvider: NetworkProvider,
             userRepositoryProvider: UserRepositoryProvider,
-            raceRepositoryProvider: RaceRepositoryProvider,
             preferencesProvider: PreferencesProvider,
             databaseProvider: DatabaseProvider,
             firebaseStorageProvider: FirebaseStorageProvider

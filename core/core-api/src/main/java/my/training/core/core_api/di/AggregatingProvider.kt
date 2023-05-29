@@ -3,8 +3,9 @@ package my.training.core.core_api.di
 interface AggregatingProvider : MediatorsMapProvider,
     HomeMediator,
     UserRepositoryProvider,
-    RaceRepositoryProvider,
+//    RaceRepositoryProvider,
     ContextProvider,
     PreferencesProvider,
     DatabaseProvider,
-    FirebaseStorageProvider
+    FirebaseStorageProvider,
+    NetworkProvider

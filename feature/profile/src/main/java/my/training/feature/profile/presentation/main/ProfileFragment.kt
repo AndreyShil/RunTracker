@@ -14,7 +14,7 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import coil.load
 import coil.transform.CircleCropTransformation
 import kotlinx.coroutines.launch
-import my.training.core.core_api.data.model.user.User
+import my.training.core.core_api.domain.model.user.User
 import my.training.core.core_api.di.ProvidersHolder
 import my.training.core.core_api.domain.manager.FirebaseStorageManager
 import my.training.feature.profile.R

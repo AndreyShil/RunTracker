@@ -52,6 +52,4 @@ dependencies {
     implementation(libs.squareup.okhhtp)
     implementation(libs.squareup.okhhtp.loggingInterceptor)
     implementation(libs.squareup.retrofit)
-
-    implementation(libs.bundles.serialization)
 }

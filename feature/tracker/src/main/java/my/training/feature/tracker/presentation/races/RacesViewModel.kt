@@ -2,17 +2,17 @@ package my.training.feature.tracker.presentation.races
 
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
-import my.training.core.core_api.data.model.race.Race
+import my.training.core.core_api.domain.model.race.Race
 import my.training.core.core_api.extensions.doOnFailure
 import my.training.core.core_api.extensions.doOnSuccess
 import my.training.core.core_api.extensions.getErrorMessage
 import my.training.core.core_api.extensions.getFormattedDate
 import my.training.core.ui.base.BaseViewModel
+import my.training.feature.tracker.domain.RaceRepository
 import my.training.feature.tracker.domain.model.RaceModel
-import my.training.feature.tracker.domain.use_case.GetRacesUseCase
 
 internal class RacesViewModel(
-    private val getRaces: GetRacesUseCase
+    private val raceRepository: RaceRepository
 ) : BaseViewModel<RacesContract.Event, RacesContract.State, RacesContract.Effect>() {
 
     private var raceItems = emptyList<RaceModel>()
@@ -27,7 +27,7 @@ internal class RacesViewModel(
 
     init {
         viewModelScope.launch {
-            getRaces()
+            raceRepository.getRaces()
                 .doOnSuccess { races ->
                     raceItems = races.toRaceModelList()
                     setState { copy(races = raceItems) }

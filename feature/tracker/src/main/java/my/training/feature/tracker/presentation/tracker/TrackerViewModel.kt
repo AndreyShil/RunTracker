@@ -2,17 +2,17 @@ package my.training.feature.tracker.presentation.tracker
 
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
-import my.training.core.core_api.data.model.race.RaceCreating
+import my.training.core.core_api.domain.model.race.RaceCreating
 import my.training.core.core_api.extensions.doOnFailure
 import my.training.core.core_api.extensions.doOnSuccess
 import my.training.core.core_api.extensions.getCurrentDate
 import my.training.core.core_api.extensions.getErrorMessage
 import my.training.core.ui.base.BaseViewModel
-import my.training.feature.tracker.domain.use_case.CreateWorkoutUseCase
+import my.training.feature.tracker.domain.RaceRepository
 import kotlin.math.roundToInt
 
 internal class TrackerViewModel(
-    private val createWorkout: CreateWorkoutUseCase
+    private val raceRepository: RaceRepository
 ) : BaseViewModel<TrackerContract.Event, TrackerContract.State, TrackerContract.Effect>() {
 
     override fun createInitialState(): TrackerContract.State {
@@ -48,7 +48,7 @@ internal class TrackerViewModel(
 
     private fun addNewWorkout() {
         viewModelScope.launch {
-            createWorkout(currentState.race)
+            raceRepository.createRace(currentState.race)
                 .doOnSuccess {
                     setEffect {
                         TrackerContract.Effect.ShowMessage("Тренировка добавлена")

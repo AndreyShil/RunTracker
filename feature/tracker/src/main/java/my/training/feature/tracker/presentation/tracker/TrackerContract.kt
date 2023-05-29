@@ -1,6 +1,6 @@
 package my.training.feature.tracker.presentation.tracker
 
-import my.training.core.core_api.data.model.race.RaceCreating
+import my.training.core.core_api.domain.model.race.RaceCreating
 import my.training.core.ui.base.UiEffect
 import my.training.core.ui.base.UiEvent
 import my.training.core.ui.base.UiState

@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.android.kotlin)
+    kotlin("plugin.serialization") version "1.8.10"
 }
 
 android {
@@ -36,6 +37,13 @@ dependencies {
     implementation(libs.androidx.ktx)
     implementation(libs.androidx.appCompat)
     implementation(libs.google.dagger)
+
+    implementation(platform(libs.squareup.okhhtp.bom))
+    implementation(libs.squareup.okhhtp)
+    implementation(libs.squareup.okhhtp.loggingInterceptor)
+    api(libs.squareup.retrofit)
+
+    api(libs.bundles.serialization)
 
     testImplementation(libs.test.junit)
     androidTestImplementation(libs.test.androidx.junit)

@@ -2,7 +2,7 @@
 buildscript {
     dependencies {
         classpath(libs.androidx.safeArgsGradle)
-        classpath("com.google.gms:google-services:4.3.15")
+        classpath(libs.google.services.plugin)
     }
 }
 

@@ -2,17 +2,17 @@ package my.training.feature.auth.presentation.sign_in
 
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
-import my.training.core.core_api.data.model.user.login.LoginData
+import my.training.core.core_api.domain.model.user.login.LoginData
+import my.training.core.core_api.domain.preferences.Preferences
 import my.training.core.core_api.extensions.doOnFailure
 import my.training.core.core_api.extensions.doOnSuccess
 import my.training.core.core_api.extensions.getErrorMessage
 import my.training.core.ui.base.BaseViewModel
-import my.training.feature.auth.domain.LoginUserUseCase
-import my.training.feature.auth.domain.SaveAccessTokenUseCase
+import my.training.feature.auth.domain.AuthRepository
 
 internal class SignInViewModel(
-    private val loginUser: LoginUserUseCase,
-    private val saveAccessToken: SaveAccessTokenUseCase
+    private val authRepository: AuthRepository,
+    private val preferences: Preferences
 ) : BaseViewModel<SignInContract.Event, SignInContract.State, SignInContract.Effect>() {
 
     override fun createInitialState(): SignInContract.State {
@@ -42,9 +42,9 @@ internal class SignInViewModel(
     private fun doLoginRequest() {
         setLoadingState(true)
         viewModelScope.launch {
-            loginUser(uiState.value.toLoginData())
+            authRepository.login(uiState.value.toLoginData())
                 .doOnSuccess {
-                    saveAccessToken(it.accessToken)
+                    preferences.saveAccessToken(it.accessToken)
                     setEffect {
                         SignInContract.Effect.OpenMainScreen
                     }
