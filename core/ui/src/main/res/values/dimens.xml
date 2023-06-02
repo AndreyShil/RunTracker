@@ -11,12 +11,15 @@
 
     <dimen name="text_size_sm">12sp</dimen>
     <dimen name="text_size_md">16sp</dimen>
+    <dimen name="text_size_md_plus">20sp</dimen>
     <dimen name="text_size_lg">24sp</dimen>
 
+    <dimen name="card_radius_xs">8dp</dimen>
     <dimen name="card_radius_md">16dp</dimen>
     <dimen name="card_radius_lg">24dp</dimen>
 
     <dimen name="stroke_width_small">2dp</dimen>
 
     <dimen name="icon_size_large">40dp</dimen>
+    <dimen name="image_height">200dp</dimen>
 </resources>

@@ -5,18 +5,18 @@
     <item
         android:id="@id/tracker_graph"
         android:icon="@drawable/ic_run_40"
-        android:title="Tracker"
+        android:title="@string/workouts"
         app:showAsAction="ifRoom" />
 
     <item
         android:id="@id/stats_graph"
         android:icon="@drawable/ic_stats_40"
-        android:title="Stats"
+        android:title="@string/stats"
         app:showAsAction="ifRoom" />
 
     <item
         android:id="@id/profile_graph"
         android:icon="@drawable/ic_person_40"
-        android:title="Profile"
+        android:title="@string/profile"
         app:showAsAction="ifRoom" />
 </menu>

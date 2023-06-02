@@ -23,13 +23,13 @@
             app:expandedTitleTextAppearance="?textAppearanceDisplaySmall"
             app:expandedTitleTextColor="@color/white"
             app:layout_scrollFlags="scroll|enterAlwaysCollapsed"
-            app:title="Мои тренировки"
+            app:title="@string/my_workouts"
             app:titleCollapseMode="scale">
 
             <ImageView
                 android:id="@+id/expanded_image"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_height="@dimen/image_height"
                 android:contentDescription="@null"
                 android:scaleType="centerCrop"
                 android:src="@drawable/image_runner"
@@ -73,7 +73,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/padding_lg"
-        android:contentDescription="Добавить тренировку"
+        android:contentDescription="@string/add_workout"
         android:src="@drawable/ic_add_40"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />

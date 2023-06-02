@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="workouts">Тренировки</string>
+    <string name="stats">Статистика</string>
+    <string name="profile">Профиль</string>
+
+    <string name="settings">Настройки</string>
+    <string name="edit_profile">Редактировать профиль</string>
+
     <string name="login">Логин</string>
     <string name="password">Пароль</string>
     <string name="repeat_password">Повторите пароль</string>
@@ -18,4 +25,11 @@
     <string name="location_disabled">Местоположение отключено</string>
     <string name="location_permission_is_needed_for_app">Для работы приложения необходимо разрешение на доступ к местоположению</string>
 
+    <string name="my_workouts">Мои тренировки</string>
+    <string name="add_workout">Добавить тренировку</string>
+    <string name="distance">Дистанция</string>
+
+    <string name="three_month">3 месяца</string>
+    <string name="one_month">1 месяц</string>
+    <string name="one_week">1 неделя</string>
 </resources>

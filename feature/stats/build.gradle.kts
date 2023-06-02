@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.android.kotlin)
+    id("kotlin-parcelize")
 }
 
 android {
@@ -30,13 +31,22 @@ android {
     kotlinOptions {
         jvmTarget = "17"
     }
+    buildFeatures {
+        viewBinding = true
+    }
 }
 
 dependencies {
+    implementation(project(":core:ui"))
+    implementation(project(":core:strings"))
+    implementation(project(":core:core-api"))
+
     implementation(libs.bundles.androidx.main)
     implementation(libs.bundles.androidx.navigation)
 
     implementation(libs.google.material)
+
+    implementation(libs.github.viewBindingDelegate)
 
     testImplementation(libs.test.junit)
     androidTestImplementation(libs.test.androidx.junit)

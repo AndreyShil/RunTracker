@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="chart_stroke_width">2dp</dimen>
+    <dimen name="chart_stroke_dash_size">8dp</dimen>
+    <dimen name="chart_text_border_inset">2dp</dimen>
+    <dimen name="chart_text_stroke_width">1dp</dimen>
+    <dimen name="chart_text_border_corner_radius">4dp</dimen>
+</resources>
