@@ -5,16 +5,23 @@ import kotlinx.parcelize.Parcelize
 import my.training.core.core_api.extensions.getMillis
 import java.util.Calendar
 import java.util.Date
+import java.util.Locale
+import java.util.TimeZone
 
 @Parcelize
 internal data class RaceData(
     val date: String,
     val distance: Int,
-    val burnedCalories: Double
+    val burnedCalories: Double,
+    val averageSpeed: Double
 ) : Parcelable {
 
-    fun getDateInstance(): Date? {
-        return date.getMillis()?.let { Date(it) }
+    fun getCalendarInstance(): Calendar? {
+        val date = getDateInstance() ?: return null
+        return Calendar.getInstance(TimeZone.getDefault(), Locale.getDefault())
+            .apply {
+                time = date
+            }
     }
 
     fun getStartDayDate(): Date? {
@@ -27,5 +34,9 @@ internal data class RaceData(
             set(Calendar.MILLISECOND, 0)
         }
         return calendar.time
+    }
+
+    private fun getDateInstance(): Date? {
+        return date.getMillis()?.let { Date(it) }
     }
 }

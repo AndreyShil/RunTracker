@@ -53,12 +53,19 @@
         app:layout_constraintStart_toStartOf="@id/toggle_group"
         app:layout_constraintTop_toBottomOf="@id/toggle_group" />
 
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/middle_guideline"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent=".5" />
+
     <my.training.feature.stats.custom_view.pie_chart.PieChart
         android:id="@+id/view_calories_chart"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/padding_lg"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/middle_guideline"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/view_chart" />
 
@@ -66,9 +73,8 @@
         android:id="@+id/view_speed_chart"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/padding_md"
+        app:layout_constraintBottom_toBottomOf="@id/view_calories_chart"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/view_calories_chart" />
-
+        app:layout_constraintStart_toStartOf="@id/middle_guideline"
+        app:layout_constraintTop_toTopOf="@id/view_calories_chart" />
 </merge>

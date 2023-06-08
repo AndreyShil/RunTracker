@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="pie_chart_first_color">@color/md_theme_light_error</color>
+    <color name="pie_chart_second_color">@color/md_theme_light_tertiary</color>
+    <color name="pie_chart_third_color">@color/md_theme_light_primary</color>
+    <color name="pie_chart_fourth_color">@color/md_theme_light_secondaryContainer</color>
+
+    <color name="main_text_color">@color/md_theme_light_onSurface</color>
+    <color name="secondary_text_color">@color/md_theme_light_onSurfaceVariant</color>
+</resources>

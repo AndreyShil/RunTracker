@@ -22,7 +22,7 @@ import java.util.TimeZone
 import kotlin.math.min
 import kotlin.math.roundToInt
 
-private const val CHART_SIZE_RATIO = 0.3f
+private const val CHART_SIZE_RATIO = 0.6f
 private const val ANIMATION_DURATION = 1_000L
 private const val MAX_ALPHA = 255
 private const val DASH_PHASE = 0f
@@ -151,15 +151,12 @@ internal class BarChart @JvmOverloads constructor(
      * Data setting methods
      */
     fun setStatsData(
-        stats: List<RaceData>
+        stats: List<RaceData>,
+        dayCount: Int
     ) {
         chartData = stats
-    }
-
-    fun updateDaysCount(dayCount: Int) {
         this.dayCount = dayCount
         getBarHeightScaleAnimator().start()
-        invalidate()
     }
 
     /**
@@ -215,21 +212,17 @@ internal class BarChart @JvmOverloads constructor(
 
     private fun Canvas.drawBarChart() {
         var barStartX = defaultPadding
-        val startDateRangeCalendar = getCalendarInstanceWithDecreaseDays()
-        val startRangeDate = startDateRangeCalendar.time
 
-        val filteredData = chartData
-            .filter { it.getDateInstance()?.after(startRangeDate) == true }
-
-        val maxValue = filteredData.maxOf { it.distance }
+        val maxValue = chartData.maxOfOrNull { it.distance } ?: 0
         val barUnitY = (height / (BAR_HEIGHT_RATIO * maxValue))
         val barWidth = (width - 2 * defaultPadding) / (dayCount * 2 - 1)
 
+        val localCalendar = currentCalendar.clone() as? Calendar
         for (index in 0 until dayCount) {
-            val targetCalendar = startDateRangeCalendar.getCalendarInstanceByTargetIndex(index)
+            val targetCalendar = localCalendar?.getCalendarInstanceByTargetIndex(index) ?: continue
 
-            val targetRace = filteredData.find { it.getStartDayDate() == targetCalendar.time }
-            val calendar = targetRace?.createCalendarInstance()
+            val targetRace = chartData.find { it.getStartDayDate() == targetCalendar.time }
+            val calendar = targetRace?.getCalendarInstance()
 
             drawBars(
                 isTargetDay = isSameDay(calendar, targetCalendar),
@@ -243,7 +236,7 @@ internal class BarChart @JvmOverloads constructor(
         }
 
         drawMedianInfoLines(
-            raceItems = filteredData,
+            raceItems = chartData,
             unitY = barUnitY
         )
     }
@@ -409,14 +402,6 @@ internal class BarChart @JvmOverloads constructor(
                 firstCalendar.get(Calendar.DAY_OF_YEAR) == secondCalendar.get(Calendar.DAY_OF_YEAR)
     }
 
-    private fun RaceData.createCalendarInstance(): Calendar? {
-        return getDateInstance()?.let { date ->
-            Calendar.getInstance().apply {
-                time = date
-            }
-        }
-    }
-
     private fun Calendar.getCalendarInstanceByTargetIndex(index: Int): Calendar {
         return this.apply {
             set(
@@ -424,15 +409,6 @@ internal class BarChart @JvmOverloads constructor(
                 currentCalendar.get(Calendar.DAY_OF_YEAR) - (dayCount - 1) + index
             )
         }
-    }
-
-    private fun getCalendarInstanceWithDecreaseDays(): Calendar {
-        return Calendar.getInstance(TimeZone.getDefault(), Locale.getDefault())
-            .apply {
-                set(Calendar.YEAR, currentCalendar.get(Calendar.YEAR))
-                set(Calendar.DAY_OF_YEAR, currentCalendar.get(Calendar.DAY_OF_YEAR) - dayCount)
-                clearTime()
-            }
     }
 
     private fun Calendar.clearTime() {

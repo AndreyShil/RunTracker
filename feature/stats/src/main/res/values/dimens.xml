@@ -5,4 +5,9 @@
     <dimen name="chart_text_border_inset">2dp</dimen>
     <dimen name="chart_text_stroke_width">1dp</dimen>
     <dimen name="chart_text_border_corner_radius">4dp</dimen>
+
+    <dimen name="pie_chart_stroke_width">12dp</dimen>
+    <dimen name="pie_chart_circle_space">2dp</dimen>
+    <dimen name="legend_circle_margin">10dp</dimen>
+    <dimen name="legend_circle_radius">6dp</dimen>
 </resources>

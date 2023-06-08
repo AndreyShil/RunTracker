@@ -32,4 +32,16 @@
     <string name="three_month">3 месяца</string>
     <string name="one_month">1 месяц</string>
     <string name="one_week">1 неделя</string>
+
+    <string name="cal">ккал</string>
+    <string name="interval_below_100_cal">&#60; 100 ккал</string>
+    <string name="interval_100_200_cal">от 100 до 200 ккал</string>
+    <string name="interval_200_300_cal">от 200 до 300 ккал</string>
+    <string name="interval_above_300_cal">&#62; 300 ккал</string>
+
+    <string name="m_per_s">м/с</string>
+    <string name="interval_below_5_m_per_s">&#60; 5 м/с</string>
+    <string name="interval_5_7_5_m_per_s">от 5 до 7,5 м/с</string>
+    <string name="interval_7_5_10_m_per_s">от 7,5 до 10 м/с</string>
+    <string name="interval_above_10_m_per_s">&#62; 10 м/с</string>
 </resources>
