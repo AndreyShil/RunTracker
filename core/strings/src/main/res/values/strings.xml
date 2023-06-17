@@ -28,6 +28,9 @@
     <string name="my_workouts">Мои тренировки</string>
     <string name="add_workout">Добавить тренировку</string>
     <string name="distance">Дистанция</string>
+    <string name="average_indicators">Средние показатели</string>
+    <string name="burned_calories">Потраченные калории</string>
+    <string name="speed">Скорость</string>
 
     <string name="three_month">3 месяца</string>
     <string name="one_month">1 месяц</string>
@@ -44,4 +47,6 @@
     <string name="interval_5_7_5_m_per_s">от 5 до 7,5 м/с</string>
     <string name="interval_7_5_10_m_per_s">от 7,5 до 10 м/с</string>
     <string name="interval_above_10_m_per_s">&#62; 10 м/с</string>
+
+    <string name="no_workouts">Нет тренировок</string>
 </resources>

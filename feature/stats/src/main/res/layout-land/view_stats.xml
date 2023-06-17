@@ -10,6 +10,7 @@
         android:id="@+id/toggle_group"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/padding_lg"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -42,16 +43,85 @@
 
     </com.google.android.material.button.MaterialButtonToggleGroup>
 
-    <my.training.feature.stats.custom_view.stats_view.BarChart
-        android:id="@+id/view_chart"
+    <TextView
+        android:id="@+id/tv_distance_header"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/padding_xs"
-        android:background="@drawable/bg_rounded_16"
-        android:backgroundTint="?colorSecondary"
+        android:paddingTop="@dimen/padding_md"
+        android:paddingBottom="@dimen/padding_xs"
+        android:text="@string/distance"
+        android:textAppearance="?textAppearanceHeadlineMedium"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@id/toggle_group"
         app:layout_constraintStart_toStartOf="@id/toggle_group"
         app:layout_constraintTop_toBottomOf="@id/toggle_group" />
+
+    <my.training.feature.stats.presentation.custom_view.bar_chart.BarChart
+        android:id="@+id/view_chart"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_rounded_16"
+        android:backgroundTint="?colorSecondaryContainer"
+        app:layout_constraintEnd_toEndOf="@id/tv_distance_header"
+        app:layout_constraintStart_toStartOf="@id/tv_distance_header"
+        app:layout_constraintTop_toBottomOf="@id/tv_distance_header" />
+
+    <TextView
+        android:id="@+id/tv_average_indicators"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/padding_lg"
+        android:paddingTop="@dimen/padding_md"
+        android:paddingBottom="@dimen/padding_xs"
+        android:text="@string/average_indicators"
+        android:textAppearance="?textAppearanceHeadlineMedium"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@id/view_chart"
+        app:layout_constraintStart_toStartOf="@id/view_chart"
+        app:layout_constraintTop_toBottomOf="@id/view_chart" />
+
+    <TextView
+        android:id="@+id/tv_burned_calories"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/padding_md"
+        android:paddingBottom="@dimen/padding_xs"
+        android:text="@string/burned_calories"
+        android:textAppearance="?textAppearanceTitleLarge"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@id/middle_guideline"
+        app:layout_constraintStart_toStartOf="@id/tv_average_indicators"
+        app:layout_constraintTop_toBottomOf="@id/tv_average_indicators" />
+
+    <TextView
+        android:id="@+id/tv_speed"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/padding_md"
+        android:paddingBottom="@dimen/padding_xs"
+        android:text="@string/speed"
+        android:textAppearance="?textAppearanceTitleLarge"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@id/tv_average_indicators"
+        app:layout_constraintStart_toStartOf="@id/middle_guideline"
+        app:layout_constraintTop_toBottomOf="@id/tv_average_indicators" />
+
+    <my.training.feature.stats.presentation.custom_view.pie_chart.PieChart
+        android:id="@+id/view_calories_chart"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@id/middle_guideline"
+        app:layout_constraintStart_toStartOf="@id/tv_burned_calories"
+        app:layout_constraintTop_toBottomOf="@id/tv_burned_calories" />
+
+    <my.training.feature.stats.presentation.custom_view.pie_chart.PieChart
+        android:id="@+id/view_speed_chart"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@id/view_calories_chart"
+        app:layout_constraintEnd_toEndOf="@id/tv_speed"
+        app:layout_constraintStart_toStartOf="@id/middle_guideline"
+        app:layout_constraintTop_toTopOf="@id/view_calories_chart" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/middle_guideline"
@@ -59,22 +129,4 @@
         android:layout_height="0dp"
         android:orientation="vertical"
         app:layout_constraintGuide_percent=".5" />
-
-    <my.training.feature.stats.custom_view.pie_chart.PieChart
-        android:id="@+id/view_calories_chart"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/padding_lg"
-        app:layout_constraintEnd_toEndOf="@id/middle_guideline"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/view_chart" />
-
-    <my.training.feature.stats.custom_view.pie_chart.PieChart
-        android:id="@+id/view_speed_chart"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@id/view_calories_chart"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@id/middle_guideline"
-        app:layout_constraintTop_toTopOf="@id/view_calories_chart" />
 </merge>

@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.android.kotlin)
     id("kotlin-parcelize")
+    kotlin("kapt")
 }
 
 android {
@@ -45,6 +46,8 @@ dependencies {
     implementation(libs.bundles.androidx.navigation)
 
     implementation(libs.google.material)
+    implementation(libs.google.dagger)
+    kapt(libs.google.daggerCompiler)
 
     implementation(libs.github.viewBindingDelegate)
 

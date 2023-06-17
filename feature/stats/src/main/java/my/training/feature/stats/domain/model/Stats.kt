@@ -1,4 +1,4 @@
-package my.training.feature.stats.model
+package my.training.feature.stats.domain.model
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
@@ -6,10 +6,9 @@ import my.training.core.core_api.extensions.getMillis
 import java.util.Calendar
 import java.util.Date
 import java.util.Locale
-import java.util.TimeZone
 
 @Parcelize
-internal data class RaceData(
+internal data class Stats(
     val date: String,
     val distance: Int,
     val burnedCalories: Double,
@@ -18,7 +17,7 @@ internal data class RaceData(
 
     fun getCalendarInstance(): Calendar? {
         val date = getDateInstance() ?: return null
-        return Calendar.getInstance(TimeZone.getDefault(), Locale.getDefault())
+        return Calendar.getInstance(Locale.getDefault())
             .apply {
                 time = date
             }
@@ -26,14 +25,17 @@ internal data class RaceData(
 
     fun getStartDayDate(): Date? {
         val date = getDateInstance() ?: return null
-        val calendar = Calendar.getInstance().apply {
+        val dateCalendar = Calendar.getInstance(Locale.getDefault()).apply {
             time = date
+        }
+        val calendar = (dateCalendar.clone() as? Calendar)?.apply {
+            set(Calendar.AM_PM, Calendar.AM)
             set(Calendar.HOUR, 0)
             set(Calendar.MINUTE, 0)
             set(Calendar.SECOND, 0)
             set(Calendar.MILLISECOND, 0)
         }
-        return calendar.time
+        return calendar?.time
     }
 
     private fun getDateInstance(): Date? {

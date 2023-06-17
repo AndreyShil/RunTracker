@@ -1,4 +1,4 @@
-package my.training.feature.stats.custom_view.pie_chart
+package my.training.feature.stats.presentation.custom_view.pie_chart
 
 import android.animation.ValueAnimator
 import android.content.Context
@@ -97,6 +97,10 @@ internal class PieChart @JvmOverloads constructor(
         )
     }
 
+    private val emptyDataColor by lazy(LazyThreadSafetyMode.NONE) {
+        ContextCompat.getColor(context, R.color.pie_chart_fourth_color)
+    }
+
     private val circlePaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         style = Paint.Style.STROKE
         strokeWidth = circleStrokeWidth
@@ -185,9 +189,7 @@ internal class PieChart @JvmOverloads constructor(
         val desiredCircleWidth = targetWidth * CIRCLE_WIDTH_PERCENT
 
         val targetHeight = calculateViewHeight(
-            heightMeasureSpec = heightMeasureSpec,
             legendWidth = legendWidth.roundToInt(),
-            desiredSize = desiredSize,
             desiredCircleWidth = desiredCircleWidth
         )
 
@@ -211,18 +213,15 @@ internal class PieChart @JvmOverloads constructor(
     }
 
     private fun calculateViewHeight(
-        heightMeasureSpec: Int,
         legendWidth: Int,
-        desiredSize: Int,
         desiredCircleWidth: Float
     ): Int {
-        val initSizeHeight = getMeasuredDimension(heightMeasureSpec, desiredSize)
         val rowTotalMargin = smallMargin + legendMarginBetweenRows
         legendHeight = (dataList.size * rowTotalMargin + getLegendTextHeight(legendWidth)).toInt()
 
         val textHeightWithPadding = legendHeight + paddingTop + paddingBottom
         val desiredCircleSize = (circleStrokeWidth * 2 + desiredCircleWidth).roundToInt()
-        return maxOf(initSizeHeight, textHeightWithPadding, desiredCircleSize)
+        return maxOf(textHeightWithPadding, desiredCircleSize)
     }
 
     private fun getLegendTextHeight(maxWidth: Int): Int {
@@ -272,6 +271,18 @@ internal class PieChart @JvmOverloads constructor(
     }
 
     private fun Canvas.drawCircle() {
+        if (isEmptyData()) {
+            drawArc(
+                circleRect,
+                START_CIRCLE_ANGLE.toFloat(),
+                END_CIRCLE_ANGLE.toFloat(),
+                false,
+                circlePaint.apply {
+                    color = emptyDataColor
+                }
+            )
+            return
+        }
         percentageCircleList.forEachIndexed { index, percent ->
             when {
                 animationSweepAngle > (percent.percentToStartAt + percent.percentOfCircle) -> {
@@ -302,6 +313,8 @@ internal class PieChart @JvmOverloads constructor(
     }
 
     private fun Canvas.drawLegendText() {
+        drawTotalInfo()
+
         var targetY = legendTextStartY
         textRowList.forEachIndexed { index, staticLayout ->
             if (index % 2 == 0) {
@@ -312,7 +325,7 @@ internal class PieChart @JvmOverloads constructor(
                     targetY + staticLayout.height / 2,
                     legendCircleRadius,
                     Paint().apply {
-                        color = pieChartColors[(index / 2) % pieChartColors.size]
+                        color = getLegendCircleColor(index)
                     }
                 )
                 targetY += staticLayout.height + smallMargin
@@ -321,7 +334,17 @@ internal class PieChart @JvmOverloads constructor(
                 targetY += staticLayout.height + legendMarginBetweenRows
             }
         }
+    }
 
+    private fun getLegendCircleColor(index: Int): Int {
+        return if (isEmptyData()) {
+            emptyDataColor
+        } else {
+            pieChartColors[(index / 2) % pieChartColors.size]
+        }
+    }
+
+    private fun Canvas.drawTotalInfo() {
         drawText(
             getTotalText(),
             totalTextX,
@@ -414,7 +437,9 @@ internal class PieChart @JvmOverloads constructor(
     }
 
     private fun calculatePercent(pair: Pair<Int, String>): Float {
-        val percent = pair.first * MAX_PERCENT / dataList.sumOf { it.first } - circleSectionSpace
+        val sumValue = dataList.sumOf { it.first }
+        if (sumValue == 0) return 0f
+        val percent = pair.first * MAX_PERCENT / sumValue - circleSectionSpace
         return percent.coerceIn(MIN_PERCENT.toFloat(), MAX_PERCENT.toFloat())
     }
 
@@ -446,6 +471,11 @@ internal class PieChart @JvmOverloads constructor(
         canvas.withTranslation(x, y) {
             draw(this)
         }
+    }
+
+    private fun isEmptyData(): Boolean {
+        return percentageCircleList.count() == 1 &&
+                percentageCircleList.first().percentOfCircle == 0f
     }
 
     /**

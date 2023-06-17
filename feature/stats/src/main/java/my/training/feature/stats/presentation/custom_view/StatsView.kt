@@ -1,18 +1,13 @@
-package my.training.feature.stats.custom_view.stats_view
+package my.training.feature.stats.presentation.custom_view
 
 import android.content.Context
 import android.util.AttributeSet
 import android.util.Range
-import androidx.annotation.IdRes
 import androidx.constraintlayout.widget.ConstraintLayout
 import by.kirich1409.viewbindingdelegate.viewBinding
-import my.training.feature.stats.MockData
 import my.training.feature.stats.R
 import my.training.feature.stats.databinding.ViewStatsBinding
-import my.training.feature.stats.model.RaceData
-import java.util.Calendar
-import java.util.Locale
-import java.util.TimeZone
+import my.training.feature.stats.domain.model.Stats
 
 private const val THREE_MONTH_DAYS = 90
 private const val ONE_MONTH_DAYS = 30
@@ -40,58 +35,67 @@ internal class StatsView @JvmOverloads constructor(
         R.id.btn_one_week to ONE_WEEK_DAYS
     )
 
-    private val currentCalendar = Calendar.getInstance(TimeZone.getDefault(), Locale.getDefault())
-        .apply {
-            clearTime()
-        }
+    private var toggleListener: ((days: Int) -> Unit)? = null
 
     init {
         inflate(context, R.layout.view_stats, this)
         binding.toggleGroup.check(R.id.btn_one_week)
-        updateStatsData(R.id.btn_one_week)
         initToggleListener()
+    }
+
+    fun setData(
+        data: List<Stats>
+    ) {
+        binding.toggleGroup.isClickable = true
+        updateStatsData(
+            statsData = data
+        )
+    }
+
+    fun setUpdateListener(callback: (Int) -> Unit) {
+        toggleListener = callback
     }
 
     private fun initToggleListener() {
         binding.toggleGroup.addOnButtonCheckedListener { _, checkedId, isChecked ->
             if (isChecked) {
-                updateStatsData(checkedId)
+                binding.toggleGroup.isClickable = false
+                val count = daysMap[checkedId] ?: 0
+                toggleListener?.invoke(count)
             }
         }
     }
 
-    private fun updateStatsData(@IdRes checkedId: Int) {
-        val daysCount = daysMap[checkedId] ?: 0
-        updateData(daysCount)
+    private fun updateStatsData(
+        statsData: List<Stats>
+    ) {
+        val targetId = binding.toggleGroup.checkedButtonId
+        val daysCount = daysMap[targetId] ?: 0
+        updateData(
+            dayCount = daysCount,
+            statsData = statsData
+        )
     }
 
-    private fun updateData(dayCount: Int) {
-        val startDateRangeCalendar = getCalendarInstanceWithDecreaseDays(dayCount)
-
-        val filteredData = MockData.statsData
-            .filter {
-                it.getCalendarInstance()
-                    ?.apply {
-                        clearTime()
-                    }
-                    ?.after(startDateRangeCalendar) == true
-            }
-
-        binding.viewChart.setStatsData(filteredData, dayCount)
+    private fun updateData(
+        dayCount: Int,
+        statsData: List<Stats>
+    ) {
+        binding.viewChart.setStatsData(statsData, dayCount)
 
         initCaloriesStats(
-            races = filteredData,
+            races = statsData,
             dayCount = dayCount
         )
 
         initAverageSpeedStats(
-            races = filteredData,
+            races = statsData,
             dayCount = dayCount
         )
     }
 
     private fun initCaloriesStats(
-        races: List<RaceData>,
+        races: List<Stats>,
         dayCount: Int
     ) {
         val resultList = buildList {
@@ -117,12 +121,16 @@ internal class StatsView @JvmOverloads constructor(
             )
         }
 
-        val mediumValue = races.sumOf { it.burnedCalories } / dayCount
-        val fullMediumValue = races.sumOf { it.burnedCalories } / races.count()
+        val mediumValue = if (races.isNotEmpty())
+            races.sumOf { it.burnedCalories } / races.count()
+        else
+            0.0
+
+        val fullMediumValue = races.sumOf { it.burnedCalories } / dayCount
         binding.viewCaloriesChart.setDataChart(
             data = resultList.toList().ifEmpty {
                 listOf(
-                    (0 to context.getString(my.training.core.strings.R.string.interval_below_100_cal))
+                    (0 to context.getString(my.training.core.strings.R.string.no_workouts))
                 )
             },
             totalSuffix = context.getString(my.training.core.strings.R.string.cal),
@@ -131,7 +139,7 @@ internal class StatsView @JvmOverloads constructor(
     }
 
     private fun initAverageSpeedStats(
-        races: List<RaceData>,
+        races: List<Stats>,
         dayCount: Int
     ) {
         val resultList = buildList {
@@ -157,12 +165,15 @@ internal class StatsView @JvmOverloads constructor(
             )
         }
 
-        val mediumValue = races.sumOf { it.averageSpeed } / races.count()
+        val mediumValue = if (races.isNotEmpty())
+            races.sumOf { it.averageSpeed } / races.count()
+        else
+            0.0
         val fullMediumValue = races.sumOf { it.averageSpeed } / dayCount
         binding.viewSpeedChart.setDataChart(
             data = resultList.toList().ifEmpty {
                 listOf(
-                    (0 to context.getString(my.training.core.strings.R.string.interval_below_5_m_per_s))
+                    (0 to context.getString(my.training.core.strings.R.string.no_workouts))
                 )
             },
             totalSuffix = context.getString(my.training.core.strings.R.string.m_per_s),
@@ -171,7 +182,7 @@ internal class StatsView @JvmOverloads constructor(
     }
 
     private fun MutableList<Pair<Int, String>>.addCaloriesItem(
-        races: List<RaceData>,
+        races: List<Stats>,
         range: Range<Double>,
         description: String
     ) {
@@ -185,7 +196,7 @@ internal class StatsView @JvmOverloads constructor(
     }
 
     private fun MutableList<Pair<Int, String>>.addSpeedItem(
-        races: List<RaceData>,
+        races: List<Stats>,
         range: Range<Double>,
         description: String
     ) {
@@ -200,21 +211,5 @@ internal class StatsView @JvmOverloads constructor(
 
     private fun Double.inRangeExcludeUpperValue(range: Range<Double>): Boolean {
         return this >= range.lower && this < range.upper
-    }
-
-    private fun getCalendarInstanceWithDecreaseDays(dayCount: Int): Calendar {
-        return Calendar.getInstance(TimeZone.getDefault(), Locale.getDefault())
-            .apply {
-                set(Calendar.YEAR, currentCalendar.get(Calendar.YEAR))
-                set(Calendar.DAY_OF_YEAR, currentCalendar.get(Calendar.DAY_OF_YEAR) - dayCount)
-                clearTime()
-            }
-    }
-
-    private fun Calendar.clearTime() {
-        set(Calendar.HOUR, 0)
-        set(Calendar.MINUTE, 0)
-        set(Calendar.SECOND, 0)
-        set(Calendar.MILLISECOND, 0)
     }
 }

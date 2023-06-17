@@ -6,6 +6,6 @@
 
     <fragment
         android:id="@+id/statsFragment"
-        android:name="my.training.feature.stats.StatsFragment"
+        android:name="my.training.feature.stats.presentation.stats_screen.StatsFragment"
         android:label="StatsFragment" />
 </navigation>

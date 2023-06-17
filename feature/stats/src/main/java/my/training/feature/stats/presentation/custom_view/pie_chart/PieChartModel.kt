@@ -1,4 +1,4 @@
-package my.training.feature.stats.custom_view.pie_chart
+package my.training.feature.stats.presentation.custom_view.pie_chart
 
 data class PieChartModel(
     val percentOfCircle: Float,

@@ -50,34 +50,11 @@
         android:layout_height="wrap_content"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/content_layout"
+        <my.training.feature.stats.presentation.custom_view.StatsView
+            android:id="@+id/view_stats"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="@dimen/padding_md" />
 
-            <TextView
-                android:id="@+id/tv_distance_header"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:paddingHorizontal="@dimen/padding_lg"
-                android:paddingTop="@dimen/padding_md"
-                android:paddingBottom="@dimen/padding_xs"
-                android:text="@string/distance"
-                android:textAppearance="?textAppearanceTitleLarge"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <my.training.feature.stats.custom_view.stats_view.StatsView
-                android:id="@+id/view_distance_stats"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/padding_lg"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_distance_header" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

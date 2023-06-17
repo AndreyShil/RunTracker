@@ -1,7 +1,7 @@
-package my.training.feature.stats.custom_view.stats_view
+package my.training.feature.stats.presentation.custom_view.bar_chart
 
-import android.animation.ValueAnimator
 import android.content.Context
+import android.content.res.Configuration
 import android.graphics.Canvas
 import android.graphics.DashPathEffect
 import android.graphics.Paint
@@ -11,23 +11,17 @@ import android.os.Parcel
 import android.os.Parcelable
 import android.util.AttributeSet
 import android.view.View
-import android.view.animation.AccelerateDecelerateInterpolator
 import androidx.core.content.ContextCompat
 import my.training.core.core_api.extensions.readParcelList
 import my.training.feature.stats.R
-import my.training.feature.stats.model.RaceData
+import my.training.feature.stats.domain.model.Stats
 import java.util.Calendar
 import java.util.Locale
-import java.util.TimeZone
 import kotlin.math.min
 import kotlin.math.roundToInt
 
 private const val CHART_SIZE_RATIO = 0.6f
-private const val ANIMATION_DURATION = 1_000L
-private const val MAX_ALPHA = 255
 private const val DASH_PHASE = 0f
-private const val MIN_SCALE_VALUE = 0f
-private const val MAX_SCALE_VALUE = 1f
 private const val EMPTY_BAR_COLOR_ALPHA = 60
 private const val BAR_HEIGHT_RATIO = 1.1
 
@@ -73,25 +67,25 @@ internal class BarChart @JvmOverloads constructor(
     }
 
     private val mainTextColor by lazy(LazyThreadSafetyMode.NONE) {
-        ContextCompat.getColor(context, my.training.core.ui.R.color.md_theme_light_onSurface)
+        ContextCompat.getColor(context, R.color.main_text_color)
     }
 
     private val additionalTextColor by lazy(LazyThreadSafetyMode.NONE) {
-        ContextCompat.getColor(context, my.training.core.ui.R.color.md_theme_light_onSurfaceVariant)
+        ContextCompat.getColor(context, R.color.secondary_text_color)
     }
 
     private val lightColor by lazy(LazyThreadSafetyMode.NONE) {
-        ContextCompat.getColor(context, my.training.core.ui.R.color.md_theme_light_surfaceVariant)
+        ContextCompat.getColor(context, R.color.bar_chart_text_bg_color)
     }
 
     private val barPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         style = Paint.Style.FILL
-        color = ContextCompat.getColor(context, my.training.core.ui.R.color.seed)
+        color = ContextCompat.getColor(context, R.color.bar_chart_bar_color)
     }
 
     private val emptyBarPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         style = Paint.Style.FILL
-        color = ContextCompat.getColor(context, my.training.core.ui.R.color.seed)
+        color = ContextCompat.getColor(context, R.color.bar_chart_empty_bar_color)
         alpha = EMPTY_BAR_COLOR_ALPHA
     }
 
@@ -111,7 +105,7 @@ internal class BarChart @JvmOverloads constructor(
         color = additionalTextColor
     }
 
-    private val textBorderPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+    private val textBackgroundPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         style = Paint.Style.FILL
         strokeWidth = textBorderWidth
         color = lightColor
@@ -133,16 +127,15 @@ internal class BarChart @JvmOverloads constructor(
         }
     }
 
-    private var chartData: List<RaceData> = emptyList()
+    private var chartData: List<Stats> = emptyList()
         set(value) {
             field = value
             invalidate()
         }
 
     private var dayCount = 0
-    private var barHeightScale = 0f
 
-    private val currentCalendar = Calendar.getInstance(TimeZone.getDefault(), Locale.getDefault())
+    private val currentCalendar = Calendar.getInstance(Locale.getDefault())
         .apply {
             clearTime()
         }
@@ -151,12 +144,12 @@ internal class BarChart @JvmOverloads constructor(
      * Data setting methods
      */
     fun setStatsData(
-        stats: List<RaceData>,
+        stats: List<Stats>,
         dayCount: Int
     ) {
         chartData = stats
         this.dayCount = dayCount
-        getBarHeightScaleAnimator().start()
+        invalidate()
     }
 
     /**
@@ -169,11 +162,7 @@ internal class BarChart @JvmOverloads constructor(
         val heightSpecMode = MeasureSpec.getMode(heightMeasureSpec)
         val heightSpecSize = MeasureSpec.getSize(heightMeasureSpec)
 
-        val desiredSize = if (heightSpecSize >= widthSpecSize) {
-            heightSpecSize * CHART_SIZE_RATIO
-        } else {
-            widthSpecSize * CHART_SIZE_RATIO
-        }
+        val desiredSize = calculateDesiredSize(widthSpecSize, heightSpecSize)
 
         val width = getMeasuredDimension(
             specMode = widthSpecMode,
@@ -198,6 +187,25 @@ internal class BarChart @JvmOverloads constructor(
             MeasureSpec.EXACTLY -> specSize
             MeasureSpec.AT_MOST -> min(desiredSize, specSize)
             else -> desiredSize
+        }
+    }
+
+    private fun calculateDesiredSize(
+        widthSpecSize: Int,
+        heightSpecSize: Int
+    ): Float {
+        return if (resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
+            if (heightSpecSize >= widthSpecSize) {
+                heightSpecSize * CHART_SIZE_RATIO
+            } else {
+                widthSpecSize * CHART_SIZE_RATIO
+            }
+        } else {
+            if (heightSpecSize >= widthSpecSize) {
+                resources.displayMetrics.widthPixels * CHART_SIZE_RATIO
+            } else {
+                resources.displayMetrics.heightPixels * CHART_SIZE_RATIO
+            }
         }
     }
 
@@ -243,7 +251,7 @@ internal class BarChart @JvmOverloads constructor(
 
     private fun Canvas.drawBars(
         isTargetDay: Boolean,
-        raceData: RaceData?,
+        raceData: Stats?,
         barStartX: Float,
         barWidth: Float,
         unitY: Double
@@ -251,7 +259,7 @@ internal class BarChart @JvmOverloads constructor(
         if (isTargetDay && raceData != null) {
             drawRoundRect(
                 barStartX,
-                (height - (raceData.distance * unitY) * barHeightScale).toFloat(),
+                (height - (raceData.distance * unitY)).toFloat(),
                 barStartX + barWidth,
                 height.toFloat(),
                 barRadius,
@@ -261,7 +269,7 @@ internal class BarChart @JvmOverloads constructor(
         } else {
             drawRoundRect(
                 barStartX,
-                height * (1f - barHeightScale),
+                0f,
                 barStartX + barWidth,
                 height.toFloat(),
                 barRadius,
@@ -272,7 +280,7 @@ internal class BarChart @JvmOverloads constructor(
     }
 
     private fun Canvas.drawMedianInfoLines(
-        raceItems: List<RaceData>,
+        raceItems: List<Stats>,
         unitY: Double
     ) {
         val activeMedianValue = raceItems.sumOf { it.distance }.toFloat() / raceItems.count()
@@ -299,23 +307,19 @@ internal class BarChart @JvmOverloads constructor(
         textPaintInstance: Paint
     ) {
         val medianY = value * unitY
-        val lineY = (height - medianY * barHeightScale).toFloat()
-        val animatedAlpha = (MAX_ALPHA * barHeightScale).roundToInt()
+        val lineY = (height - medianY).toFloat()
 
         drawLine(
             0f,
             lineY,
             width.toFloat(),
             lineY,
-            linePaintInstance.apply {
-                alpha = animatedAlpha
-            }
+            linePaintInstance
         )
 
         drawLineText(
             value = value,
             textPaintInstance = textPaintInstance,
-            animatedAlpha = animatedAlpha,
             lineY = lineY
         )
     }
@@ -323,14 +327,12 @@ internal class BarChart @JvmOverloads constructor(
     private fun Canvas.drawLineText(
         value: Float,
         textPaintInstance: Paint,
-        animatedAlpha: Int,
         lineY: Float
     ) {
         val displayedText = "${String.format("%.02f", value)} м"
         val textBounds = Rect()
         textPaintInstance.getTextBounds(displayedText, 0, displayedText.length, textBounds)
 
-        textPaintInstance.alpha = animatedAlpha
         val textWidth = textPaintInstance.measureText(displayedText)
         val textHeight = textBounds.height().toFloat()
 
@@ -340,7 +342,6 @@ internal class BarChart @JvmOverloads constructor(
         drawTextBorder(
             startTextX = textX,
             startTextY = textY,
-            animatedAlpha = animatedAlpha,
             textHeight = textHeight,
             textWidth = textWidth
         )
@@ -349,16 +350,13 @@ internal class BarChart @JvmOverloads constructor(
             displayedText,
             textX,
             textY,
-            textPaintInstance.apply {
-                alpha = animatedAlpha
-            }
+            textPaintInstance
         )
     }
 
     private fun Canvas.drawTextBorder(
         startTextX: Float,
         startTextY: Float,
-        animatedAlpha: Int,
         textHeight: Float,
         textWidth: Float
     ) {
@@ -373,22 +371,8 @@ internal class BarChart @JvmOverloads constructor(
             borderTextRect,
             textBorderCornerRadius,
             textBorderCornerRadius,
-            textBorderPaint.apply {
-                alpha = animatedAlpha
-            }
+            textBackgroundPaint
         )
-    }
-
-    private fun getBarHeightScaleAnimator(): ValueAnimator {
-        return ValueAnimator.ofFloat(MIN_SCALE_VALUE, MAX_SCALE_VALUE)
-            .apply {
-                duration = ANIMATION_DURATION
-                interpolator = AccelerateDecelerateInterpolator()
-                addUpdateListener {
-                    barHeightScale = it.animatedValue as Float
-                    invalidate()
-                }
-            }
     }
 
     /**
@@ -412,6 +396,7 @@ internal class BarChart @JvmOverloads constructor(
     }
 
     private fun Calendar.clearTime() {
+        set(Calendar.AM_PM, Calendar.AM)
         set(Calendar.HOUR, 0)
         set(Calendar.MINUTE, 0)
         set(Calendar.SECOND, 0)
@@ -431,7 +416,6 @@ internal class BarChart @JvmOverloads constructor(
                 super.onRestoreInstanceState(state.superState)
                 chartData = state.races
                 dayCount = state.chartDayCount
-                barHeightScale = state.currentScale
             }
 
             else -> super.onRestoreInstanceState(state)
@@ -439,14 +423,13 @@ internal class BarChart @JvmOverloads constructor(
     }
 
     private inner class SavedState : BaseSavedState {
-        var races = emptyList<RaceData>()
+        var races = emptyList<Stats>()
         var chartDayCount = 0
         var currentScale = 0f
 
         constructor(source: Parcelable?) : super(source) {
             races = chartData
             chartDayCount = dayCount
-            currentScale = barHeightScale
         }
 
         constructor(source: Parcel?) : super(source) {

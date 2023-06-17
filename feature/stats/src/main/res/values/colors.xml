@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="bar_chart_bar_color">@color/md_theme_light_onSecondaryContainer</color>
+    <color name="bar_chart_empty_bar_color">@color/md_theme_light_secondary</color>
+    <color name="bar_chart_text_bg_color">@color/md_theme_light_secondaryContainer</color>
+
     <color name="pie_chart_first_color">@color/md_theme_light_error</color>
     <color name="pie_chart_second_color">@color/md_theme_light_tertiary</color>
     <color name="pie_chart_third_color">@color/md_theme_light_primary</color>
