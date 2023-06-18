@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="BottomNavigationView" parent="Widget.Material3.BottomNavigationView">
-
-    </style>
-
     <style name="OutlinedInputLayout" parent="Widget.Material3.TextInputLayout.OutlinedBox">
         <item name="boxStrokeWidth">@dimen/stroke_width_small</item>
     </style>

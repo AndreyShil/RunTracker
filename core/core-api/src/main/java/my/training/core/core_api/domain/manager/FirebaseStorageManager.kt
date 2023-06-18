@@ -2,12 +2,13 @@ package my.training.core.core_api.domain.manager
 
 import android.graphics.Bitmap
 import android.net.Uri
+import my.training.core.core_api.domain.model.enums.FirebaseFolderType
 
 interface FirebaseStorageManager {
 
     fun uploadImage(
         bitmap: Bitmap?,
-        folderName: String,
+        folderType: FirebaseFolderType,
         imageName: String,
         failureListener: ((Exception) -> Unit)? = null,
         successfulListener: ((String) -> Unit)? = null
@@ -15,7 +16,7 @@ interface FirebaseStorageManager {
 
     fun uploadImage(
         fileUri: Uri?,
-        folderName: String,
+        folderType: FirebaseFolderType,
         imageName: String,
         failureListener: ((Exception) -> Unit)? = null,
         successfulListener: ((String) -> Unit)? = null

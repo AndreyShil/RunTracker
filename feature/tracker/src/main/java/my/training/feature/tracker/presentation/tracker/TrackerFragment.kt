@@ -36,6 +36,7 @@ import com.yandex.runtime.image.ImageProvider
 import kotlinx.coroutines.launch
 import my.training.core.core_api.di.ProvidersHolder
 import my.training.core.core_api.domain.manager.FirebaseStorageManager
+import my.training.core.core_api.domain.model.enums.FirebaseFolderType
 import my.training.core.core_api.extensions.isNightModeActive
 import my.training.core.ui.extensions.showSnackbar
 import my.training.feature.tracker.R
@@ -231,7 +232,7 @@ internal class TrackerFragment : Fragment(R.layout.fragment_tracker), UserLocati
     private fun uploadTrackImage(bitmap: Bitmap) {
         firebaseStorageManager.uploadImage(
             bitmap = bitmap,
-            folderName = "races",
+            folderType = FirebaseFolderType.RACES,
             imageName = UUID.randomUUID().toString(),
             failureListener = { exception ->
                 showSnackbar(

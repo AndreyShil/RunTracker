@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/padding_sm"
+    tools:background="?colorSecondaryContainer">
+
+    <TextView
+        android:id="@+id/tv_current_session"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/padding_md"
+        android:text="@string/current_session"
+        android:textAppearance="?textAppearanceLabelLarge"
+        android:textColor="?colorOnSecondaryContainer"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="@id/tv_device_model"
+        app:layout_constraintStart_toStartOf="@id/tv_device_model"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible" />
+
+    <TextView
+        android:id="@+id/tv_device_model"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/padding_xxs"
+        android:layout_marginEnd="@dimen/padding_md"
+        android:textAppearance="?textAppearanceTitleMedium"
+        android:textColor="?colorOnSecondaryContainer"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@id/btn_clear"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_current_session"
+        app:layout_goneMarginTop="0dp"
+        tools:text="Samsung" />
+
+    <TextView
+        android:id="@+id/tv_device_type"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/padding_xxs"
+        android:textAppearance="?textAppearanceTitleSmall"
+        android:textColor="?colorOutline"
+        app:layout_constraintEnd_toEndOf="@id/tv_device_model"
+        app:layout_constraintStart_toStartOf="@id/tv_device_model"
+        app:layout_constraintTop_toBottomOf="@id/tv_device_model"
+        tools:text="Android" />
+
+    <ImageButton
+        android:id="@+id/btn_clear"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="?selectableItemBackgroundBorderless"
+        android:contentDescription="@string/remove_session"
+        android:src="@drawable/ic_cancel_24"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="?colorOutline" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

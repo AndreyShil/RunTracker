@@ -1,131 +1,162 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.motion.widget.MotionLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/motion_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true">
+    android:fitsSystemWindows="true"
+    app:layoutDescription="@xml/fragment_profile_scene">
 
-    <FrameLayout
-        android:id="@+id/top_surface"
+    <ImageView
+        android:id="@+id/toolbar_image"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="200dp"
         android:background="?colorSecondary"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintDimensionRatio="H,1.5:1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0" />
-
-    <TextView
-        android:id="@+id/tv_header"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/padding_lg"
-        android:layout_marginTop="@dimen/padding_lg"
-        android:text="@string/profile"
-        android:textColor="?colorOnSecondary"
-        android:textSize="24sp"
-        android:textStyle="bold"
+        android:contentDescription="@null"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/start_image_guideline"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.35" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/end_image_guideline"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.65" />
-
-    <ImageView
+    <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/avatar"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="@dimen/padding_lg"
-        android:translationZ="@dimen/padding_lg"
+        android:layout_marginBottom="@dimen/padding_md"
+        android:contentDescription="@string/user_avatar"
+        android:elevation="@dimen/default_elevation"
+        android:padding="@dimen/padding_xxs"
+        android:src="@drawable/ic_avatar_placeholder"
+        app:layout_constraintBottom_toTopOf="@id/tv_name"
         app:layout_constraintDimensionRatio="1:1"
-        app:layout_constraintEnd_toEndOf="@id/end_image_guideline"
-        app:layout_constraintStart_toStartOf="@id/start_image_guideline"
-        app:layout_constraintTop_toBottomOf="@id/tv_header" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/toolbar_image"
+        app:shapeAppearance="@style/ImageStyle_CircleRounded"
+        app:strokeColor="?colorSecondary"
+        app:strokeWidth="4dp" />
 
     <TextView
         android:id="@+id/tv_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/padding_md"
+        android:layout_marginBottom="@dimen/padding_md"
+        android:textAppearance="?textAppearanceTitleMedium"
         android:textColor="?colorOnSecondary"
-        android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@id/avatar"
-        app:layout_constraintStart_toStartOf="@id/avatar"
-        app:layout_constraintTop_toBottomOf="@id/avatar"
+        app:layout_constraintBottom_toBottomOf="@id/toolbar_image"
+        app:layout_constraintEnd_toEndOf="@id/toolbar_image"
+        app:layout_constraintStart_toStartOf="@id/toolbar_image"
         tools:text="Имя Фамилия" />
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/menu_card"
-        style="?materialCardViewElevatedStyle"
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scroll_view"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/padding_md"
-        android:layout_marginTop="@dimen/padding_md"
-        app:cardBackgroundColor="?colorSecondary"
-        app:cardCornerRadius="@dimen/card_radius_md"
-        app:cardUseCompatPadding="true"
+        android:layout_height="0dp"
+        android:paddingBottom="@dimen/padding_lg"
+        app:layout_constraintBottom_toTopOf="@id/btn_logout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/top_surface">
+        app:layout_constraintTop_toBottomOf="@id/toolbar_image">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginVertical="@dimen/padding_md"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingHorizontal="@dimen/padding_lg">
 
             <TextView
+                android:id="@+id/tv_app_theme"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingHorizontal="@dimen/padding_md"
-                android:paddingVertical="@dimen/padding_sm"
-                android:text="@string/edit_profile"
-                android:textColor="?attr/colorOnPrimary"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                app:drawableEndCompat="@drawable/ic_edit_24"
-                app:drawableTint="?attr/colorOnPrimary" />
+                android:layout_marginTop="@dimen/padding_lg"
+                android:text="@string/app_theme"
+                android:textAppearance="?textAppearanceTitleLarge"
+                android:textColor="?colorOnSurface"
+                android:textStyle="bold" />
+
+            <com.google.android.material.button.MaterialButtonToggleGroup
+                android:id="@+id/app_theme_toggle_group"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/padding_sm"
+                android:divider="@drawable/toggle_divider"
+                android:showDividers="middle"
+                app:selectionRequired="true"
+                app:singleSelection="true">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_light_theme"
+                    style="?materialIconButtonFilledStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:padding="@dimen/padding_md"
+                    app:cornerRadius="@dimen/padding_md"
+                    app:icon="@drawable/ic_light_mode_48"
+                    app:iconGravity="textStart"
+                    app:iconSize="48dp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_system_theme"
+                    style="?materialIconButtonFilledStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    app:icon="@drawable/ic_settings_suggest_48"
+                    app:iconGravity="textStart"
+                    app:iconSize="48dp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_dark_theme"
+                    style="?materialIconButtonFilledStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:padding="@dimen/padding_md"
+                    app:cornerRadius="@dimen/padding_md"
+                    app:icon="@drawable/ic_dark_mode_48"
+                    app:iconGravity="textStart"
+                    app:iconSize="48dp" />
+
+            </com.google.android.material.button.MaterialButtonToggleGroup>
 
             <TextView
+                android:id="@+id/tv_active_sessions"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingHorizontal="@dimen/padding_md"
-                android:paddingVertical="@dimen/padding_sm"
-                android:text="@string/stats"
-                android:textColor="?attr/colorOnPrimary"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                app:drawableEndCompat="@drawable/ic_stats_24"
-                app:drawableTint="?attr/colorOnPrimary" />
+                android:layout_marginTop="@dimen/padding_lg"
+                android:text="@string/active_sessions"
+                android:textAppearance="?textAppearanceTitleLarge"
+                android:textColor="?colorOnSurface"
+                android:textStyle="bold" />
 
-            <TextView
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_sessions"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingHorizontal="@dimen/padding_md"
-                android:paddingVertical="@dimen/padding_sm"
-                android:text="@string/settings"
-                android:textColor="?attr/colorOnPrimary"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                app:drawableEndCompat="@drawable/ic_settings_24"
-                app:drawableTint="?attr/colorOnPrimary" />
+                android:layout_marginTop="@dimen/padding_md"
+                android:background="@drawable/bg_rounded_24"
+                android:backgroundTint="?colorSecondaryContainer"
+                android:nestedScrollingEnabled="false"
+                android:overScrollMode="never"
+                android:paddingVertical="@dimen/padding_lg"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:itemCount="3"
+                tools:listitem="@layout/item_session" />
+
         </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
 
-    </com.google.android.material.card.MaterialCardView>
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_logout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/padding_lg"
+        android:text="@string/logout"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.motion.widget.MotionLayout>

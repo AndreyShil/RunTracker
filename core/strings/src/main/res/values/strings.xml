@@ -6,6 +6,12 @@
 
     <string name="settings">Настройки</string>
     <string name="edit_profile">Редактировать профиль</string>
+    <string name="user_avatar">Аватар пользователя</string>
+    <string name="app_theme">Тема приложения</string>
+    <string name="active_sessions">Активные сессии</string>
+    <string name="current_session">Текущая сессия</string>
+    <string name="remove_session">Удалить сессию</string>
+    <string name="logout">Выйти</string>
 
     <string name="login">Логин</string>
     <string name="password">Пароль</string>

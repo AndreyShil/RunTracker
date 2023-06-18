@@ -4,6 +4,7 @@ import android.graphics.Bitmap
 import android.net.Uri
 import com.google.firebase.storage.FirebaseStorage
 import my.training.core.core_api.domain.manager.FirebaseStorageManager
+import my.training.core.core_api.domain.model.enums.FirebaseFolderType
 import java.io.ByteArrayOutputStream
 import javax.inject.Inject
 
@@ -11,7 +12,7 @@ internal class FirebaseStorageManagerImpl @Inject constructor() : FirebaseStorag
 
     override fun uploadImage(
         bitmap: Bitmap?,
-        folderName: String,
+        folderType: FirebaseFolderType,
         imageName: String,
         failureListener: ((Exception) -> Unit)?,
         successfulListener: ((String) -> Unit)?
@@ -20,7 +21,7 @@ internal class FirebaseStorageManagerImpl @Inject constructor() : FirebaseStorag
         val reference = FirebaseStorage
             .getInstance()
             .reference
-            .child("$folderName/$imageName")
+            .child("${folderType.getFolderName()}/$imageName")
 
         val outputStream = ByteArrayOutputStream()
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
@@ -38,7 +39,7 @@ internal class FirebaseStorageManagerImpl @Inject constructor() : FirebaseStorag
 
     override fun uploadImage(
         fileUri: Uri?,
-        folderName: String,
+        folderType: FirebaseFolderType,
         imageName: String,
         failureListener: ((Exception) -> Unit)?,
         successfulListener: ((String) -> Unit)?
@@ -47,7 +48,7 @@ internal class FirebaseStorageManagerImpl @Inject constructor() : FirebaseStorag
         val reference = FirebaseStorage
             .getInstance()
             .reference
-            .child("$folderName/$imageName")
+            .child("${folderType.getFolderName()}/$imageName")
 
         reference
             .putFile(fileUri)

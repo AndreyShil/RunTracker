@@ -2,6 +2,7 @@ package my.training.feature.auth.presentation.sign_in
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.content.ContextCompat
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -106,7 +107,11 @@ internal class SignInFragment : Fragment(R.layout.fragment_sign_in) {
     private fun getSpannableData(): List<SpannableData> {
         return listOf(
             SpannableData(
-                text = getString(my.training.core.strings.R.string.have_you_not_account)
+                text = getString(my.training.core.strings.R.string.have_you_not_account),
+                textColorNormal = ContextCompat.getColor(
+                    requireContext(),
+                    my.training.core.ui.R.color.md_theme_light_outline
+                )
             ),
             SpannableData(
                 text = " "
@@ -127,5 +132,4 @@ internal class SignInFragment : Fragment(R.layout.fragment_sign_in) {
     private fun openMainScreen() {
         homeMediator.openMainScreen(this)
     }
-
 }

@@ -11,6 +11,8 @@ interface UserRepository {
 
     suspend fun loadProfile(): NetworkResponse<User>
 
+    suspend fun logout(): NetworkResponse<Unit>
+
     fun getLocalProfileFlow(): Flow<User?>
 
     fun getDeviceInfo(): DeviceInfo

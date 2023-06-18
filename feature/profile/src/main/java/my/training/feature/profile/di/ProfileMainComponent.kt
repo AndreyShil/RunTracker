@@ -6,6 +6,7 @@ import my.training.core.core_api.di.scopes.PerFragment
 import my.training.feature.profile.presentation.main.ProfileFragment
 
 @Component(
+    modules = [ProfileModule::class],
     dependencies = [AggregatingProvider::class]
 )
 @PerFragment

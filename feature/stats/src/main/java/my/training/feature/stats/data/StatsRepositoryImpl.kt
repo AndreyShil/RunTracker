@@ -7,7 +7,6 @@ import my.training.core.core_api.di.qualifiers.DispatcherIO
 import my.training.core.core_api.safeNetworkCall
 import my.training.feature.stats.domain.StatsRepository
 import my.training.feature.stats.domain.model.Stats
-import my.training.feature.stats.mapper.toModel
 import javax.inject.Inject
 
 internal class StatsRepositoryImpl @Inject constructor(

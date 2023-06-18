@@ -6,4 +6,5 @@ interface HomeMediator {
 
     fun openMainScreen(fragment: Fragment)
 
+    fun openAuthScreen(fragment: Fragment)
 }

@@ -70,5 +70,4 @@ internal class MainActivity : AppCompatActivity() {
         navGraph.setStartDestination(destinationId)
         navController.setGraph(navGraph, bundleOf())
     }
-
 }
