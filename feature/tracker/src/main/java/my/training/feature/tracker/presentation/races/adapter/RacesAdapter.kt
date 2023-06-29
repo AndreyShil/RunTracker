@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import my.training.core.core_api.domain.manager.FirebaseStorageManager
 import my.training.feature.tracker.R
-import my.training.feature.tracker.domain.model.RaceModel
+import my.training.feature.tracker.data.model.RaceModel
 import javax.inject.Inject
 
 internal typealias RaceListener = (String) -> Unit

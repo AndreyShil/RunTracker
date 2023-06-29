@@ -41,7 +41,11 @@ internal class RacesFragment : Fragment(R.layout.fragment_races) {
         super.onViewCreated(view, savedInstanceState)
 
         binding.rvRaces.adapter = racesAdapter.apply {
-            setListener(viewModel::updateRacesList)
+            setListener { raceId ->
+                viewModel.setEvent(
+                    RacesContract.Event.UpdateRacesList(raceId)
+                )
+            }
         }
 
         observeUiState()

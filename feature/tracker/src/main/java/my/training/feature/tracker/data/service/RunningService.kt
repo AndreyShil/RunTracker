@@ -1,9 +1,7 @@
-package my.training.feature.tracker.domain.service
+package my.training.feature.tracker.data.service
 
 import android.app.NotificationManager
 import android.app.PendingIntent
-import android.app.PendingIntent.FLAG_IMMUTABLE
-import android.app.PendingIntent.FLAG_UPDATE_CURRENT
 import android.app.Service
 import android.content.Intent
 import android.location.Location
@@ -27,8 +25,8 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import my.training.core.core_api.di.ProvidersHolder
 import my.training.core.iconpack.R
+import my.training.feature.tracker.data.model.RunningState
 import my.training.feature.tracker.di.RunningServiceComponent
-import my.training.feature.tracker.domain.model.RunningState
 import my.training.feature.tracker.extension.getFormattedWatchTime
 import javax.inject.Inject
 
@@ -93,8 +91,7 @@ internal class RunningService : Service() {
     override fun onCreate() {
         super.onCreate()
 
-        RunningServiceComponent
-            .create((application as ProvidersHolder).getAggregatingProvider())
+        RunningServiceComponent.create((application as ProvidersHolder).getAggregatingProvider())
             .inject(this)
     }
 
@@ -188,7 +185,7 @@ internal class RunningService : Service() {
             this,
             requestCode,
             intent,
-            FLAG_UPDATE_CURRENT or FLAG_IMMUTABLE
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
     }
 

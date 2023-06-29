@@ -1,7 +1,7 @@
 package my.training.feature.tracker.presentation.races.adapter
 
 import androidx.recyclerview.widget.DiffUtil
-import my.training.feature.tracker.domain.model.RaceModel
+import my.training.feature.tracker.data.model.RaceModel
 
 internal class RacesDiffUtil : DiffUtil.ItemCallback<RaceModel>() {
 

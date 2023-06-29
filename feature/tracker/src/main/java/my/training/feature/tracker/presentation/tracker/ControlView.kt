@@ -16,7 +16,7 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.google.android.material.button.MaterialButton
 import my.training.feature.tracker.R
 import my.training.feature.tracker.databinding.ViewControlBinding
-import my.training.feature.tracker.domain.model.RunningState
+import my.training.feature.tracker.data.model.RunningState
 
 private const val TRANSITION_DURATION = 300L
 

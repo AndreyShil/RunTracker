@@ -2,34 +2,37 @@ package my.training.feature.tracker.presentation.races
 
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
-import my.training.core.core_api.domain.model.race.Race
 import my.training.core.core_api.extensions.doOnFailure
 import my.training.core.core_api.extensions.doOnSuccess
 import my.training.core.core_api.extensions.getErrorMessage
-import my.training.core.core_api.extensions.getFormattedDate
 import my.training.core.ui.base.BaseViewModel
-import my.training.feature.tracker.domain.RaceRepository
-import my.training.feature.tracker.domain.model.RaceModel
+import my.training.feature.tracker.data.mapper.toRaceModelList
+import my.training.feature.tracker.data.model.RaceModel
+import my.training.feature.tracker.data.repository.RaceRepository
 
 internal class RacesViewModel(
     private val raceRepository: RaceRepository
 ) : BaseViewModel<RacesContract.Event, RacesContract.State, RacesContract.Effect>() {
 
-    private var raceItems = emptyList<RaceModel>()
-
-    override fun createInitialState(): RacesContract.State {
-        return RacesContract.State()
-    }
+    override fun createInitialState(): RacesContract.State = RacesContract.State()
 
     override fun handleEvent(event: RacesContract.Event) {
-
+        when (event) {
+            is RacesContract.Event.UpdateRacesList -> {
+                updateRacesList(event.raceId)
+            }
+        }
     }
 
     init {
+        loadRaces()
+    }
+
+    fun loadRaces() {
         viewModelScope.launch {
             raceRepository.getRaces()
                 .doOnSuccess { races ->
-                    raceItems = races.toRaceModelList()
+                    val raceItems = races.toRaceModelList()
                     setState { copy(races = raceItems) }
                 }
                 .doOnFailure {
@@ -42,29 +45,13 @@ internal class RacesViewModel(
         }
     }
 
-    private fun List<Race>.toRaceModelList(): List<RaceModel> {
-        val raceGroup = this.groupBy { it.date.getFormattedDate() }
-        return buildList {
-            raceGroup.forEach { (date, races) ->
-                add(
-                    RaceModel.DateHeader(
-                        date = date
-                    )
-                )
-                addAll(
-                    races.map { RaceModel.RaceInfo(it) }
-                )
-            }
-        }
-    }
-
-    fun updateRacesList(raceId: String) {
-        val mRaces = raceItems.toMutableList()
+    private fun updateRacesList(raceId: String) {
+        val mRaces = currentState.races.toMutableList()
         val targetRace = mRaces.find { it.getItemId() == raceId }
         if (targetRace is RaceModel.RaceInfo) {
             val index = mRaces.indexOf(targetRace)
             mRaces[index] = targetRace.copy(isExpanded = !targetRace.isExpanded)
-            raceItems = mRaces.toList()
+            val raceItems = mRaces.toList()
             setState { copy(races = raceItems) }
         }
     }

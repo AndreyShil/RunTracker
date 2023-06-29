@@ -2,7 +2,7 @@ package my.training.feature.tracker.presentation.races
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import my.training.feature.tracker.domain.RaceRepository
+import my.training.feature.tracker.data.repository.RaceRepository
 import javax.inject.Inject
 
 internal class RacesViewModelFactory @Inject constructor(

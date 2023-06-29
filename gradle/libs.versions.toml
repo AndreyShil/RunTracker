@@ -26,8 +26,13 @@ serializationConverter = "1.0.0"
 #Other
 coil = "2.3.0"
 #Test
+fragmentTesting = "1.5.7"
 junit = "4.13.2"
 testJunit = "1.1.5"
+testArchCore = "2.2.0"
+robolectric = "4.10.3"
+mockito = "5.0.0"
+coroutineTest = "1.7.1"
 espresso = "3.5.1"
 #Plugins
 gradlePlugin = "8.0.0"
@@ -69,8 +74,13 @@ kotlinx-serialization-converter = { module = "com.jakewharton.retrofit:retrofit2
 #Other
 coil = { module = "io.coil-kt:coil", version.ref = "coil" }
 #Test
+test-androidx-fragment-testing = { module = "androidx.fragment:fragment-testing", version.ref = "fragmentTesting" }
 test-junit = { module = "junit:junit", version.ref = "junit" }
 test-androidx-junit = { module = "androidx.test.ext:junit", version.ref = "testJunit" }
+test-androidx-archCore = { module = "androidx.arch.core:core-testing", version.ref = "testArchCore" }
+test-robolectric = { module = "org.robolectric:robolectric", version.ref = "robolectric" }
+test-mockito = { module = "org.mockito.kotlin:mockito-kotlin", version.ref = "mockito" }
+test-coroutine = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutineTest" }
 test-androidx-espresso = { module = "androidx.test.espresso:espresso-core", version.ref = "espresso" }
 
 [bundles]
@@ -78,6 +88,14 @@ androidx-main = ["androidx-ktx", "androidx-appCompat", "androidx-constraintLayou
 androidx-navigation = ["androidx-nav-fragment", "androidx-nav-ui"]
 androidx-room = ["androidx-room", "androidx-roomKtx"]
 serialization = ["kotlinx-serialization", "kotlinx-serialization-converter"]
+test-unit = [
+    "test-junit",
+    "test-androidx-junit",
+    "test-androidx-archCore",
+    "test-robolectric",
+    "test-mockito",
+    "test-coroutine"
+]
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "gradlePlugin" }

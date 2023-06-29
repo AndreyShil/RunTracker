@@ -1,4 +1,4 @@
-package my.training.feature.tracker.domain.service
+package my.training.feature.tracker.data.service
 
 import android.app.NotificationChannel
 import android.app.NotificationManager

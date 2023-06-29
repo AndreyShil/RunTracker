@@ -5,7 +5,7 @@ import androidx.recyclerview.widget.RecyclerView
 import by.kirich1409.viewbindingdelegate.viewBinding
 import my.training.core.core_api.extensions.getDisplayedDate
 import my.training.feature.tracker.databinding.ItemDateHeaderBinding
-import my.training.feature.tracker.domain.model.RaceModel
+import my.training.feature.tracker.data.model.RaceModel
 
 internal class DateHeaderViewHolder(
     view: View

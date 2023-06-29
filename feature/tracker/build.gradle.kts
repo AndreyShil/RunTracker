@@ -35,6 +35,11 @@ android {
     buildFeatures {
         viewBinding = true
     }
+    testOptions {
+        unitTests {
+            isIncludeAndroidResources = true
+        }
+    }
 }
 
 dependencies {
@@ -57,7 +62,8 @@ dependencies {
     implementation(libs.github.viewBindingDelegate)
     implementation(libs.coil)
 
-    testImplementation(libs.test.junit)
+    debugImplementation(libs.test.androidx.fragment.testing)
+    testImplementation(libs.bundles.test.unit)
     androidTestImplementation(libs.test.androidx.junit)
     androidTestImplementation(libs.test.androidx.espresso)
 }

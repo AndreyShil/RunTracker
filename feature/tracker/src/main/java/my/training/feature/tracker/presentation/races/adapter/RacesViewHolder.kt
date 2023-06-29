@@ -13,7 +13,7 @@ import coil.ImageLoader
 import coil.load
 import my.training.core.core_api.domain.manager.FirebaseStorageManager
 import my.training.feature.tracker.R
-import my.training.feature.tracker.domain.model.RaceModel
+import my.training.feature.tracker.data.model.RaceModel
 import my.training.feature.tracker.databinding.ItemRaceBinding
 import my.training.feature.tracker.extension.displayCalories
 import my.training.feature.tracker.extension.displayDistance

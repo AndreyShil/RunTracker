@@ -7,7 +7,7 @@
 
     <application>
         <service
-            android:name=".domain.service.RunningService"
+            android:name=".data.service.RunningService"
             android:foregroundServiceType="location" />
     </application>
 </manifest>

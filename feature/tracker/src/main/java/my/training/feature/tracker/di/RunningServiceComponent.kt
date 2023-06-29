@@ -3,7 +3,7 @@ package my.training.feature.tracker.di
 import dagger.Component
 import my.training.core.core_api.di.AggregatingProvider
 import my.training.core.core_api.di.scopes.PerService
-import my.training.feature.tracker.domain.service.RunningService
+import my.training.feature.tracker.data.service.RunningService
 
 @Component(
     modules = [LocationClientModule::class],

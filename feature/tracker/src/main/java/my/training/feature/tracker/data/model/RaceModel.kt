@@ -1,8 +1,8 @@
-package my.training.feature.tracker.domain.model
+package my.training.feature.tracker.data.model
 
 import my.training.core.core_api.domain.model.race.Race
 
-internal sealed interface RaceModel {
+ sealed interface RaceModel {
 
     fun getItemId(): String
     fun getItemViewType(): Int

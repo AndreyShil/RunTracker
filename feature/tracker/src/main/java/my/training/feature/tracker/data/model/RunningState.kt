@@ -1,4 +1,4 @@
-package my.training.feature.tracker.domain.model
+package my.training.feature.tracker.data.model
 
 internal enum class RunningState {
     INITIAL,        // Service not started: play button is displayed

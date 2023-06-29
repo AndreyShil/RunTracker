@@ -1,4 +1,4 @@
-package my.training.feature.tracker.domain.service
+package my.training.feature.tracker.data.service
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -15,7 +15,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.launch
 import my.training.core.core_api.di.qualifiers.AppContext
-import my.training.feature.tracker.extension.hasLocationPermission
+import my.training.core.core_api.extensions.hasLocationPermission
 import javax.inject.Inject
 
 private const val LOCATION_UPDATE_INTERVAL = 10_000L

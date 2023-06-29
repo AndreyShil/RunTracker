@@ -1,4 +1,4 @@
-package my.training.feature.tracker.data
+package my.training.feature.tracker.data.repository
 
 import kotlinx.coroutines.CoroutineDispatcher
 import my.training.core.core_api.data.model.NetworkResponse
@@ -9,7 +9,6 @@ import my.training.core.core_api.di.qualifiers.DispatcherIO
 import my.training.core.core_api.safeNetworkCall
 import my.training.core.core_api.toModel
 import my.training.core.core_api.toRequestBody
-import my.training.feature.tracker.domain.RaceRepository
 import javax.inject.Inject
 
 internal class RaceRepositoryImpl @Inject constructor(

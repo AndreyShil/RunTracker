@@ -8,16 +8,14 @@ import my.training.core.core_api.extensions.doOnSuccess
 import my.training.core.core_api.extensions.getCurrentDate
 import my.training.core.core_api.extensions.getErrorMessage
 import my.training.core.ui.base.BaseViewModel
-import my.training.feature.tracker.domain.RaceRepository
+import my.training.feature.tracker.data.repository.RaceRepository
 import kotlin.math.roundToInt
 
 internal class TrackerViewModel(
     private val raceRepository: RaceRepository
 ) : BaseViewModel<TrackerContract.Event, TrackerContract.State, TrackerContract.Effect>() {
 
-    override fun createInitialState(): TrackerContract.State {
-        return TrackerContract.State()
-    }
+    override fun createInitialState(): TrackerContract.State = TrackerContract.State()
 
     override fun handleEvent(event: TrackerContract.Event) {
         when (event) {
@@ -46,7 +44,7 @@ internal class TrackerViewModel(
         }
     }
 
-    private fun addNewWorkout() {
+    fun addNewWorkout() {
         viewModelScope.launch {
             raceRepository.createRace(currentState.race)
                 .doOnSuccess {
@@ -64,5 +62,4 @@ internal class TrackerViewModel(
                 }
         }
     }
-
 }

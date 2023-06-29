@@ -37,15 +37,15 @@ import kotlinx.coroutines.launch
 import my.training.core.core_api.di.ProvidersHolder
 import my.training.core.core_api.domain.manager.FirebaseStorageManager
 import my.training.core.core_api.domain.model.enums.FirebaseFolderType
+import my.training.core.core_api.extensions.hasLocationPermission
 import my.training.core.core_api.extensions.isNightModeActive
 import my.training.core.ui.extensions.showSnackbar
 import my.training.feature.tracker.R
 import my.training.feature.tracker.databinding.FragmentTrackerBinding
 import my.training.feature.tracker.databinding.ViewTrackingControlBinding
 import my.training.feature.tracker.di.TrackerComponent
-import my.training.feature.tracker.domain.service.RunningService
+import my.training.feature.tracker.data.service.RunningService
 import my.training.feature.tracker.extension.getFormattedWatchTime
-import my.training.feature.tracker.extension.hasLocationPermission
 import java.util.UUID
 import javax.inject.Inject
 
