@@ -5,7 +5,7 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import by.kirich1409.viewbindingdelegate.viewBinding
 import my.training.feature.profile.databinding.ItemSessionBinding
-import my.training.feature.profile.domain.model.Session
+import my.training.feature.profile.data.model.Session
 
 internal class SessionsViewHolder(
     view: View,

@@ -5,7 +5,7 @@ import dagger.Module
 import dagger.Provides
 import my.training.core.core_api.di.HomeMediator
 import my.training.feature.auth.data.AuthRepositoryImpl
-import my.training.feature.auth.domain.AuthRepository
+import my.training.feature.auth.data.AuthRepository
 import javax.inject.Provider
 
 @Module

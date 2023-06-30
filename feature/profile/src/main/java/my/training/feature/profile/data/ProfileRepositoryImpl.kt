@@ -5,8 +5,7 @@ import my.training.core.core_api.data.model.NetworkResponse
 import my.training.core.core_api.data.network.UserApiService
 import my.training.core.core_api.di.qualifiers.DispatcherIO
 import my.training.core.core_api.safeNetworkCall
-import my.training.feature.profile.domain.ProfileRepository
-import my.training.feature.profile.domain.model.Session
+import my.training.feature.profile.data.model.Session
 import javax.inject.Inject
 
 internal class ProfileRepositoryImpl @Inject constructor(

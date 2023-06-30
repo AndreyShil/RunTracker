@@ -11,7 +11,9 @@ import my.training.core.core_api.extensions.doOnFailure
 import my.training.core.core_api.extensions.doOnSuccess
 import my.training.core.core_api.extensions.getErrorMessage
 import my.training.core.ui.base.BaseViewModel
-import my.training.feature.profile.domain.ProfileRepository
+import my.training.feature.profile.data.ProfileRepository
+
+private const val STOP_TIMEOUT_MILLIS = 5_000L
 
 internal class ProfileViewModel(
     private val userRepository: UserRepository,
@@ -51,7 +53,7 @@ internal class ProfileViewModel(
     val profileFlow = userRepository.getLocalProfileFlow()
         .stateIn(
             viewModelScope,
-            SharingStarted.WhileSubscribed(5000),
+            SharingStarted.WhileSubscribed(STOP_TIMEOUT_MILLIS),
             User()
         )
 

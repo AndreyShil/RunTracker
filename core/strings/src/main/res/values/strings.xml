@@ -54,5 +54,11 @@
     <string name="interval_7_5_10_m_per_s">от 7,5 до 10 м/с</string>
     <string name="interval_above_10_m_per_s">&#62; 10 м/с</string>
 
+    <string name="workout_was_added">Тренировка добавлена</string>
+    <string name="workout_was_started">Тренировка запущена</string>
     <string name="no_workouts">Нет тренировок</string>
+
+    <string name="start">Начать</string>
+    <string name="pause">Пауза</string>
+    <string name="stop">Стоп</string>
 </resources>

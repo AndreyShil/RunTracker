@@ -1,7 +1,7 @@
-package my.training.feature.profile.domain
+package my.training.feature.profile.data
 
 import my.training.core.core_api.data.model.NetworkResponse
-import my.training.feature.profile.domain.model.Session
+import my.training.feature.profile.data.model.Session
 
 internal interface ProfileRepository {
 

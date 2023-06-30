@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import my.training.core.core_api.domain.preferences.AppSettings
 import my.training.core.core_api.domain.repository.UserRepository
-import my.training.feature.profile.domain.ProfileRepository
+import my.training.feature.profile.data.ProfileRepository
 import javax.inject.Inject
 
 internal class ProfileViewModelFactory @Inject constructor(

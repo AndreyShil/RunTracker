@@ -3,7 +3,7 @@ package my.training.feature.auth.presentation.sign_in
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import my.training.core.core_api.domain.preferences.Preferences
-import my.training.feature.auth.domain.AuthRepository
+import my.training.feature.auth.data.AuthRepository
 import javax.inject.Inject
 
 internal class SignInViewModelFactory @Inject constructor(

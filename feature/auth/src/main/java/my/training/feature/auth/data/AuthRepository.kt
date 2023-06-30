@@ -1,4 +1,4 @@
-package my.training.feature.auth.domain
+package my.training.feature.auth.data
 
 import my.training.core.core_api.data.model.NetworkResponse
 import my.training.core.core_api.domain.model.user.AuthUserModel

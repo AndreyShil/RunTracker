@@ -1,4 +1,4 @@
-package my.training.feature.profile.domain.model
+package my.training.feature.profile.data.model
 
 internal data class Session(
     val id: String,

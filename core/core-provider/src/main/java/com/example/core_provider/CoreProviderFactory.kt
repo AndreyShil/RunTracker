@@ -5,12 +5,14 @@ import my.training.core.core_api.di.DatabaseProvider
 import my.training.core.core_api.di.FirebaseStorageProvider
 import my.training.core.core_api.di.NetworkProvider
 import my.training.core.core_api.di.PreferencesProvider
+import my.training.core.core_api.di.ResourcesProvider
 //import my.training.core.core_api.di.RaceRepositoryProvider
 import my.training.core.core_api.di.UserRepositoryProvider
 import my.training.core.core_impl.di.components.DatabaseComponent
 import my.training.core.core_impl.di.components.FirebaseStorageComponent
 import my.training.core.core_impl.di.components.NetworkComponent
 import my.training.core.core_impl.di.components.PreferencesComponent
+import my.training.core.core_impl.di.components.ResourcesManagerComponent
 //import my.training.core.core_impl.di.components.RaceRepositoryComponent
 import my.training.core.core_impl.di.components.UserRepositoryComponent
 
@@ -34,5 +36,9 @@ object CoreProviderFactory {
 
     fun firebaseStorageProvider(): FirebaseStorageProvider {
         return FirebaseStorageComponent.create()
+    }
+
+    fun resourcesManagerProvider(contextProvider: ContextProvider): ResourcesProvider {
+        return ResourcesManagerComponent.create(contextProvider)
     }
 }

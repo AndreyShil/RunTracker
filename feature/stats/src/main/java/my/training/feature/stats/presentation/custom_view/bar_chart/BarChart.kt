@@ -14,7 +14,7 @@ import android.view.View
 import androidx.core.content.ContextCompat
 import my.training.core.core_api.extensions.readParcelList
 import my.training.feature.stats.R
-import my.training.feature.stats.domain.model.Stats
+import my.training.feature.stats.data.model.Stats
 import java.util.Calendar
 import java.util.Locale
 import kotlin.math.min

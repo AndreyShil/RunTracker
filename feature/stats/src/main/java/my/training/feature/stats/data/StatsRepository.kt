@@ -1,7 +1,7 @@
-package my.training.feature.stats.domain
+package my.training.feature.stats.data
 
 import my.training.core.core_api.data.model.NetworkResponse
-import my.training.feature.stats.domain.model.Stats
+import my.training.feature.stats.data.model.Stats
 
 internal interface StatsRepository {
 

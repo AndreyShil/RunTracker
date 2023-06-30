@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import my.training.feature.profile.R
-import my.training.feature.profile.domain.model.Session
+import my.training.feature.profile.data.model.Session
 import javax.inject.Inject
 
 internal typealias RemoveSessionListener = (String) -> Unit

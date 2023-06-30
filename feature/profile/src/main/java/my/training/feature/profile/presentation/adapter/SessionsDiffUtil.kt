@@ -1,7 +1,7 @@
 package my.training.feature.profile.presentation.adapter
 
 import androidx.recyclerview.widget.DiffUtil
-import my.training.feature.profile.domain.model.Session
+import my.training.feature.profile.data.model.Session
 
 internal class SessionsDiffUtil : DiffUtil.ItemCallback<Session>() {
 

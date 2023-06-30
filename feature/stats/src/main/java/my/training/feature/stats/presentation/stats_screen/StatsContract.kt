@@ -3,7 +3,7 @@ package my.training.feature.stats.presentation.stats_screen
 import my.training.core.ui.base.UiEffect
 import my.training.core.ui.base.UiEvent
 import my.training.core.ui.base.UiState
-import my.training.feature.stats.domain.model.Stats
+import my.training.feature.stats.data.model.Stats
 
 internal object StatsContract {
 

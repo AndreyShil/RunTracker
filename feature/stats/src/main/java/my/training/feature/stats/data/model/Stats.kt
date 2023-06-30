@@ -1,4 +1,4 @@
-package my.training.feature.stats.domain.model
+package my.training.feature.stats.data.model
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize

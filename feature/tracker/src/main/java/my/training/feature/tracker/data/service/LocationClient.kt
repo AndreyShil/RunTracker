@@ -17,6 +17,7 @@ import kotlinx.coroutines.launch
 import my.training.core.core_api.di.qualifiers.AppContext
 import my.training.core.core_api.extensions.hasLocationPermission
 import javax.inject.Inject
+import my.training.core.strings.R as stringsR
 
 private const val LOCATION_UPDATE_INTERVAL = 10_000L
 private const val FASTEST_LOCATION_INTERVAL = 8_000L
@@ -59,7 +60,7 @@ internal class LocationClient @Inject constructor(
     private fun checkLocationDetermineEnabled() {
         if (!appContext.hasLocationPermission()) {
             throw RuntimeException(
-                appContext.getString(my.training.core.strings.R.string.missing_location_permission)
+                appContext.getString(stringsR.string.missing_location_permission)
             )
         }
 
@@ -69,7 +70,7 @@ internal class LocationClient @Inject constructor(
             locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
         if (!isGpsEnabled && !isNetworkEnabled) {
             throw RuntimeException(
-                appContext.getString(my.training.core.strings.R.string.location_disabled)
+                appContext.getString(stringsR.string.location_disabled)
             )
         }
     }

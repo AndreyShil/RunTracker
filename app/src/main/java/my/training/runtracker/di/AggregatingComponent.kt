@@ -9,6 +9,7 @@ import my.training.core.core_api.di.DatabaseProvider
 import my.training.core.core_api.di.FirebaseStorageProvider
 import my.training.core.core_api.di.NetworkProvider
 import my.training.core.core_api.di.PreferencesProvider
+import my.training.core.core_api.di.ResourcesProvider
 import my.training.core.core_api.di.UserRepositoryProvider
 import my.training.core.core_api.di.scopes.PerApplication
 
@@ -20,7 +21,8 @@ import my.training.core.core_api.di.scopes.PerApplication
         UserRepositoryProvider::class,
         PreferencesProvider::class,
         DatabaseProvider::class,
-        FirebaseStorageProvider::class
+        FirebaseStorageProvider::class,
+        ResourcesProvider::class
     ]
 )
 @PerApplication
@@ -41,7 +43,10 @@ interface AggregatingComponent : AggregatingProvider {
                     networkProvider = CoreProviderFactory.networkProvider(contextProvider),
                     preferencesProvider = CoreProviderFactory.preferencesProvider(contextProvider),
                     databaseProvider = CoreProviderFactory.databaseProvider(contextProvider),
-                    firebaseStorageProvider = CoreProviderFactory.firebaseStorageProvider()
+                    firebaseStorageProvider = CoreProviderFactory.firebaseStorageProvider(),
+                    resourcesManagerProvider = CoreProviderFactory.resourcesManagerProvider(
+                        contextProvider
+                    )
                 ).also { aggregatingComponent = it }
         }
     }
@@ -54,8 +59,8 @@ interface AggregatingComponent : AggregatingProvider {
             userRepositoryProvider: UserRepositoryProvider,
             preferencesProvider: PreferencesProvider,
             databaseProvider: DatabaseProvider,
-            firebaseStorageProvider: FirebaseStorageProvider
+            firebaseStorageProvider: FirebaseStorageProvider,
+            resourcesManagerProvider: ResourcesProvider
         ): AggregatingComponent
     }
-
 }

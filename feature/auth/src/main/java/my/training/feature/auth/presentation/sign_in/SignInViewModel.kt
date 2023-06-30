@@ -8,7 +8,7 @@ import my.training.core.core_api.extensions.doOnFailure
 import my.training.core.core_api.extensions.doOnSuccess
 import my.training.core.core_api.extensions.getErrorMessage
 import my.training.core.ui.base.BaseViewModel
-import my.training.feature.auth.domain.AuthRepository
+import my.training.feature.auth.data.AuthRepository
 
 internal class SignInViewModel(
     private val authRepository: AuthRepository,

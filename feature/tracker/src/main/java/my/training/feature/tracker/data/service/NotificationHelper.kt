@@ -7,16 +7,20 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
 import my.training.core.core_api.di.qualifiers.AppContext
+import my.training.core.core_api.domain.manager.ResourcesManager
 import javax.inject.Inject
+import my.training.core.iconpack.R as iconsR
+import my.training.core.strings.R as stringsR
 
 internal class NotificationHelper @Inject constructor(
-    @AppContext private val context: Context
+    @AppContext private val context: Context,
+    private val resourcesManager: ResourcesManager
 ) {
 
     fun getNotificationBuilder(): NotificationCompat.Builder {
         return NotificationCompat.Builder(context, NOTIFICATION_CHANNEL_ID)
-            .setContentTitle("Running...")
-            .setSmallIcon(my.training.core.iconpack.R.drawable.ic_run_40)
+            .setContentTitle(resourcesManager.getString(stringsR.string.workout_was_started))
+            .setSmallIcon(iconsR.drawable.ic_run_40)
             .setOngoing(true)
     }
 

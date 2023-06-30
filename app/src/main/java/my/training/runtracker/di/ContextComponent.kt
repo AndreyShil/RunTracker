@@ -26,5 +26,4 @@ interface ContextComponent : ContextProvider {
                 .also { contextComponent = it }
         }
     }
-
 }

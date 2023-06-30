@@ -24,11 +24,14 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import my.training.core.core_api.di.ProvidersHolder
+import my.training.core.core_api.domain.manager.ResourcesManager
 import my.training.core.iconpack.R
 import my.training.feature.tracker.data.model.RunningState
 import my.training.feature.tracker.di.RunningServiceComponent
 import my.training.feature.tracker.extension.getFormattedWatchTime
 import javax.inject.Inject
+import my.training.core.strings.R as stringsR
+
 
 typealias locationsCallback = (List<Location>) -> Unit
 
@@ -39,6 +42,9 @@ internal class RunningService : Service() {
 
     @Inject
     lateinit var notificationHelper: NotificationHelper
+
+    @Inject
+    lateinit var resourcesManager: ResourcesManager
 
     private val serviceScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
 
@@ -71,7 +77,7 @@ internal class RunningService : Service() {
                     _timeRunInMillis.value = timeRun + lapTime
                     updateNotificationTime(timeRunInMillis.value)
                 }
-                delay(50)
+                delay(TIME_DELAY)
             }
             timeRun += lapTime
 
@@ -91,7 +97,8 @@ internal class RunningService : Service() {
     override fun onCreate() {
         super.onCreate()
 
-        RunningServiceComponent.create((application as ProvidersHolder).getAggregatingProvider())
+        RunningServiceComponent
+            .create((application as ProvidersHolder).getAggregatingProvider())
             .inject(this)
     }
 
@@ -155,9 +162,21 @@ internal class RunningService : Service() {
             requestCode = 3
         )
 
-        addAction(R.drawable.ic_play_40, "Начать", resumePendingIntent)
-        addAction(R.drawable.ic_pause_40, "Пауза", pausePendingIntent)
-        addAction(R.drawable.ic_stop_40, "Стоп", stopPendingIntent)
+        addAction(
+            R.drawable.ic_play_40,
+            resourcesManager.getString(stringsR.string.start),
+            resumePendingIntent
+        )
+        addAction(
+            R.drawable.ic_pause_40,
+            resourcesManager.getString(stringsR.string.pause),
+            pausePendingIntent
+        )
+        addAction(
+            R.drawable.ic_stop_40,
+            resourcesManager.getString(stringsR.string.stop),
+            stopPendingIntent
+        )
     }
 
     private fun updateNotificationTime(currentTime: Long?) {
@@ -231,6 +250,6 @@ internal class RunningService : Service() {
         const val ACTION_STOP_SERVICE = "ACTION_STOP_SERVICE"
 
         private const val NOTIFICATION_ID = 1
+        private const val TIME_DELAY = 50L
     }
-
 }

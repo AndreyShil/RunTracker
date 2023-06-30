@@ -5,7 +5,7 @@ import my.training.core.core_api.domain.model.user.User
 import my.training.core.ui.base.UiEffect
 import my.training.core.ui.base.UiEvent
 import my.training.core.ui.base.UiState
-import my.training.feature.profile.domain.model.Session
+import my.training.feature.profile.data.model.Session
 
 internal object ProfileContract {
 

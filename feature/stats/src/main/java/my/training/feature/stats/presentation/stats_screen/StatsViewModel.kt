@@ -6,7 +6,7 @@ import my.training.core.core_api.extensions.doOnFailure
 import my.training.core.core_api.extensions.doOnSuccess
 import my.training.core.core_api.extensions.getErrorMessage
 import my.training.core.ui.base.BaseViewModel
-import my.training.feature.stats.domain.StatsRepository
+import my.training.feature.stats.data.StatsRepository
 
 internal class StatsViewModel(
     private val statsRepository: StatsRepository
@@ -15,12 +15,9 @@ internal class StatsViewModel(
     val listener: (Int) -> Unit = {
         loadData(it)
     }
-    override fun createInitialState(): StatsContract.State {
-        return StatsContract.State()
-    }
 
-    override fun handleEvent(event: StatsContract.Event) {
-    }
+    override fun createInitialState(): StatsContract.State = StatsContract.State()
+    override fun handleEvent(event: StatsContract.Event) = Unit
 
     private fun loadData(dayCount: Int) {
         setState { copy(isLoading = true) }

@@ -13,7 +13,6 @@ import my.training.core.core_api.domain.repository.UserRepository
 import my.training.core.core_api.mapper.toBody
 import my.training.core.core_api.mapper.toModel
 import my.training.core.core_api.safeNetworkCall
-import my.training.feature.auth.domain.AuthRepository
 import javax.inject.Inject
 
 internal class AuthRepositoryImpl @Inject constructor(

@@ -7,7 +7,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import by.kirich1409.viewbindingdelegate.viewBinding
 import my.training.feature.stats.R
 import my.training.feature.stats.databinding.ViewStatsBinding
-import my.training.feature.stats.domain.model.Stats
+import my.training.feature.stats.data.model.Stats
 
 private const val THREE_MONTH_DAYS = 90
 private const val ONE_MONTH_DAYS = 30
