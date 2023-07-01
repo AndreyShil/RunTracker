@@ -6,7 +6,7 @@ import my.training.core.core_api.di.AggregatingProvider
 import my.training.core.core_api.di.ProvidersHolder
 import my.training.runtracker.di.AggregatingComponent
 
-class App : Application(), ProvidersHolder {
+open class App : Application(), ProvidersHolder {
 
     override fun onCreate() {
         super.onCreate()

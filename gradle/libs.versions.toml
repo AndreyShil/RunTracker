@@ -26,7 +26,7 @@ serializationConverter = "1.0.0"
 #Other
 coil = "2.3.0"
 #Test
-fragmentTesting = "1.5.7"
+fragmentTesting = "1.6.0"
 junit = "4.13.2"
 testJunit = "1.1.5"
 testArchCore = "2.2.0"
@@ -52,6 +52,7 @@ androidx-room = { module = "androidx.room:room-runtime", version.ref = "roomData
 androidx-roomKtx = { module = "androidx.room:room-ktx", version.ref = "roomDatabase" }
 androidx-roomCompiler = { module = "androidx.room:room-compiler", version.ref = "roomDatabase" }
 androidx-splashScreen = { module = "androidx.core:core-splashscreen", version.ref = "splashScreen" }
+androidx-idlingResource = { module = "androidx.test.espresso:espresso-idling-resource", version.ref = "espresso" }
 #Google
 google-material = { module = "com.google.android.material:material", version.ref = "material" }
 google-dagger = { module = "com.google.dagger:dagger", version.ref = "dagger" }
@@ -82,6 +83,7 @@ test-robolectric = { module = "org.robolectric:robolectric", version.ref = "robo
 test-mockito = { module = "org.mockito.kotlin:mockito-kotlin", version.ref = "mockito" }
 test-coroutine = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutineTest" }
 test-androidx-espresso = { module = "androidx.test.espresso:espresso-core", version.ref = "espresso" }
+test-androidx-espresso-contrib = { module = "androidx.test.espresso:espresso-contrib", version.ref = "espresso" }
 
 [bundles]
 androidx-main = ["androidx-ktx", "androidx-appCompat", "androidx-constraintLayout"]
@@ -95,6 +97,11 @@ test-unit = [
     "test-robolectric",
     "test-mockito",
     "test-coroutine"
+]
+test-ui = [
+    "test-androidx-junit",
+    "test-androidx-espresso",
+    "test-androidx-espresso-contrib"
 ]
 
 [plugins]

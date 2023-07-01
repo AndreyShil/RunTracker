@@ -1,6 +1,7 @@
 package my.training.feature.auth.presentation.sign_up
 
 import androidx.lifecycle.viewModelScope
+import androidx.test.espresso.idling.CountingIdlingResource
 import kotlinx.coroutines.launch
 import my.training.core.core_api.domain.model.user.register.RegisterData
 import my.training.core.core_api.domain.preferences.Preferences
@@ -10,10 +11,12 @@ import my.training.core.core_api.extensions.getErrorMessage
 import my.training.core.ui.base.BaseViewModel
 import my.training.core.ui.extensions.isValidEmail
 import my.training.feature.auth.data.AuthRepository
+import java.util.Optional
 
 internal class SignUpViewModel(
     private val authRepository: AuthRepository,
-    private val preferences: Preferences
+    private val preferences: Preferences,
+    private val idlingResource: Optional<CountingIdlingResource>
 ) : BaseViewModel<SignUpContract.Event, SignUpContract.State, SignUpContract.Effect>() {
 
     override fun createInitialState(): SignUpContract.State {
@@ -75,20 +78,23 @@ internal class SignUpViewModel(
             return
         }
         setLoadingState(true)
+        idlingResource.ifPresent { it.increment() }
         viewModelScope.launch {
             authRepository.register(uiState.value.toRegisterData())
-                .doOnSuccess {
-                    preferences.saveAccessToken(it.accessToken)
+                .doOnSuccess { user ->
+                    preferences.saveAccessToken(user.accessToken)
                     setEffect {
                         SignUpContract.Effect.OpenMainScreen
                     }
                     setLoadingState(false)
+                    idlingResource.ifPresent { it.decrement() }
                 }
                 .doOnFailure { failure ->
                     setEffect {
                         SignUpContract.Effect.ShowError(failure.getErrorMessage())
                     }
                     setLoadingState(false)
+                    idlingResource.ifPresent { it.decrement() }
                 }
         }
     }

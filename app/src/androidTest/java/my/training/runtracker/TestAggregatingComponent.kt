@@ -1,8 +1,12 @@
-package my.training.runtracker.di
+package my.training.runtracker
 
 import android.content.Context
+import androidx.test.espresso.idling.CountingIdlingResource
 import com.example.core_provider.CoreProviderFactory
+import dagger.BindsOptionalOf
 import dagger.Component
+import dagger.Module
+import dagger.Provides
 import my.training.core.core_api.di.AggregatingProvider
 import my.training.core.core_api.di.ContextProvider
 import my.training.core.core_api.di.DatabaseProvider
@@ -11,10 +15,12 @@ import my.training.core.core_api.di.NetworkProvider
 import my.training.core.core_api.di.PreferencesProvider
 import my.training.core.core_api.di.ResourcesProvider
 import my.training.core.core_api.di.UserRepositoryProvider
-import my.training.core.core_api.di.scopes.PerApplication
+import my.training.runtracker.di.ContextComponent
+import my.training.runtracker.di.HomeMediatorModule
+import javax.inject.Singleton
 
 @Component(
-    modules = [HomeMediatorModule::class, IdlingResourceModule::class],
+    modules = [HomeMediatorModule::class, TestIdlingResourceModule::class],
     dependencies = [
         ContextProvider::class,
         NetworkProvider::class,
@@ -25,16 +31,18 @@ import my.training.core.core_api.di.scopes.PerApplication
         ResourcesProvider::class
     ]
 )
-@PerApplication
-interface AggregatingComponent : AggregatingProvider {
+@Singleton
+interface TestAggregatingComponent : AggregatingProvider {
+
+    fun inject(userFlowTest: UserAuthTest)
 
     companion object {
 
-        private var aggregatingComponent: AggregatingComponent? = null
+        private var aggregatingComponent: TestAggregatingComponent? = null
 
-        fun create(context: Context): AggregatingComponent {
+        fun create(context: Context): TestAggregatingComponent {
             val contextProvider = ContextComponent.create(context)
-            return aggregatingComponent ?: DaggerAggregatingComponent.factory()
+            return aggregatingComponent ?: DaggerTestAggregatingComponent.factory()
                 .create(
                     contextProvider = contextProvider,
                     userRepositoryProvider = CoreProviderFactory.userRepositoryProvider(
@@ -61,6 +69,23 @@ interface AggregatingComponent : AggregatingProvider {
             databaseProvider: DatabaseProvider,
             firebaseStorageProvider: FirebaseStorageProvider,
             resourcesManagerProvider: ResourcesProvider
-        ): AggregatingComponent
+        ): TestAggregatingComponent
     }
+
 }
+
+@Module
+interface TestIdlingResourceModule {
+
+    companion object {
+        @Provides
+        @Singleton
+        fun provideIdlingResource(): CountingIdlingResource {
+            return CountingIdlingResource("test_resource")
+        }
+    }
+
+    @BindsOptionalOf
+    fun provideIdlingResource(): CountingIdlingResource
+}
+

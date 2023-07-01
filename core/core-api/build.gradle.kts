@@ -36,6 +36,7 @@ android {
 dependencies {
     implementation(libs.androidx.ktx)
     implementation(libs.androidx.appCompat)
+    implementation(libs.androidx.idlingResource)
     implementation(libs.google.dagger)
 
     implementation(platform(libs.squareup.okhhtp.bom))

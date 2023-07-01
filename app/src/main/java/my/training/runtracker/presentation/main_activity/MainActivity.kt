@@ -15,7 +15,7 @@ import my.training.runtracker.App
 import my.training.runtracker.R
 import javax.inject.Inject
 
-internal class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity() {
 
     @Inject
     lateinit var viewModelFactory: MainActivityViewModelFactory

@@ -8,4 +8,5 @@ interface AggregatingProvider : MediatorsMapProvider,
     DatabaseProvider,
     FirebaseStorageProvider,
     NetworkProvider,
-    ResourcesProvider
+    ResourcesProvider,
+    IdlingResourceProvider

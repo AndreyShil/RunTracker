@@ -10,14 +10,15 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import by.kirich1409.viewbindingdelegate.viewBinding
 import kotlinx.coroutines.launch
-import my.training.core.core_api.di.ProvidersHolder
 import my.training.core.core_api.di.HomeMediator
+import my.training.core.core_api.di.ProvidersHolder
 import my.training.core.ui.extensions.hideKeyboard
 import my.training.core.ui.extensions.showSnackbar
 import my.training.feature.auth.R
 import my.training.feature.auth.databinding.FragmentSignUpBinding
 import my.training.feature.auth.di.SignUpComponent
 import javax.inject.Inject
+import my.training.core.strings.R as stringsR
 
 internal class SignUpFragment : Fragment(R.layout.fragment_sign_up) {
 
@@ -125,7 +126,7 @@ internal class SignUpFragment : Fragment(R.layout.fragment_sign_up) {
 
     private fun updatePasswordError(hasError: Boolean) {
         val errorString = if (hasError)
-            getString(my.training.core.strings.R.string.passwords_not_matched)
+            getString(stringsR.string.passwords_not_matched)
         else
             null
 
@@ -135,7 +136,7 @@ internal class SignUpFragment : Fragment(R.layout.fragment_sign_up) {
 
     private fun updateEmailError(hasError: Boolean) {
         val errorString = if (hasError)
-            getString(my.training.core.strings.R.string.email_invalid)
+            getString(stringsR.string.email_invalid)
         else
             null
         binding.emailInputLayout.error = errorString
@@ -144,5 +145,4 @@ internal class SignUpFragment : Fragment(R.layout.fragment_sign_up) {
     private fun openMainScreen() {
         homeMediator.openMainScreen(this)
     }
-
 }

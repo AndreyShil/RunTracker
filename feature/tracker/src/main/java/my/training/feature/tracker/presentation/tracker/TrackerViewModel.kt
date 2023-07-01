@@ -1,5 +1,6 @@
 package my.training.feature.tracker.presentation.tracker
 
+import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import my.training.core.core_api.domain.manager.ResourcesManager
@@ -47,6 +48,7 @@ internal class TrackerViewModel(
         }
     }
 
+    @VisibleForTesting
     fun addNewWorkout() {
         viewModelScope.launch {
             raceRepository.createRace(currentState.race)

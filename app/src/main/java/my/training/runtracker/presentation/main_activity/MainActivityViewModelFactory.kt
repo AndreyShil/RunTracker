@@ -7,7 +7,7 @@ import my.training.core.core_api.domain.preferences.Preferences
 import my.training.core.core_api.domain.repository.UserRepository
 import javax.inject.Inject
 
-internal class MainActivityViewModelFactory @Inject constructor(
+class MainActivityViewModelFactory @Inject constructor(
     private val userRepository: UserRepository,
     private val preferences: Preferences,
     private val appSettings: AppSettings

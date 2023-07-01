@@ -44,6 +44,7 @@ dependencies {
 
     implementation(libs.bundles.androidx.main)
     implementation(libs.bundles.androidx.navigation)
+    implementation(libs.androidx.idlingResource)
 
     implementation(libs.google.material)
     implementation(libs.google.dagger)

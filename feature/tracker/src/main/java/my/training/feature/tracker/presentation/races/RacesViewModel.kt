@@ -1,5 +1,6 @@
 package my.training.feature.tracker.presentation.races
 
+import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import my.training.core.core_api.extensions.doOnFailure
@@ -28,6 +29,7 @@ internal class RacesViewModel(
         loadRaces()
     }
 
+    @VisibleForTesting
     fun loadRaces() {
         viewModelScope.launch {
             raceRepository.getRaces()

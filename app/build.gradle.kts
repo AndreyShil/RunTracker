@@ -19,7 +19,7 @@ android {
         versionCode = 1
         versionName = "1.0"
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "my.training.runtracker.CustomRunner"
 
         resValue(
             type = "string",
@@ -54,12 +54,14 @@ dependencies {
     implementation(project(":feature:profile"))
     implementation(project(":core:ui"))
     implementation(project(":core:iconpack"))
+    implementation(project(":core:strings"))
     implementation(project(":core:core-provider"))
     implementation(project(":core:core-api"))
 
     implementation(libs.bundles.androidx.main)
     implementation(libs.bundles.androidx.navigation)
     implementation(libs.androidx.splashScreen)
+    implementation(libs.androidx.idlingResource)
 
     implementation(libs.google.material)
     implementation(libs.google.dagger)
@@ -67,7 +69,7 @@ dependencies {
 
     implementation(libs.yandex.maps)
 
-    testImplementation(libs.test.junit)
-    androidTestImplementation(libs.test.androidx.junit)
-    androidTestImplementation(libs.test.androidx.espresso)
+    debugImplementation(libs.test.androidx.fragment.testing)
+    androidTestImplementation(libs.bundles.test.ui)
+    kaptAndroidTest(libs.google.daggerCompiler)
 }
