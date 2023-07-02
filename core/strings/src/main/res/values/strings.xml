@@ -49,10 +49,10 @@
     <string name="interval_above_300_cal">&#62; 300 ккал</string>
 
     <string name="m_per_s">м/с</string>
-    <string name="interval_below_5_m_per_s">&#60; 5 м/с</string>
-    <string name="interval_5_7_5_m_per_s">от 5 до 7,5 м/с</string>
-    <string name="interval_7_5_10_m_per_s">от 7,5 до 10 м/с</string>
-    <string name="interval_above_10_m_per_s">&#62; 10 м/с</string>
+    <string name="interval_below_4_m_per_s">&#60; 4 м/с</string>
+    <string name="interval_4_6_m_per_s">от 4 до 6 м/с</string>
+    <string name="interval_6_8_m_per_s">от 6 до 8 м/с</string>
+    <string name="interval_above_8_m_per_s">&#62; 8 м/с</string>
 
     <string name="workout_was_added">Тренировка добавлена</string>
     <string name="workout_was_started">Тренировка запущена</string>

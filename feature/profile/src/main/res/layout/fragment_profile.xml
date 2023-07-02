@@ -35,7 +35,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/toolbar_image"
         app:shapeAppearance="@style/ImageStyle_CircleRounded"
-        app:strokeColor="?colorSecondary"
+        app:strokeColor="?colorPrimary"
         app:strokeWidth="4dp" />
 
     <TextView
@@ -44,7 +44,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/padding_md"
         android:textAppearance="?textAppearanceTitleMedium"
-        android:textColor="?colorOnSecondary"
+        android:textColor="@color/white"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@id/toolbar_image"
         app:layout_constraintEnd_toEndOf="@id/toolbar_image"

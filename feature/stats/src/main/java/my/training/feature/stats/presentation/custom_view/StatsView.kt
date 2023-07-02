@@ -6,8 +6,9 @@ import android.util.Range
 import androidx.constraintlayout.widget.ConstraintLayout
 import by.kirich1409.viewbindingdelegate.viewBinding
 import my.training.feature.stats.R
-import my.training.feature.stats.databinding.ViewStatsBinding
 import my.training.feature.stats.data.model.Stats
+import my.training.feature.stats.databinding.ViewStatsBinding
+import my.training.core.strings.R as stringsR
 
 private const val THREE_MONTH_DAYS = 90
 private const val ONE_MONTH_DAYS = 30
@@ -18,9 +19,9 @@ private const val VALUE_100 = 100.0
 private const val VALUE_200 = 200.0
 private const val VALUE_300 = 300.0
 
-private const val VALUE_5 = 5.0
-private const val VALUE_7_5 = 7.5
-private const val VALUE_10 = 10.0
+private const val VALUE_4 = 4.0
+private const val VALUE_6 = 6.0
+private const val VALUE_8 = 8.0
 
 internal class StatsView @JvmOverloads constructor(
     context: Context,
@@ -54,6 +55,7 @@ internal class StatsView @JvmOverloads constructor(
 
     fun setUpdateListener(callback: (Int) -> Unit) {
         toggleListener = callback
+        toggleListener?.invoke(ONE_WEEK_DAYS)
     }
 
     private fun initToggleListener() {
@@ -102,22 +104,22 @@ internal class StatsView @JvmOverloads constructor(
             addCaloriesItem(
                 races = races,
                 range = Range(VALUE_0, VALUE_100),
-                description = context.getString(my.training.core.strings.R.string.interval_below_100_cal)
+                description = context.getString(stringsR.string.interval_below_100_cal)
             )
             addCaloriesItem(
                 races = races,
                 range = Range(VALUE_100, VALUE_200),
-                description = context.getString(my.training.core.strings.R.string.interval_100_200_cal)
+                description = context.getString(stringsR.string.interval_100_200_cal)
             )
             addCaloriesItem(
                 races = races,
                 range = Range(VALUE_200, VALUE_300),
-                description = context.getString(my.training.core.strings.R.string.interval_200_300_cal)
+                description = context.getString(stringsR.string.interval_200_300_cal)
             )
             addCaloriesItem(
                 races = races,
                 range = Range(VALUE_300, Double.MAX_VALUE),
-                description = context.getString(my.training.core.strings.R.string.interval_above_300_cal)
+                description = context.getString(stringsR.string.interval_above_300_cal)
             )
         }
 
@@ -130,10 +132,10 @@ internal class StatsView @JvmOverloads constructor(
         binding.viewCaloriesChart.setDataChart(
             data = resultList.toList().ifEmpty {
                 listOf(
-                    (0 to context.getString(my.training.core.strings.R.string.no_workouts))
+                    (0 to context.getString(stringsR.string.no_workouts))
                 )
             },
-            totalSuffix = context.getString(my.training.core.strings.R.string.cal),
+            totalSuffix = context.getString(stringsR.string.cal),
             medianValues = mediumValue to fullMediumValue
         )
     }
@@ -145,23 +147,23 @@ internal class StatsView @JvmOverloads constructor(
         val resultList = buildList {
             addSpeedItem(
                 races = races,
-                range = Range(VALUE_0, VALUE_5),
-                description = context.getString(my.training.core.strings.R.string.interval_below_5_m_per_s)
+                range = Range(VALUE_0, VALUE_4),
+                description = context.getString(stringsR.string.interval_below_4_m_per_s)
             )
             addSpeedItem(
                 races = races,
-                range = Range(VALUE_5, VALUE_7_5),
-                description = context.getString(my.training.core.strings.R.string.interval_5_7_5_m_per_s)
+                range = Range(VALUE_4, VALUE_6),
+                description = context.getString(stringsR.string.interval_4_6_m_per_s)
             )
             addSpeedItem(
                 races = races,
-                range = Range(VALUE_7_5, VALUE_10),
-                description = context.getString(my.training.core.strings.R.string.interval_7_5_10_m_per_s)
+                range = Range(VALUE_6, VALUE_8),
+                description = context.getString(stringsR.string.interval_6_8_m_per_s)
             )
             addSpeedItem(
                 races = races,
-                range = Range(VALUE_10, Double.MAX_VALUE),
-                description = context.getString(my.training.core.strings.R.string.interval_above_10_m_per_s)
+                range = Range(VALUE_8, Double.MAX_VALUE),
+                description = context.getString(stringsR.string.interval_above_8_m_per_s)
             )
         }
 
@@ -173,10 +175,10 @@ internal class StatsView @JvmOverloads constructor(
         binding.viewSpeedChart.setDataChart(
             data = resultList.toList().ifEmpty {
                 listOf(
-                    (0 to context.getString(my.training.core.strings.R.string.no_workouts))
+                    (0 to context.getString(stringsR.string.no_workouts))
                 )
             },
-            totalSuffix = context.getString(my.training.core.strings.R.string.m_per_s),
+            totalSuffix = context.getString(stringsR.string.m_per_s),
             medianValues = mediumValue to fullMediumValue
         )
     }

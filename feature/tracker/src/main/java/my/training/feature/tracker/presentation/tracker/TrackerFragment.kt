@@ -41,10 +41,10 @@ import my.training.core.core_api.extensions.hasLocationPermission
 import my.training.core.core_api.extensions.isNightModeActive
 import my.training.core.ui.extensions.showSnackbar
 import my.training.feature.tracker.R
+import my.training.feature.tracker.data.service.RunningService
 import my.training.feature.tracker.databinding.FragmentTrackerBinding
 import my.training.feature.tracker.databinding.ViewTrackingControlBinding
 import my.training.feature.tracker.di.TrackerComponent
-import my.training.feature.tracker.data.service.RunningService
 import my.training.feature.tracker.extension.getFormattedWatchTime
 import java.util.UUID
 import javax.inject.Inject
@@ -272,7 +272,7 @@ internal class TrackerFragment : Fragment(R.layout.fragment_tracker), UserLocati
         viewModel.setEvent(
             TrackerContract.Event.OnWorkoutFinished(
                 distance = calculateDistance(locations),
-                time = raceTime / 1000
+                time = raceTime / MILLIS
             )
         )
 
@@ -459,5 +459,6 @@ internal class TrackerFragment : Fragment(R.layout.fragment_tracker), UserLocati
         private const val DEFAULT_AZIMUTH = 0f
         private const val DEFAULT_TILT = 0f
         private const val POLYLINE_STROKE_WIDTH = 3f
+        private const val MILLIS = 1000L
     }
 }
