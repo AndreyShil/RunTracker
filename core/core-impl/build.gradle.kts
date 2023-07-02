@@ -1,3 +1,5 @@
+import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
+
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.android.kotlin)
@@ -14,6 +16,12 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
+
+        resValue(
+            type = "string",
+            name = "localhost",
+            value = gradleLocalProperties(rootDir).getProperty("localhost") ?: ""
+        )
     }
 
     buildTypes {
