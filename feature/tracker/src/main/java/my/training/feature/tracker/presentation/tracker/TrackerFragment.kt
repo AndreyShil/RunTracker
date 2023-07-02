@@ -48,8 +48,10 @@ import my.training.feature.tracker.di.TrackerComponent
 import my.training.feature.tracker.extension.getFormattedWatchTime
 import java.util.UUID
 import javax.inject.Inject
+import my.training.core.strings.R as stringsR
 
-internal class TrackerFragment : Fragment(R.layout.fragment_tracker), UserLocationObjectListener,
+internal class TrackerFragment : Fragment(R.layout.fragment_tracker),
+    UserLocationObjectListener,
     CameraListener {
 
     @Inject
@@ -122,9 +124,7 @@ internal class TrackerFragment : Fragment(R.layout.fragment_tracker), UserLocati
             launchStartIntent()
             onMapReady()
         } else {
-            showSnackbar(
-                getString(my.training.core.strings.R.string.location_permission_is_needed_for_app)
-            )
+            showSnackbar(getString(stringsR.string.location_permission_is_needed_for_app))
         }
     }
 
@@ -134,9 +134,7 @@ internal class TrackerFragment : Fragment(R.layout.fragment_tracker), UserLocati
         if (permissions.entries.all { it.value }) {
             onMapReady()
         } else {
-            showSnackbar(
-                getString(my.training.core.strings.R.string.location_permission_is_needed_for_app)
-            )
+            showSnackbar(getString(stringsR.string.location_permission_is_needed_for_app))
         }
     }
 
@@ -236,8 +234,7 @@ internal class TrackerFragment : Fragment(R.layout.fragment_tracker), UserLocati
             imageName = UUID.randomUUID().toString(),
             failureListener = { exception ->
                 showSnackbar(
-                    exception.message
-                        ?: getString(my.training.core.strings.R.string.error_image_download)
+                    exception.message ?: getString(stringsR.string.error_image_download)
                 )
                 resetParams()
             },

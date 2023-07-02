@@ -23,19 +23,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/padding_lg"
-        android:contentDescription="Мое местоположение"
+        android:contentDescription="@string/my_location"
         android:src="@drawable/ic_near_me_40"
         app:layout_constraintBottom_toTopOf="@id/included_control_layout"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/load_image"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/padding_lg"
-        android:contentDescription="Мое местоположение"
-        android:src="@drawable/ic_add_40"
-        app:layout_constraintBottom_toTopOf="@id/fab_my_location"
         app:layout_constraintEnd_toEndOf="parent" />
 
     <my.training.feature.tracker.presentation.tracker.ControlView
@@ -43,7 +33,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent" />
 
     <include
         android:id="@+id/included_control_layout"
