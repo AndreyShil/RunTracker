@@ -68,4 +68,5 @@
 ---
 
 Logo image by pikisuperstar on [Freepik](https://www.freepik.com/free-vector/abstract-runner-silhouette-flat-design_4927829.htm#query=run%20logo&position=18&from_view=search&track=ais)
+
 Image on profile screen by GarryKillian on [Freepik](https://ru.freepik.com/free-vector/map-of-big-data-in-modern-city_8289177.htm#query=street%20map&position=13&from_view=search&track=ais)
