@@ -11,9 +11,10 @@
     <ImageView
         android:id="@+id/toolbar_image"
         android:layout_width="0dp"
-        android:layout_height="200dp"
-        android:background="?colorSecondary"
+        android:layout_height="@dimen/image_height"
         android:contentDescription="@null"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_street_map"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

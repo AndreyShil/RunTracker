@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         app:icon="@drawable/ic_play_40"
-        app:iconSize="@dimen/icon_size_large" />
+        app:iconSize="@dimen/icon_size_medium" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_pause"
@@ -20,7 +20,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         app:icon="@drawable/ic_pause_40"
-        app:iconSize="@dimen/icon_size_large"
+        app:iconSize="@dimen/icon_size_medium"
         android:visibility="invisible"/>
 
     <com.google.android.material.button.MaterialButton
@@ -30,7 +30,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         app:icon="@drawable/ic_stop_40"
-        app:iconSize="@dimen/icon_size_large"
+        app:iconSize="@dimen/icon_size_medium"
         android:visibility="invisible"/>
 
 </FrameLayout>

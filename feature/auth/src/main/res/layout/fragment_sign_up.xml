@@ -17,24 +17,33 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingHorizontal="@dimen/padding_lg">
+            android:orientation="vertical">
 
-            <!--  todo update logo  -->
-            <ImageView
-                android:id="@+id/logo_image"
-                android:layout_width="56dp"
-                android:layout_height="56dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="@dimen/padding_lg"
-                android:src="@drawable/ic_run_40"
-                app:tint="?colorPrimary" />
+            <FrameLayout
+                android:id="@+id/logo_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/dark_green"
+                android:paddingVertical="@dimen/padding_xs">
+
+                <ImageView
+                    android:id="@+id/logo_image"
+                    android:layout_width="@dimen/icon_size_large"
+                    android:layout_height="@dimen/icon_size_large"
+                    android:layout_gravity="center"
+                    android:contentDescription="@null"
+                    android:src="@drawable/ic_logo"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </FrameLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/login_input_layout"
                 style="@style/OutlinedInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/padding_lg"
                 android:layout_marginTop="@dimen/padding_lg"
                 android:hint="@string/login"
                 app:endIconMode="clear_text">
@@ -53,6 +62,7 @@
                 style="@style/OutlinedInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/padding_lg"
                 android:layout_marginTop="@dimen/padding_md"
                 android:hint="@string/first_name"
                 app:endIconMode="clear_text">
@@ -71,6 +81,7 @@
                 style="@style/OutlinedInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/padding_lg"
                 android:layout_marginTop="@dimen/padding_md"
                 android:hint="@string/last_name"
                 app:endIconMode="clear_text">
@@ -89,6 +100,7 @@
                 style="@style/OutlinedInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/padding_lg"
                 android:layout_marginTop="@dimen/padding_md"
                 android:hint="@string/email"
                 app:endIconMode="clear_text">
@@ -107,6 +119,7 @@
                 style="@style/OutlinedInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/padding_lg"
                 android:layout_marginTop="@dimen/padding_md"
                 android:hint="@string/password"
                 app:endIconMode="password_toggle">
@@ -125,6 +138,7 @@
                 style="@style/OutlinedInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/padding_lg"
                 android:layout_marginTop="@dimen/padding_md"
                 android:hint="@string/repeat_password"
                 app:endIconMode="password_toggle">
@@ -135,10 +149,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textPassword" />
-
             </com.google.android.material.textfield.TextInputLayout>
-
-
         </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>
@@ -148,6 +159,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/padding_lg"
+        android:layout_marginHorizontal="@dimen/padding_lg"
         android:text="@string/register"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

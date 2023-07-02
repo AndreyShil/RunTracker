@@ -21,7 +21,8 @@
 
     <dimen name="stroke_width_small">2dp</dimen>
 
-    <dimen name="icon_size_large">40dp</dimen>
+    <dimen name="icon_size_medium">40dp</dimen>
+    <dimen name="icon_size_large">60dp</dimen>
     <dimen name="image_height">200dp</dimen>
 
     <dimen name="default_elevation">4dp</dimen>

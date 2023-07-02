@@ -28,7 +28,7 @@
             <ImageView
                 android:id="@+id/expanded_image"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_height="@dimen/image_height"
                 android:contentDescription="@null"
                 android:scaleType="centerCrop"
                 android:src="@drawable/image_stats"
