@@ -11,11 +11,15 @@
 * Осуществление авторизации пользователя по логину и паролю
 * Возможность зарегистрироваться новым пользователям, указав основную информацию
 
-![Экран авторизации (светлая тема)](art/screenshot_sign_in_light.jpg)
-![Экран авторизации (темная тема)](art/screenshot_sign_in_dark.jpg)
+<p align="center">
+    <img src="/art/screenshot_sign_in_light.jpg" alt="Экран авторизации (светлая тема)" height="700" hspace="10">
+    <img src="/art/screenshot_sign_in_dark.jpg" alt="Экран авторизации (темная тема)" height="700" hspace="10" >
+</p>
 
-![Экран регистрации (светлая тема)](art/screenshot_sign_up_light.jpg)
-![Экран регистрации (темная тема)](art/screenshot_sign_up_dark.jpg)
+<p align="center">
+    <img src="/art/screenshot_sign_up_light.jpg" alt="Экран регистрации (светлая тема)" height="700" hspace="10">
+    <img src="/art/screenshot_sign_up_dark.jpg" alt="Экран регистрации (темная тема)" height="700" hspace="10" >
+</p>
 
 ### 2. История тренировок:
 
@@ -23,8 +27,10 @@
   время, калории
 * Возможность увеличить элемента списка для более детального показа трека тренировки
 
-![Экран со списком тренировок (светлая тема)](art/screenshot_races_light.jpg)
-![Экран со списком тренировок (темная тема)](art/screenshot_races_dark.jpg)
+<p align="center">
+    <img src="/art/screenshot_races_light.jpg" alt="Экран со списком тренировок (светлая тема)" height="700" hspace="10">
+    <img src="/art/screenshot_races_dark.jpg" alt="Экран со списком тренировок (темная тема)" height="700" hspace="10" >
+</p>
 
 ### 3. Добавление новой тренировки:
 
@@ -32,8 +38,10 @@
 * При необходимости начатую тренировку можно приостановить или закончить
 * Отображение уведомления о текущей тренировки
 
-![Экран старта новой тренировки (светлая тема)](art/screenshot_tracker_light.jpg)
-![Экран старта новой тренировки (темная тема)](art/screenshot_tracker_dark.jpg)
+<p align="center">
+    <img src="/art/screenshot_tracker_light.jpg" alt="Экран старта новой тренировки (светлая тема)" height="700" hspace="10">
+    <img src="/art/screenshot_tracker_dark.jpg" alt="Экран старта новой тренировки (темная тема)" height="700" hspace="10" >
+</p>
 
 ### 4. Отображение статистики тренировок:
 
@@ -43,8 +51,10 @@
 * Отображение перечисленных характеристик, а также их средних показателей за определенный промежуток
   времени (последняя неделя, 1 месяц или 3 месяца)
 
-![Экран статистики (светлая тема)](art/screenshot_stats_light.jpg)
-![Экран статистики (темная тема)](art/screenshot_stats_dark.jpg)
+<p align="center">
+    <img src="/art/screenshot_stats_light.jpg" alt="Экран статистики (светлая тема)" height="700" hspace="10">
+    <img src="/art/screenshot_stats_dark.jpg" alt="Экран статистики (темная тема)" height="700" hspace="10" >
+</p>
 
 ### 5. Профиль пользователя:
 
@@ -54,8 +64,10 @@
 * Просмотр активных сессий с возможностью удалить определенные сессии
 * Возможность выйти из профиля
 
-![Экран профиля (светлая тема)](art/screenshot_profile_light.jpg)
-![Экран профиля (темная тема)](art/screenshot_profile_dark.jpg)
+<p align="center">
+    <img src="/art/screenshot_profile_light.jpg" alt="Экран профиля (светлая тема)" height="700" hspace="10">
+    <img src="/art/screenshot_profile_dark.jpg" alt="Экран профиля (темная тема)" height="700" hspace="10" >
+</p>
 
 ---
 
@@ -85,6 +97,8 @@
 
 ---
 
-Logo image by pikisuperstar on [Freepik](https://www.freepik.com/free-vector/abstract-runner-silhouette-flat-design_4927829.htm#query=run%20logo&position=18&from_view=search&track=ais)
+Logo image by pikisuperstar
+on [Freepik](https://www.freepik.com/free-vector/abstract-runner-silhouette-flat-design_4927829.htm#query=run%20logo&position=18&from_view=search&track=ais)
 
-Image on profile screen by GarryKillian on [Freepik](https://ru.freepik.com/free-vector/map-of-big-data-in-modern-city_8289177.htm#query=street%20map&position=13&from_view=search&track=ais)
+Image on profile screen by GarryKillian
+on [Freepik](https://ru.freepik.com/free-vector/map-of-big-data-in-modern-city_8289177.htm#query=street%20map&position=13&from_view=search&track=ais)
